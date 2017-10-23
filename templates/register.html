@@ -1,44 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
 <form class="form-horizontal" action="{{ url_for('site.register_page') }}" method="post">
-<fieldset>
+    <fieldset>
 
-<!-- Form Name -->
-<legend>Form Name</legend>
+        <!-- Form Name -->
+        <legend>Form Name</legend>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="username">User Name</label>
-  <div class="col-md-4">
-  <input id="username" name="username" placeholder="user name" class="form-control input-md" required="" type="text">
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="username">User Name</label>
+            <div class="col-md-4">
+                <input id="username" name="username" placeholder="User name" class="form-control input-md"
+                       required="" type="text">
 
-  </div>
-</div>
+            </div>
+        </div>
 
-<!-- Password input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="password">Password</label>
-  <div class="col-md-4">
-    <input id="password" name="password" placeholder="password" class="form-control input-md" required="" type="password">
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password">Password</label>
+            <div class="col-md-4">
+                <input id="password" name="password" placeholder="Password" class="form-control input-md"
+                       required="" type="password">
 
-  </div>
-</div>
+            </div>
+        </div>
 
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="login_button">login</label>
-  <div class="col-md-4">
-    <button id="register_button" name="register_button" class="btn btn-primary">register</button>
-  </div>
-</div>
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="login_button"></label>
+            <div class="col-md-4">
+                <button id="register_button" name="register_button" class="btn btn-primary">Register</button>
+            </div>
+        </div>
 
-</fieldset>
+    </fieldset>
 </form>
+{% endblock %}
 
-</body>
-</html>

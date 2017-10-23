@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  </head>
-  <body>
-    <h1>Hello, Flask!</h1>
+{% extends "layout.html" %}
+{% block content %}
 
-    <footer>
-      <div id="datetime">{{ current_time }}</div>
-    </footer>
-  </body>
-</html>
+    <div class="container-fluid" id="logout">
+
+        <div id="logout">
+            <a href="/logout" target="_parent">
+                <button class="button" id="logout-button" class="btn btn-primary"><span> Log out </span></button>
+            </a>
+            <footer>
+            <div id="datetime">{{ current_time }}</div>
+        </footer>
+        </div>
+
+    </div>
+
+{% endblock %}

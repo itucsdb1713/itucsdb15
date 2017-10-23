@@ -25,7 +25,7 @@ def home_page():
 def logout():
     now = datetime.datetime.now()
     logout_user()
-    return render_template('home.html', current_time=now.ctime())
+    return redirect(url_for('site.login_page'))
 
 @site.route('/login', methods=['GET', 'POST'])
 def login_page():
@@ -38,7 +38,7 @@ def login_page():
                 login_user(user)
                 now = datetime.datetime.now()
                 print(current_user.username)
-                return render_template('home.html', current_time=now.ctime())
+                return redirect(url_for('site.home_page'))
 
 @site.route('/register', methods=['GET', 'POST'])
 def register_page():
