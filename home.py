@@ -23,7 +23,6 @@ def home_page():
 @site.route('/logout')
 @login_required
 def logout():
-    now = datetime.datetime.now()
     logout_user()
     return redirect(url_for('site.login_page'))
 
@@ -35,10 +34,11 @@ def login_page():
         user = UserDatabase.select_user(request.form['username'])
         if user and user != -1:
             if pwd_context.verify(request.form['password'], user.password):
+                UserDatabase.setLastLoginDate(user)
                 login_user(user)
-                now = datetime.datetime.now()
                 print(current_user.username)
                 return redirect(url_for('site.home_page'))
+
 
 @site.route('/register', methods=['GET', 'POST'])
 def register_page():

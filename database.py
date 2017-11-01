@@ -30,15 +30,65 @@ class DatabaseOPS:
         with dbapi2.connect(self.config) as connection:
             cursor = connection.cursor()
 
-            query = """CREATE TABLE IF NOT EXISTS USERS (
-                                      USER_ID SERIAL PRIMARY KEY,
-                                      USERNAME varchar(20) UNIQUE NOT NULL,
-                                      PASSWORD varchar NOT NULL
+            # Mehmet Taha Çorbacıoğlu
+            query = """DROP TABLE IF EXISTS PositionParameter"""
+            cursor.execute(query)
+            query = """CREATE TABLE PositionParameter (
+                                        ID SERIAL PRIMARY KEY,
+                                        PositionName VARCHAR(50) UNIQUE NOT NULL
+                                        )"""
+            cursor.execute(query)
+
+            query = """DROP TABLE IF EXISTS UserTypeParameter"""
+            cursor.execute(query)
+            query = """CREATE TABLE UserTypeParameter (
+                                        ID SERIAL PRIMARY KEY,
+                                        TypeName VARCHAR(50) UNIQUE NOT NULL
+                                        )"""
+            cursor.execute(query)
+
+            query = """DROP TABLE IF EXISTS CityParameter"""
+            cursor.execute(query)
+            query = """CREATE TABLE CityParameter (
+                                        ID SERIAL PRIMARY KEY,
+                                        CityName VARCHAR(50) UNIQUE NOT NULL
+                                        )"""
+
+            query = """DROP TABLE IF EXISTS UserInfo"""
+            cursor.execute(query)
+            query = """CREATE TABLE UserInfo (
+                                        UserID SERIAL PRIMARY KEY,
+                                        TypeID INTEGER NOT NULL,
+                                        PositionID INTEGER,
+                                        BirthCityID INTEGER,
+                                        CreateUserID INTEGER NOT NULL,
+                                        No INTEGER,
+                                        Birthday DATE,
+                                        CreateDate TIMESTAMP NOT NULL,
+                                        Name VARCHAR(50),
+                                        Surname VARCHAR (50)
+                                        FOREIGN KEY TypeID REFERENCES UserTypeParameter(ID)
+                                        FOREIGN KEY PositionID REFERENCES PositionParameter(ID)
+                                        FOREIGN KEY BirthCityID REFERENCES CityParameter(ID)
+                                        FOREIGN KEY CreateUserID REFERENCES UserInfo(UserID)
+                                        )"""
+            cursor.execute(query)
+
+            query = """DROP TABLE IF EXISTS LogInfo"""
+            cursor.execute(query)
+            query = """CREATE TABLE LogInfo (
+                                      UserID SERIAL PRIMARY KEY,
+                                      Username varchar(50) UNIQUE NOT NULL,
+                                      Password varchar(50) NOT NULL,
+                                      LastLoginDate TIMESTAMP
+                                      FOREIGN KEY UserID REFERENCES UserInfo(UserID)
                                     )"""
             cursor.execute(query)
-            hashp = pwd_context.encrypt('123')
-            query = """INSERT INTO USERS(USERNAME, PASSWORD) VALUES ('taha', %s)"""
+
+            hashp = pwd_context.encrypt('12345')
+            query = """INSERT INTO LogInfo(Username, Password) VALUES ('admin', %s)"""
             cursor.execute(query, (hashp,))
+
             connection.commit()
             cursor.close()
 

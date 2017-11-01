@@ -2,12 +2,14 @@ from flask_login import UserMixin
 import psycopg2 as dbapi2
 from database import database
 from passlib.apps import custom_app_context as pwd_context
+import datetime
 
 class User(UserMixin):
-    def __init__(self, id, username, password):
+    def __init__(self, id, username, password, lastLoginDate):
         self.id = id
         self.username = username
         self.password = password
+        self.lastLoginDate = lastLoginDate
 
 class UserDatabase:
     @classmethod
@@ -15,7 +17,7 @@ class UserDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
 
-            query = """INSERT INTO USERS (USERNAME, PASSWORD) VALUES (
+            query = """INSERT INTO LogInfo (Username, Password) VALUES (
                                                   %s,
                                                   %s
                                 )"""
@@ -34,7 +36,7 @@ class UserDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
 
-            query = """SELECT * FROM USERS WHERE USERNAME=%s"""
+            query = """SELECT * FROM LogInfo WHERE Username=%s"""
 
             user_data = None
 
@@ -49,7 +51,7 @@ class UserDatabase:
             cursor.close()
 
             if user_data:
-                return User(id=user_data[0], username=user_data[1], password=user_data[2])
+                return User(id=user_data[0], username=user_data[1], password=user_data[2], lastLoginDate = user_data[3])
             else:
                 return -1
 
@@ -58,7 +60,7 @@ class UserDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
 
-            query = """SELECT * FROM USERS WHERE USER_ID=%s"""
+            query = """SELECT * FROM LogInfo WHERE UserID=%s"""
 
             try:
                 cursor.execute(query, (user_id,))
@@ -71,6 +73,18 @@ class UserDatabase:
             cursor.close()
 
             if user_data:
-                return User(id=user_data[0], username=user_data[1], password=user_data[2])
+                return User(id=user_data[0], username=user_data[1], password=user_data[2], lastLoginDate = user_data[3])
             else:
                 return -1
+
+    @classmethod
+    def setLastLoginDate(cls, user):
+        user.lastLoginDate = datetime.datetime.now()
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+
+            query = """UPDATE LogInfo SET LastLoginDate =%s WHERE (UserID = %s)"""
+            cursor.execute(query, (datetime.datetime.now(), user.id,))
+            connection.commit()
+            cursor.close()
+
