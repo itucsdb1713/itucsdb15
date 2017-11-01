@@ -4,6 +4,7 @@ import re
 import os
 from passlib.apps import custom_app_context as pwd_context
 
+
 class DatabaseOPS:
     def __init__(self):
 
@@ -89,7 +90,61 @@ class DatabaseOPS:
             query = """INSERT INTO LogInfo(Username, Password) VALUES ('admin', %s)"""
             cursor.execute(query, (hashp,))
 
+            ################ ufuk sahar ####################
+
+
+            # TrainingTypeParameter table is deleted #
+            query = """DROP TABLE IF EXISTS TrainingTypeParameter"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE TrainingTypeParameter (
+                                                          ID SERIAL PRIMARY KEY,
+                                                          TrainingTypeName VARCHAR(50) NOT NULL
+                                                                        )"""
+            cursor.execute(query)
+            # TrainingTypeParameter table is created #
+
+
+            # TrainingInfo table is deleted #
+            query = """DROP TABLE IF EXISTS TrainingInfo"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE TrainingInfo (
+                                                  ID SERIAL PRIMARY KEY,
+                                                  TypeID INTEGER NOT NULL,
+                                                  CreateUserID INTEGER NOT NULL,
+                                                  TrainingDate TIMESTAMP NOT NULL,
+                                                  CreateDate DATE NOT NULL,
+                                                  TrainingName VARCHAR(50) NOT NULL,
+                                                  Location VARCHAR(500) NOT NULL,
+                                                  FOREIGN KEY (TypeID) REFERENCES TrainingTypeParameter (ID),
+                                                  FOREIGN KEY (CreateUserID) REFERENCES UserInfo (UserID)
+                                                            )"""
+            cursor.execute(query)
+            # TrainingInfo table is created #
+
+
+            # TrainingMapInfo table is deleted #
+            query = """DROP TABLE IF EXISTS TrainingMapInfo"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE TrainingMapInfo (
+                                                     ID SERIAL PRIMARY KEY,
+                                                     TrainingID INTEGER NOT NULL,
+                                                     UserID INTEGER NOT NULL,
+                                                     IsAttend BIT NOT NULL,
+                                                     Excuse VARCHAR(250) NOT NULL, 
+                                                     FOREIGN KEY (TrainingID) REFERENCES TrainingInfo (ID),
+                                                     FOREIGN KEY (UserID) REFERENCES UserInfo (UserID)
+
+                                                                  )"""
+            cursor.execute(query)
+            # TrainingMapInfo table is created #
+
+
+
             connection.commit()
             cursor.close()
+
 
 database = DatabaseOPS()
