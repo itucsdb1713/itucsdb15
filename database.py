@@ -85,7 +85,6 @@ class DatabaseOPS:
                                       FOREIGN KEY UserID REFERENCES UserInfo(UserID)
                                     )"""
             cursor.execute(query)
-			
 
             hashp = pwd_context.encrypt('12345')
             query = """INSERT INTO LogInfo(Username, Password) VALUES ('admin', %s)"""
@@ -141,27 +140,30 @@ class DatabaseOPS:
                                                                   )"""
             cursor.execute(query)
             # TrainingMapInfo table is created #
-			
-			 ################ Utku Anıl Saykara ####################
-			
-			query = """CREATE TABLE IF NOT EXISTS ContractInfo (
-                                                  ID SERIAL PRIMARY KEY,
-                                                  UserID INTEGER NOT NULL,
-                                                  CreateUserID INTEGER NOT NULL,
-                                                  Salary MONEY DEFAULT 0,
-                                                  SignPremium MONEY DEFAULT 0,
-                                                  MatchPremium MONEY DEFAULT 0,
-                                                  GoalPremium MONEY DEFAULT 0,
-                                                  AssistPremium MONEY DEFAULT 0,
-                                                  SignDate TIMESTAMP NOT NULL,
-                                                  EndDate TIMESTAMP NOT NULL,
-                                                  CreateDate TIMESTAMP NOT NULL,
-                                                  FOREIGN KEY UserID REFERENCES UserInfo(UserID)
-                                                  FOREIGN KEY CreateUserID REFERENCES UserInfo(UserID)
-                                                )"""
-            cursor.execute(query)
-			# ContractInfo table is created #
 
+            ################ Utku Anıl Saykara ####################
+
+            query = """DROP TABLE IF EXISTS ContractInfo"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE ContractInfo (
+                                                ID SERIAL PRIMARY KEY,
+                                                UserID INTEGER NOT NULL,
+                                                CreateUserID INTEGER NOT NULL,
+                                                Salary MONEY DEFAULT 0,
+                                                SignPremium MONEY DEFAULT 0,
+                                                MatchPremium MONEY DEFAULT 0,
+                                                GoalPremium MONEY DEFAULT 0,
+                                                AssistPremium MONEY DEFAULT 0,
+                                                SignDate TIMESTAMP NOT NULL,
+                                                EndDate TIMESTAMP NOT NULL,
+                                                CreateDate TIMESTAMP NOT NULL,
+                                                FOREIGN KEY UserID REFERENCES UserInfo(UserID)
+                                                FOREIGN KEY CreateUserID REFERENCES UserInfo(UserID)
+                                                )"""
+
+            cursor.execute(query)
+            # ContractInfo table is created #
 
             connection.commit()
             cursor.close()
