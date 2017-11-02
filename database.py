@@ -31,6 +31,21 @@ class DatabaseOPS:
         with dbapi2.connect(self.config) as connection:
             cursor = connection.cursor()
 
+            ################ ufuk sahar ####################
+            # StatisticsInfo table is deleted #
+            query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE StatisticsInfo (
+                                                    ID SERIAL PRIMARY KEY,
+                                                    Goal INTEGER NOT NULL,
+                                                    Assist INTEGER NOT NULL,
+                                                    Card INTEGER NOT NULL
+                                                    )"""
+            cursor.execute(query)
+            # StatisticsInfo table is created #
+            ################ ufuk sahar ####################
+
             ################ Mehmet Taha Çorbacıoğlu ################
             query = """DROP TABLE IF EXISTS PositionParameter CASCADE """
             cursor.execute(query)
@@ -64,6 +79,7 @@ class DatabaseOPS:
                                         PositionID INTEGER,
                                         BirthCityID INTEGER,
                                         CreateUserID INTEGER NOT NULL,
+                                        StatisticID INTEGER, 
                                         No INTEGER,
                                         Birthday DATE,
                                         CreateDate TIMESTAMP NOT NULL,
@@ -72,7 +88,8 @@ class DatabaseOPS:
                                         FOREIGN KEY (TypeID) REFERENCES UserTypeParameter(ID),
                                         FOREIGN KEY (PositionID) REFERENCES PositionParameter(ID),
                                         FOREIGN KEY (BirthCityID) REFERENCES CityParameter(ID),
-                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
+                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID),
+                                        FOREIGN KEY (StatisticID) REFERENCES StatisticsInfo(ID)
                                         )"""
             cursor.execute(query)
 
@@ -152,6 +169,38 @@ class DatabaseOPS:
                                                                   )"""
             cursor.execute(query)
             # TrainingMapInfo table is created #
+
+            # FixtureInfo table is deleted #
+            query = """DROP TABLE IF EXISTS FixtureInfo CASCADE"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE FixtureInfo (
+                                                 ID SERIAL PRIMARY KEY,
+                                                 CityID INTEGER NOT NULL,
+                                                 HomeTeamScore INTEGER NOT NULL,
+                                                 AwayTeamScore INTEGER NOT NULL,
+                                                 MatchDate DATE,
+                                                 HomeTeamName VARCHAR(100),
+                                                 AwayTeamName VARCHAR(100),
+                                                 ArenaName VARCHAR(100),
+                                                 FOREIGN KEY (CityID) REFERENCES CityParameter (ID)
+
+                                                                                          )"""
+            cursor.execute(query)
+            # FixtureInfo table is created #
+
+            # StadiumIncomeInfo table is deleted #
+            query = """DROP TABLE IF EXISTS StadiumIncomeInfo CASCADE"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE StadiumIncomeInfo (
+                                                       MatchID SERIAL PRIMARY KEY,
+                                                       AudienceIncome MONEY DEFAULT 0,
+                                                       StadiumExpense MONEY DEFAULT 0
+                                                                                          )"""
+            cursor.execute(query)
+            # StadiumIncomeInfo table is created #
+            ################ ufuk sahar ####################
 
             ################ Utku Anıl Saykara ####################
 
