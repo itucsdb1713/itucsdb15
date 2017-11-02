@@ -38,9 +38,9 @@ class DatabaseOPS:
 
             query = """CREATE TABLE StatisticsInfo (
                                                     ID SERIAL PRIMARY KEY,
-                                                    Goal INTEGER NOT NULL,
-                                                    Assist INTEGER NOT NULL,
-                                                    Card INTEGER NOT NULL
+                                                    Goal INTEGER DEFAULT 0,
+                                                    Assist INTEGER DEFAULT 0,
+                                                    Card INTEGER DEFAULT 0
                                                     )"""
             cursor.execute(query)
             # StatisticsInfo table is created #
@@ -98,7 +98,7 @@ class DatabaseOPS:
             query = """CREATE TABLE LogInfo (
                                       UserID SERIAL PRIMARY KEY,
                                       Username varchar(50) UNIQUE NOT NULL,
-                                      Password varchar(50) NOT NULL,
+                                      Password varchar(500) NOT NULL,
                                       LastLoginDate TIMESTAMP,
                                       FOREIGN KEY (UserID) REFERENCES UserInfo(UserID)
                                     )"""
@@ -267,6 +267,22 @@ class DatabaseOPS:
             # ObservedPlayerInfo table is created #
             connection.commit()
             cursor.close()
+    def adminInit(self):
+        with dbapi2.connect(self.config) as connection:
+            cursor = connection.cursor()
 
+            ################ Mehmet Taha Çorbacıoğlu ####################
+            query = """INSERT INTO UserTypeParameter(TypeName) VALUES ('admin')"""
+            cursor.execute(query)
+
+            query = """INSERT INTO UserInfo(TypeID, CreateUserID, CreateDate) VALUES (1, 1, %s)"""
+            cursor.execute(query, (datetime.datetime.now(),))
+
+            hashp = pwd_context.encrypt('12345')
+            query = """INSERT INTO LogInfo(Username, Password) VALUES ('admin', %s)"""
+            cursor.execute(query, (hashp,))
+
+            connection.commit()
+            cursor.close()
 
 database = DatabaseOPS()

@@ -3,6 +3,7 @@ import psycopg2 as dbapi2
 from database import database
 from passlib.apps import custom_app_context as pwd_context
 import datetime
+from flask_login import current_user
 
 class User(UserMixin):
     def __init__(self, id, username, password, lastLoginDate):
@@ -13,9 +14,24 @@ class User(UserMixin):
 
 class UserDatabase:
     @classmethod
-    def add_user(cls, username, password):
+    def add_user(cls, TypeID, PositionID, BirthCityID, No, Birthday, Name, Surname, username, password):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
+
+            if TypeID == 2:
+                query = """INSERT INTO StatisticsInfo"""
+                cursor.execute(query)
+                query = """SELECT MAX(ID) FROM StatisticsInfo"""
+                cursor.execute(query)
+                id = cursor.fetchone()
+
+                query = """INSERT INTO UserInfo (TypeID, PositionID, BirthCityID, CreateUserID, StatisticID, No, Birthday, 
+                                                              CreateDate, Name, Surname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                cursor.execute(query, (TypeID, PositionID, BirthCityID, current_user.id, id, No, Birthday, datetime.datetime.now(), Name, Surname,))
+            else:
+                query = """INSERT INTO UserInfo (TypeID, PositionID, BirthCityID, CreateUserID, No, Birthday, 
+                                              CreateDate, Name, Surname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                cursor.execute(query, (TypeID, PositionID, BirthCityID, current_user.id, No, Birthday, datetime.datetime.now(), Name, Surname,))
 
             query = """INSERT INTO LogInfo (Username, Password) VALUES (
                                                   %s,

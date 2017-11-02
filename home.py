@@ -41,9 +41,10 @@ def login_page():
 
 
 @site.route('/register', methods=['GET', 'POST'])
+@login_required
 def register_page():
     if request.method == 'GET':
         return render_template('register.html')
     else:
-        UserDatabase.add_user(request.form['username'], request.form['password'])
+        UserDatabase.add_user(request.form['TypeID'], request.form['PositionID'], request.form['BirthCityID'], request.form['No'], request.form['Birthday'], request.form['Name'], request.form['Surname'], request.form['username'], request.form['password'])
         return redirect(url_for('site.home_page'))

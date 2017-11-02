@@ -9,5 +9,6 @@ site = Blueprint('site',__name__)
 @site.route('/initdb')
 def initialize_database():
     database.create_tables()
+    database.adminInit()
     return redirect(url_for('site.home_page'))
 
