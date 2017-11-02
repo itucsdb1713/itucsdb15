@@ -3,7 +3,7 @@ import json
 import re
 import os
 from passlib.apps import custom_app_context as pwd_context
-
+import datetime
 
 class DatabaseOPS:
     def __init__(self):
@@ -31,8 +31,8 @@ class DatabaseOPS:
         with dbapi2.connect(self.config) as connection:
             cursor = connection.cursor()
 
-            # Mehmet Taha Çorbacıoğlu
-            query = """DROP TABLE IF EXISTS PositionParameter"""
+            ################ Mehmet Taha Çorbacıoğlu ################
+            query = """DROP TABLE IF EXISTS PositionParameter CASCADE """
             cursor.execute(query)
             query = """CREATE TABLE PositionParameter (
                                         ID SERIAL PRIMARY KEY,
@@ -40,7 +40,7 @@ class DatabaseOPS:
                                         )"""
             cursor.execute(query)
 
-            query = """DROP TABLE IF EXISTS UserTypeParameter"""
+            query = """DROP TABLE IF EXISTS UserTypeParameter CASCADE"""
             cursor.execute(query)
             query = """CREATE TABLE UserTypeParameter (
                                         ID SERIAL PRIMARY KEY,
@@ -48,14 +48,15 @@ class DatabaseOPS:
                                         )"""
             cursor.execute(query)
 
-            query = """DROP TABLE IF EXISTS CityParameter"""
+            query = """DROP TABLE IF EXISTS CityParameter CASCADE"""
             cursor.execute(query)
             query = """CREATE TABLE CityParameter (
                                         ID SERIAL PRIMARY KEY,
                                         CityName VARCHAR(50) UNIQUE NOT NULL
                                         )"""
+            cursor.execute(query)
 
-            query = """DROP TABLE IF EXISTS UserInfo"""
+            query = """DROP TABLE IF EXISTS UserInfo CASCADE"""
             cursor.execute(query)
             query = """CREATE TABLE UserInfo (
                                         UserID SERIAL PRIMARY KEY,
@@ -67,34 +68,45 @@ class DatabaseOPS:
                                         Birthday DATE,
                                         CreateDate TIMESTAMP NOT NULL,
                                         Name VARCHAR(50),
-                                        Surname VARCHAR (50)
-                                        FOREIGN KEY TypeID REFERENCES UserTypeParameter(ID)
-                                        FOREIGN KEY PositionID REFERENCES PositionParameter(ID)
-                                        FOREIGN KEY BirthCityID REFERENCES CityParameter(ID)
-                                        FOREIGN KEY CreateUserID REFERENCES UserInfo(UserID)
+                                        Surname VARCHAR (50),
+                                        FOREIGN KEY (TypeID) REFERENCES UserTypeParameter(ID),
+                                        FOREIGN KEY (PositionID) REFERENCES PositionParameter(ID),
+                                        FOREIGN KEY (BirthCityID) REFERENCES CityParameter(ID),
+                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
                                         )"""
             cursor.execute(query)
 
-            query = """DROP TABLE IF EXISTS LogInfo"""
+            query = """DROP TABLE IF EXISTS LogInfo CASCADE"""
             cursor.execute(query)
             query = """CREATE TABLE LogInfo (
                                       UserID SERIAL PRIMARY KEY,
                                       Username varchar(50) UNIQUE NOT NULL,
                                       Password varchar(50) NOT NULL,
-                                      LastLoginDate TIMESTAMP
-                                      FOREIGN KEY UserID REFERENCES UserInfo(UserID)
+                                      LastLoginDate TIMESTAMP,
+                                      FOREIGN KEY (UserID) REFERENCES UserInfo(UserID)
                                     )"""
             cursor.execute(query)
 
-            hashp = pwd_context.encrypt('12345')
-            query = """INSERT INTO LogInfo(Username, Password) VALUES ('admin', %s)"""
-            cursor.execute(query, (hashp,))
+            query = """DROP TABLE IF EXISTS InjuryInfo CASCADE"""
+            cursor.execute(query)
+            query = """CREATE TABLE InjuryInfo (
+                                      ID SERIAL PRIMARY KEY,
+                                      UserID INTEGER NOT NULL,
+                                      RecoveryTime INTEGER NOT NULL,
+                                      CreateUserID INTEGER NOT NULL,
+                                      CreateDate TIMESTAMP NOT NULL,
+                                      Injury VARCHAR(500) NOT NULL,
+                                      InjuryArea VARCHAR(50) NOT NULL,
+                                      FOREIGN KEY (UserID) REFERENCES UserInfo(UserID),
+                                      FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
+                                    )"""
+            cursor.execute(query)
 
             ################ ufuk sahar ####################
 
 
             # TrainingTypeParameter table is deleted #
-            query = """DROP TABLE IF EXISTS TrainingTypeParameter"""
+            query = """DROP TABLE IF EXISTS TrainingTypeParameter CASCADE"""
             cursor.execute(query)
 
             query = """CREATE TABLE TrainingTypeParameter (
@@ -106,7 +118,7 @@ class DatabaseOPS:
 
 
             # TrainingInfo table is deleted #
-            query = """DROP TABLE IF EXISTS TrainingInfo"""
+            query = """DROP TABLE IF EXISTS TrainingInfo CASCADE"""
             cursor.execute(query)
 
             query = """CREATE TABLE TrainingInfo (
@@ -125,7 +137,7 @@ class DatabaseOPS:
 
 
             # TrainingMapInfo table is deleted #
-            query = """DROP TABLE IF EXISTS TrainingMapInfo"""
+            query = """DROP TABLE IF EXISTS TrainingMapInfo CASCADE"""
             cursor.execute(query)
 
             query = """CREATE TABLE TrainingMapInfo (
@@ -143,7 +155,7 @@ class DatabaseOPS:
 
             ################ Utku Anıl Saykara ####################
 
-            query = """DROP TABLE IF EXISTS ContractInfo"""
+            query = """DROP TABLE IF EXISTS ContractInfo CASCADE"""
             cursor.execute(query)
 
             query = """CREATE TABLE ContractInfo (
@@ -158,8 +170,8 @@ class DatabaseOPS:
                                                 SignDate TIMESTAMP NOT NULL,
                                                 EndDate TIMESTAMP NOT NULL,
                                                 CreateDate TIMESTAMP NOT NULL,
-                                                FOREIGN KEY UserID REFERENCES UserInfo(UserID)
-                                                FOREIGN KEY CreateUserID REFERENCES UserInfo(UserID)
+                                                FOREIGN KEY (UserID) REFERENCES UserInfo(UserID),
+                                                FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
                                                 )"""
 
             cursor.execute(query)
