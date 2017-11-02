@@ -225,7 +225,46 @@ class DatabaseOPS:
 
             cursor.execute(query)
             # ContractInfo table is created #
+            query = """DROP TABLE IF EXISTS PremiumTypeParameter CASCADE """
+            cursor.execute(query)
 
+            query = """CREATE TABLE PremiumTypeParameter (
+                                                          ID SERIAL PRIMARY KEY,
+                                                          Premium VARCHAR(50) NOT NULL
+                                                          )"""
+            cursor.execute(query)
+            # PremiumTypeParameter table is created #
+
+            query = """DROP TABLE IF EXISTS PremiumInfo CASCADE"""
+            cursor.execute(query)
+            query = """CREATE TABLE PremiumInfo (
+                                                                ID SERIAL PRIMARY KEY,
+                                                                UserID INTEGER NOT NULL,
+                                                                PremiumTypeID INTEGER NOT NULL,
+                                                                CreateUserID INTEGER NOT NULL,
+                                                                CreateDate TIMESTAMP NOT NULL,
+                                                                FOREIGN KEY (UserID) REFERENCES UserInfo(UserID),
+                                                                FOREIGN KEY (PremiumTypeID) REFERENCES PremiumTypeParameter(ID),
+                                                                FOREIGN KEY (UserID) REFERENCES UserInfo(UserID)
+                                                                )"""
+            cursor.execute(query)
+            # PremiumInfo table is created #
+
+            query = """DROP TABLE IF EXISTS ObservedPlayerInfo CASCADE"""
+            cursor.execute(query)
+            query = """CREATE TABLE ObservedPlayerInfo (
+                                                                      ID SERIAL PRIMARY KEY,
+                                                                      ScoutID INTEGER NOT NULL,
+                                                                      MatchID INTEGER NOT NULL,
+                                                                      Point INTEGER NOT NULL,
+                                                                      CreateDate TIMESTAMP NOT NULL,
+                                                                      Name VARCHAR(50),
+                                                                      Surname VARCHAR (50),
+                                                                      FOREIGN KEY (ScoutID) REFERENCES UserInfo(UserID),
+                                                                      FOREIGN KEY (MatchID) REFERENCES FixtureInfo(ID)
+                                                                      )"""
+            cursor.execute(query)
+            # ObservedPlayerInfo table is created #
             connection.commit()
             cursor.close()
 
