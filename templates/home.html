@@ -1,4 +1,8 @@
-{% extends "layout.html" %}
+{% if user == "admin" %}
+    {% extends "admin_layout.html" %}
+{% else %}
+    {% extends "layout.html" %}
+{% endif %}
 {% block content %}
 
 
