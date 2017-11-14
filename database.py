@@ -32,6 +32,26 @@ class DatabaseOPS:
             cursor = connection.cursor()
 
             ################ ufuk sahar ####################
+
+            query = """DROP TABLE IF EXISTS ParameterType CASCADE """
+            cursor.execute(query)
+            query = """CREATE TABLE ParameterType (
+                                                 ID SERIAL PRIMARY KEY,
+                                                 Name VARCHAR(50) NOT NULL
+                                                                )"""
+            cursor.execute(query)
+
+            query = """DROP TABLE IF EXISTS Parameters CASCADE """
+            cursor.execute(query)
+            query = """CREATE TABLE Parameters (
+                                                    ID SERIAL PRIMARY KEY,
+                                                    TypeID INTEGER NOT NULL,
+                                                    Name VARCHAR(50) NOT NULL,
+                                                    FOREIGN KEY (TypeID) REFERENCES ParameterType(ID)
+                                                    
+                                                    )"""
+            cursor.execute(query)
+
             # StatisticsInfo table is deleted #
             query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
             cursor.execute(query)
@@ -47,37 +67,15 @@ class DatabaseOPS:
             ################ ufuk sahar ####################
 
             ################ Mehmet Taha Çorbacıoğlu ################
-            query = """DROP TABLE IF EXISTS PositionParameter CASCADE """
-            cursor.execute(query)
-            query = """CREATE TABLE PositionParameter (
-                                        ID SERIAL PRIMARY KEY,
-                                        PositionName VARCHAR(50) UNIQUE NOT NULL
-                                        )"""
-            cursor.execute(query)
 
-            query = """DROP TABLE IF EXISTS UserTypeParameter CASCADE"""
-            cursor.execute(query)
-            query = """CREATE TABLE UserTypeParameter (
-                                        ID SERIAL PRIMARY KEY,
-                                        TypeName VARCHAR(50) UNIQUE NOT NULL
-                                        )"""
-            cursor.execute(query)
-
-            query = """DROP TABLE IF EXISTS CityParameter CASCADE"""
-            cursor.execute(query)
-            query = """CREATE TABLE CityParameter (
-                                        ID SERIAL PRIMARY KEY,
-                                        CityName VARCHAR(50) UNIQUE NOT NULL
-                                        )"""
-            cursor.execute(query)
 
             query = """DROP TABLE IF EXISTS UserInfo CASCADE"""
             cursor.execute(query)
             query = """CREATE TABLE UserInfo (
                                         UserID SERIAL PRIMARY KEY,
-                                        TypeID INTEGER NOT NULL,
+                                        UserTypeID INTEGER NOT NULL,
                                         PositionID INTEGER,
-                                        BirthCityID INTEGER,
+                                        CityID INTEGER,
                                         CreateUserID INTEGER NOT NULL,
                                         StatisticID INTEGER, 
                                         No INTEGER,
@@ -85,9 +83,9 @@ class DatabaseOPS:
                                         CreateDate TIMESTAMP NOT NULL,
                                         Name VARCHAR(50),
                                         Surname VARCHAR (50),
-                                        FOREIGN KEY (TypeID) REFERENCES UserTypeParameter(ID),
-                                        FOREIGN KEY (PositionID) REFERENCES PositionParameter(ID),
-                                        FOREIGN KEY (BirthCityID) REFERENCES CityParameter(ID),
+                                        FOREIGN KEY (UserTypeID) REFERENCES Parameters(ID),
+                                        FOREIGN KEY (PositionID) REFERENCES Parameters(ID),
+                                        FOREIGN KEY (CityID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID),
                                         FOREIGN KEY (StatisticID) REFERENCES StatisticsInfo(ID)
                                         )"""
@@ -122,18 +120,6 @@ class DatabaseOPS:
             ################ ufuk sahar ####################
 
 
-            # TrainingTypeParameter table is deleted #
-            query = """DROP TABLE IF EXISTS TrainingTypeParameter CASCADE"""
-            cursor.execute(query)
-
-            query = """CREATE TABLE TrainingTypeParameter (
-                                                          ID SERIAL PRIMARY KEY,
-                                                          TrainingTypeName VARCHAR(50) NOT NULL
-                                                                        )"""
-            cursor.execute(query)
-            # TrainingTypeParameter table is created #
-
-
             # TrainingInfo table is deleted #
             query = """DROP TABLE IF EXISTS TrainingInfo CASCADE"""
             cursor.execute(query)
@@ -146,7 +132,7 @@ class DatabaseOPS:
                                                   CreateDate DATE NOT NULL,
                                                   TrainingName VARCHAR(50) NOT NULL,
                                                   Location VARCHAR(500) NOT NULL,
-                                                  FOREIGN KEY (TypeID) REFERENCES TrainingTypeParameter (ID),
+                                                  FOREIGN KEY (TypeID) REFERENCES Parameters (ID),
                                                   FOREIGN KEY (CreateUserID) REFERENCES UserInfo (UserID)
                                                             )"""
             cursor.execute(query)
@@ -183,7 +169,7 @@ class DatabaseOPS:
                                                  HomeTeamName VARCHAR(100),
                                                  AwayTeamName VARCHAR(100),
                                                  ArenaName VARCHAR(100),
-                                                 FOREIGN KEY (CityID) REFERENCES CityParameter (ID)
+                                                 FOREIGN KEY (CityID) REFERENCES Parameters (ID)
 
                                                                                           )"""
             cursor.execute(query)
@@ -225,15 +211,7 @@ class DatabaseOPS:
 
             cursor.execute(query)
             # ContractInfo table is created #
-            query = """DROP TABLE IF EXISTS PremiumTypeParameter CASCADE """
-            cursor.execute(query)
 
-            query = """CREATE TABLE PremiumTypeParameter (
-                                                          ID SERIAL PRIMARY KEY,
-                                                          Premium VARCHAR(50) NOT NULL
-                                                          )"""
-            cursor.execute(query)
-            # PremiumTypeParameter table is created #
 
             query = """DROP TABLE IF EXISTS PremiumInfo CASCADE"""
             cursor.execute(query)
@@ -272,10 +250,13 @@ class DatabaseOPS:
             cursor = connection.cursor()
 
             ################ Mehmet Taha Çorbacıoğlu ####################
-            query = """INSERT INTO UserTypeParameter(TypeName) VALUES ('admin')"""
+            query = """INSERT INTO ParameterType(Name) VALUES ('User Type')"""
             cursor.execute(query)
 
-            query = """INSERT INTO UserInfo(TypeID, CreateUserID, CreateDate) VALUES (1, 1, %s)"""
+            query = """INSERT INTO Parameters(Name,TypeID) VALUES ('admin',1)"""
+            cursor.execute(query)
+
+            query = """INSERT INTO UserInfo(UserTypeID, CreateUserID, CreateDate) VALUES (1, 1, %s)"""
             cursor.execute(query, (datetime.datetime.now(),))
 
             hashp = pwd_context.encrypt('12345')
