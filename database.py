@@ -4,7 +4,9 @@ import re
 import os
 from passlib.apps import custom_app_context as pwd_context
 import datetime
-
+import cities
+city_Dict= dict()
+city_Dict = cities.city_dict
 class DatabaseOPS:
     def __init__(self):
 
@@ -59,6 +61,9 @@ class DatabaseOPS:
                                                     
                                                     )"""
             cursor.execute(query)
+
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (3, %(city)s)"""
+            cursor.executemany(query, city_Dict)
 
             # StatisticsInfo table is deleted #
             query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
@@ -253,6 +258,7 @@ class DatabaseOPS:
             # ObservedPlayerInfo table is created #
             connection.commit()
             cursor.close()
+
     def adminInit(self):
         with dbapi2.connect(self.config) as connection:
             cursor = connection.cursor()
