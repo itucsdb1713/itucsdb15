@@ -41,6 +41,14 @@ class DatabaseOPS:
                                                                 )"""
             cursor.execute(query)
 
+            query = """INSERT INTO ParameterType(Name) VALUES ('User')"""
+            cursor.execute(query)
+            query = """INSERT INTO ParameterType(Name) VALUES ('Position')"""
+            cursor.execute(query)
+            query = """INSERT INTO ParameterType(Name) VALUES ('City')"""
+            cursor.execute(query)
+
+
             query = """DROP TABLE IF EXISTS Parameters CASCADE """
             cursor.execute(query)
             query = """CREATE TABLE Parameters (
@@ -250,8 +258,6 @@ class DatabaseOPS:
             cursor = connection.cursor()
 
             ################ Mehmet Taha Çorbacıoğlu ####################
-            query = """INSERT INTO ParameterType(Name) VALUES ('User Type')"""
-            cursor.execute(query)
 
             query = """INSERT INTO Parameters(Name,TypeID) VALUES ('admin',1)"""
             cursor.execute(query)
