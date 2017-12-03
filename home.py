@@ -1,6 +1,7 @@
 from handlers import site
 from database import database
 from user import *
+from contract import *
 
 import datetime
 import psycopg2 as dbapi2
@@ -47,4 +48,14 @@ def register_page():
         return render_template('register.html')
     else:
         UserDatabase.add_user(request.form['TypeID'], request.form['PositionID'], request.form['BirthCityID'], request.form['No'], request.form['Birthday'], request.form['Name'], request.form['Surname'], request.form['username'], request.form['password'])
+        return redirect(url_for('site.home_page'))
+
+@site.route('/contract', methods=['GET', 'POST'])
+@login_required
+def contract_page():
+    if request.method == 'GET':
+        return render_template('contract.html')
+    else:
+        ContractDatabase.add_contract(request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
+
         return redirect(url_for('site.home_page'))
