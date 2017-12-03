@@ -2,6 +2,7 @@ from handlers import site
 from database import database
 from user import *
 from contract import *
+from injury import *
 
 import datetime
 import psycopg2 as dbapi2
@@ -57,5 +58,15 @@ def contract_page():
         return render_template('contract.html')
     else:
         ContractDatabase.add_contract(request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
+
+        return redirect(url_for('site.home_page'))
+
+@site.route('/injury', methods=['GET', 'POST'])
+@login_required
+def injury_page():
+    if request.method == 'GET':
+        return render_template('injury.html')
+    else:
+        InjuryDatabase.add_injury(request.form['RecoveryTime'], request.form['Injury'], request.form['InjuryArea'])
 
         return redirect(url_for('site.home_page'))
