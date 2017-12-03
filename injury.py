@@ -47,3 +47,26 @@ class InjuryDatabase:
                               createDate=injuryInfo[4], injury=injuryInfo[5], injuryArea=injuryInfo[6],)
             else:
                 return -1
+
+    def GetCurrentInjuryDays(cls, userID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            now = datetime.datetime.now()
+            query = """SELECT TOP 1 * FROM LogInfo WHERE UserID=%s and (now - CreateDate).DAY < RecoveryTime """
+
+            try:
+                cursor.execute(query, (userID,))
+                injuryInfo = cursor.fetchone()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+
+            cursor.close()
+
+            if injuryInfo:
+                Injury(ID=injuryInfo[0], userID=injuryInfo[1], recoveryTime=injuryInfo[2], createUserID=injuryInfo[3],
+                              createDate=injuryInfo[4], injury=injuryInfo[5], injuryArea=injuryInfo[6],)
+                return Injury.recoveryTime - (now - Injury.createDate).days
+            else:
+                return 0
