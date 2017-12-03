@@ -235,7 +235,7 @@ class DatabaseOPS:
                                                                 CreateUserID INTEGER NOT NULL,
                                                                 CreateDate TIMESTAMP NOT NULL,
                                                                 FOREIGN KEY (UserID) REFERENCES UserInfo(UserID),
-                                                                FOREIGN KEY (PremiumTypeID) REFERENCES PremiumTypeParameter(ID),
+                                                                FOREIGN KEY (PremiumTypeID) REFERENCES Parameters(ID),
                                                                 FOREIGN KEY (UserID) REFERENCES UserInfo(UserID)
                                                                 )"""
             cursor.execute(query)
