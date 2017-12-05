@@ -36,3 +36,7 @@ div#datetime {
   padding: 10px;
   width: 200px;
 }
+.panel-group{
+  margin-top: 100px;
+  margin-right: 20%;
+}
