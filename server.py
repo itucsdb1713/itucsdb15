@@ -6,6 +6,8 @@ from handlers import site
 from user import *
 import home
 import parameters
+import training
+
 app = Flask(__name__)
 
 lm = LoginManager()
