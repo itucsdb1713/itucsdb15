@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from handlers import site
 from user import *
 import home
-
+import parameters
 app = Flask(__name__)
 
 lm = LoginManager()

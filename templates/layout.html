@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8"/>
     <title>beeINfootball</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../static/assets/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/assets/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
 
@@ -30,11 +31,11 @@
         </div>
         <div class="collapse navbar-collapse" role="navigation" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="#">Training</a></li>
                 {% if user == "admin" %}
-                    <li><a href="#">Parameters</a></li>
+                    <li><a href="/parameters">Parameters</a></li>
                 {% endif %}
             </ul>
 
@@ -49,5 +50,6 @@
 
 {% block content %}
 {% endblock %}
+
 </body>
 </html>

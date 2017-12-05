@@ -1,0 +1,319 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne">
+                        User Parameters
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+
+                                <form role="form" action="" method="post" name="users" class="form-horizontal">
+                                    <table id="myTable" class="table table-bordred table-striped">
+
+                                        <thead>
+
+
+                                        <th></th>
+                                        <th>Users</th>
+
+                                        </thead>
+                                        <tbody id="myTableBody">
+                                        {% for user in all_parameters %}
+                                            {% if user[1]==1 %}
+                                                <tr>
+
+                                                    <td><input type="checkbox" name="parameter_to_delete"
+                                                               value=" {{ user[0] }} " class="checkthis"/></td>
+
+                                                    <td>{{ user[2] }}</td>
+
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="{{ url_for('site.parameters_page') }}">
+                                            <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                                Delete
+                                            </button>
+                                        </a>
+
+
+                                        </tbody>
+
+                                    </table>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Position Parameters
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+
+                                <form role="form" action="" method="post" name="positions" class="form-horizontal">
+                                    <table id="myTable" class="table table-bordred table-striped">
+
+                                        <thead>
+
+
+                                        <th></th>
+                                        <th>Positions</th>
+
+                                        </thead>
+                                        <tbody id="myTableBody">
+                                        {% for position in all_parameters %}
+                                            {% if position[1]==2 %}
+                                                <tr>
+
+                                                    <td><input type="checkbox" name="parameter_to_delete"
+                                                               value=" {{ position[0] }} " class="checkthis"/></td>
+
+                                                    <td> {{ position[2] }}</td>
+
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="{{ url_for('site.parameters_page') }}">
+                                            <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                                Delete
+                                            </button>
+                                        </a>
+
+
+                                        </tbody>
+
+                                    </table>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        City Parameters
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+
+                                <form role="form" action="" method="post" name="cities" class="form-horizontal">
+                                    <table id="myTable" class="table table-bordred table-striped">
+
+                                        <thead>
+
+
+                                        <th></th>
+                                        <th>Cities</th>
+
+                                        </thead>
+                                        <tbody id="myTableBody">
+                                        {% for city in all_parameters %}
+                                            {% if city[1]==3 %}
+                                                <tr>
+
+                                                    <td><input type="checkbox" name="parameter_to_delete"
+                                                               value=" {{ city[0] }} " class="checkthis"/></td>
+
+                                                    <td>{{ city[2] }}</td>
+
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="{{ url_for('site.parameters_page') }}">
+                                            <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                                Delete
+                                            </button>
+                                        </a>
+
+
+                                        </tbody>
+
+                                    </table>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Training Parameters
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <div class="panel-body">
+
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+
+                                <form role="form" action="" method="post" name="training" class="form-horizontal">
+                                    <table id="myTable" class="table table-bordred table-striped">
+
+                                        <thead>
+
+
+                                        <th></th>
+                                        <th>Training Type</th>
+
+                                        </thead>
+                                        <tbody id="myTableBody">
+                                        {% for training in all_parameters %}
+                                            {% if training[1]==4 %}
+                                                <tr>
+
+                                                    <td><input type="checkbox" name="parameter_to_delete"
+                                                               value=" {{ training[0] }} " class="checkthis"/></td>
+
+                                                    <td>{{ training[2] }}</td>
+
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="{{ url_for('site.parameters_page') }}">
+                                            <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                                Delete
+                                            </button>
+                                        </a>
+
+
+                                        </tbody>
+
+                                    </table>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingFive">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Premium Parameters
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                <div class="panel-body">
+
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+
+                                <form role="form" action="" method="post" name="premium" class="form-horizontal">
+                                    <table id="myTable" class="table table-bordred table-striped">
+
+                                        <thead>
+
+
+                                        <th></th>
+                                        <th>Premium Type</th>
+
+                                        </thead>
+                                        <tbody id="myTableBody">
+                                        {% for premium in all_parameters %}
+                                            {% if premium[1]==5 %}
+                                                <tr>
+
+                                                    <td><input type="checkbox" name="parameter_to_delete"
+                                                               value=" {{ premium[0] }} " class="checkthis"/></td>
+
+                                                    <td>{{ premium[2] }}</td>
+
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="{{ url_for('site.parameters_page') }}">
+                                            <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                                Delete
+                                            </button>
+                                        </a>
+
+
+                                        </tbody>
+
+                                    </table>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
