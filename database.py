@@ -43,13 +43,6 @@ class DatabaseOPS:
                                                                 )"""
             cursor.execute(query)
 
-            query = """INSERT INTO ParameterType(Name) VALUES ('User')"""
-            cursor.execute(query)
-            query = """INSERT INTO ParameterType(Name) VALUES ('Position')"""
-            cursor.execute(query)
-            query = """INSERT INTO ParameterType(Name) VALUES ('City')"""
-            cursor.execute(query)
-
 
             query = """DROP TABLE IF EXISTS Parameters CASCADE """
             cursor.execute(query)
@@ -62,8 +55,6 @@ class DatabaseOPS:
                                                     )"""
             cursor.execute(query)
 
-            query = """INSERT INTO Parameters(TypeID, Name) VALUES (3, %(city)s)"""
-            cursor.executemany(query, city_Dict)
 
             # StatisticsInfo table is deleted #
             query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
@@ -277,5 +268,51 @@ class DatabaseOPS:
 
             connection.commit()
             cursor.close()
+    def init_db(self):
+        with dbapi2.connect(self.config) as connection:
+            cursor = connection.cursor()
 
+            ### initialize the Parameter Types in ParameterType table. ###
+            query = """INSERT INTO ParameterType(Name) VALUES ('User')"""
+            cursor.execute(query)
+            query = """INSERT INTO ParameterType(Name) VALUES ('Position')"""
+            cursor.execute(query)
+            query = """INSERT INTO ParameterType(Name) VALUES ('City')"""
+            cursor.execute(query)
+            query = """INSERT INTO ParameterType(Name) VALUES ('Training')"""
+            cursor.execute(query)
+            query = """INSERT INTO ParameterType(Name) VALUES ('Premium')"""
+            cursor.execute(query)
+            ##############################################################
+
+
+            ### initialize the Parameters in Parameters table. ###
+            # initialize the user parameters
+
+
+            # initialize the position parameters
+
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Defans')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Orta Saha')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Forvet')"""
+            cursor.execute(query)
+
+            # initialize city parameters
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (3, %(city)s)"""
+            cursor.executemany(query, city_Dict)
+
+            # initialize training parameters
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Defansif')"""
+            cursor.execute(query)
+
+            # initialize premium parameters
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Goal Premium')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Assist Premium')"""
+            cursor.execute(query)
+            ##############################################################
+            connection.commit()
+            cursor.close()
 database = DatabaseOPS()
