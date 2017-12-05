@@ -47,6 +47,11 @@
                                                 Delete
                                             </button>
                                         </a>
+                                        <a href="{{ url_for('site.parameter_add',TYPE=1) }}">
+                                            <button type="button" id="add" name="add" class="btn btn-primary">
+                                                Add new user type
+                                            </button>
+                                        </a>
 
 
                                         </tbody>
@@ -105,6 +110,11 @@
                                         <a href="{{ url_for('site.parameters_page') }}">
                                             <button type="submit" id="delete" name="delete" class="btn btn-primary">
                                                 Delete
+                                            </button>
+                                        </a>
+                                        <a href="{{ url_for('site.parameter_add',TYPE=2) }}">
+                                            <button type="button" id="add" name="add" class="btn btn-primary">
+                                                Add new position
                                             </button>
                                         </a>
 
@@ -172,6 +182,12 @@
                                             </button>
                                         </a>
 
+                                        <a href="{{ url_for('site.parameter_add',TYPE=3) }}">
+                                            <button type="button" id="add" name="add" class="btn btn-primary">
+                                                Add new city
+                                            </button>
+                                        </a>
+
 
                                         </tbody>
 
@@ -236,6 +252,12 @@
                                             </button>
                                         </a>
 
+                                        <a href="{{ url_for('site.parameter_add',TYPE=4) }}">
+                                            <button type="button" id="add" name="add" class="btn btn-primary">
+                                                Add new training
+                                            </button>
+                                        </a>
+
 
                                         </tbody>
 
@@ -252,7 +274,9 @@
         </div>
 
 
-        <div class="panel panel-default">
+
+
+    <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingFive">
                 <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
@@ -297,6 +321,12 @@
                                         <a href="{{ url_for('site.parameters_page') }}">
                                             <button type="submit" id="delete" name="delete" class="btn btn-primary">
                                                 Delete
+                                            </button>
+                                        </a>
+
+                                        <a href="{{ url_for('site.parameter_add',TYPE=5) }}">
+                                            <button type="button" id="add" name="add" class="btn btn-primary">
+                                                Add new premium type
                                             </button>
                                         </a>
 

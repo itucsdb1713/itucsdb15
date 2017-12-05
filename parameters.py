@@ -44,3 +44,26 @@ def parameters_page():
 
         return render_template('parameters.html', user=current_user.username, all_parameters=all_parameters)
 
+@site.route('/parameters/add/<int:TYPE>', methods=['GET', 'POST'])
+@login_required
+def parameter_add(TYPE):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+
+    if request.method == 'GET':
+        query = """ SELECT ID,NAME FROM PARAMETERTYPE WHERE ID='%d'"""% TYPE
+        cursor.execute(query)
+        typeName = cursor.fetchone()
+
+
+        return render_template('parameter_add.html', user=current_user.username, parameterType=typeName)
+    else:
+        parameterName = request.form['parameterType']
+
+
+        query = "INSERT INTO PARAMETERS(TYPEID,NAME) VALUES('%d', '%s')" % (TYPE,parameterName)
+        cursor.execute(query)
+
+        connection.commit()
+
+        return redirect(url_for('site.parameters_page'))
