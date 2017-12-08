@@ -26,7 +26,7 @@ def parameters_page():
 
         connection.commit()
 
-        return render_template('parameters.html', user=current_user.username, all_parameters=all_parameters)
+        return render_template('parameters.html', all_parameters=all_parameters)
     else:
 
         deletes = request.form.getlist('parameter_to_delete')
@@ -46,7 +46,7 @@ def parameters_page():
 
         connection.commit()
 
-        return render_template('parameters.html', user=current_user.username, all_parameters=all_parameters)
+        return render_template('parameters.html', all_parameters=all_parameters)
 
 @site.route('/parameters/add/<int:TYPE>', methods=['GET', 'POST'])
 @login_required
@@ -60,7 +60,7 @@ def parameter_add(TYPE):
         typeName = cursor.fetchone()
 
 
-        return render_template('parameter_add.html', user=current_user.username, parameterType=typeName)
+        return render_template('parameter_add.html', parameterType=typeName)
     else:
         parameterName = request.form['parameterType']
 

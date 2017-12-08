@@ -36,7 +36,7 @@
                 <li><a href="/training">Training</a></li>
                 <li><a href="/contract">Contract</a></li>
                 <li><a href="/injury">Injury</a></li>
-                {% if user == "admin" %}
+                {% if current_user.username == "admin" %}
                     <li><a href="/parameters">Parameters</a></li>
                 {% endif %}
             </ul>
