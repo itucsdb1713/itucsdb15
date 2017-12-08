@@ -10,7 +10,7 @@ from flask import redirect
 from flask import url_for
 from flask_login import login_user, current_user, login_required, logout_user
 import urllib
-
+from ParameterCheckDelete import ParamaterCheckDelete
 
 @site.route('/parameters', methods=['GET', 'POST'])
 @login_required
@@ -30,6 +30,10 @@ def parameters_page():
     else:
 
         deletes = request.form.getlist('parameter_to_delete')
+        print(deletes)
+
+        #### check parameter to be deleted ###
+        deletes = ParamaterCheckDelete.search(deletes)
 
         for delete in deletes:
             query = "DELETE FROM PARAMETERS WHERE ID='%d'" % int(delete)
