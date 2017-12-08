@@ -56,18 +56,7 @@ class DatabaseOPS:
             cursor.execute(query)
 
 
-            # StatisticsInfo table is deleted #
-            query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
-            cursor.execute(query)
 
-            query = """CREATE TABLE StatisticsInfo (
-                                                    ID SERIAL PRIMARY KEY,
-                                                    Goal INTEGER DEFAULT 0,
-                                                    Assist INTEGER DEFAULT 0,
-                                                    Card INTEGER DEFAULT 0
-                                                    )"""
-            cursor.execute(query)
-            # StatisticsInfo table is created #
             ################ ufuk sahar ####################
 
             ################ Mehmet Taha Çorbacıoğlu ################
@@ -81,7 +70,6 @@ class DatabaseOPS:
                                         PositionID INTEGER,
                                         CityID INTEGER,
                                         CreateUserID INTEGER NOT NULL,
-                                        StatisticID INTEGER, 
                                         No INTEGER,
                                         Birthday DATE,
                                         CreateDate TIMESTAMP NOT NULL,
@@ -90,19 +78,32 @@ class DatabaseOPS:
                                         FOREIGN KEY (UserTypeID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (PositionID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (CityID) REFERENCES Parameters(ID),
-                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID),
-                                        FOREIGN KEY (StatisticID) REFERENCES StatisticsInfo(ID)
+                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
                                         )"""
             cursor.execute(query)
+
+            # StatisticsInfo table is deleted #
+            query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
+            cursor.execute(query)
+
+            query = """CREATE TABLE StatisticsInfo (
+                                                                ID INT PRIMARY KEY,
+                                                                Goal INTEGER DEFAULT 0,
+                                                                Assist INTEGER DEFAULT 0,
+                                                                Match INTEGER DEFAULT 0,
+                                                                FOREIGN KEY(ID) REFERENCES UserInfo(UserID)
+                                                                )"""
+            cursor.execute(query)
+            # StatisticsInfo table is created #
 
             query = """DROP TABLE IF EXISTS LogInfo CASCADE"""
             cursor.execute(query)
             query = """CREATE TABLE LogInfo (
-                                      UserID SERIAL PRIMARY KEY,
+                                      UserID INT PRIMARY KEY,
                                       Username varchar(50) UNIQUE NOT NULL,
                                       Password varchar(500) NOT NULL,
                                       LastLoginDate TIMESTAMP,
-                                      FOREIGN KEY (UserID) REFERENCES UserInfo(UserID)
+                                      FOREIGN KEY(UserID) REFERENCES UserInfo(UserID)
                                     )"""
             cursor.execute(query)
 
@@ -262,9 +263,13 @@ class DatabaseOPS:
             query = """INSERT INTO UserInfo(UserTypeID, CreateUserID, CreateDate) VALUES (1, 1, %s)"""
             cursor.execute(query, (datetime.datetime.now(),))
 
+            query = """SELECT MAX(UserID) FROM UserInfo """
+            cursor.execute(query)
+            userID = cursor.fetchone()
+
             hashp = pwd_context.encrypt('12345')
-            query = """INSERT INTO LogInfo(Username, Password) VALUES ('admin', %s)"""
-            cursor.execute(query, (hashp,))
+            query = """INSERT INTO LogInfo(UserID, Username, Password) VALUES (%s, 'admin', %s)"""
+            cursor.execute(query, (userID[0],hashp,))
 
             connection.commit()
             cursor.close()
