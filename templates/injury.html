@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<form class="form-horizontal" action="{{ url_for('site.injury_page') }}" method="post">
-<head>
-    <meta charset="UTF-8">
-    <title>beeInfootball</title>
-</head>
-<body>
-    <!-- Text input-->
+
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.injury_page') }}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend style="color: white">Injury Add</legend>
+
+            <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="RecoveryTime">Recovery Time</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="RecoveryTime">Recovery Time</label>
+            <div class="col-md-3">
                 <input id="RecoveryTime" name="RecoveryTime" placeholder="RecoveryTime" class="form-control input-md" required=""
                        type="text">
 
@@ -17,8 +19,8 @@
         </div>
     <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Injury">Injury</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="Injury">Injury</label>
+            <div class="col-md-3">
                 <input id="Injury" name="Injury" placeholder="Injury" class="form-control input-md" required=""
                        type="text">
 
@@ -26,21 +28,21 @@
         </div>
     <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="InjuryArea">Injury Area</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="InjuryArea">Injury Area</label>
+            <div class="col-md-3">
                 <input id="InjuryArea" name="InjuryArea" placeholder="InjuryArea" class="form-control input-md" required=""
                        type="text">
 
             </div>
         </div>
-
-    <!-- Button -->
+            <!-- Button -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="login_button"></label>
-            <div class="col-md-4">
-                <button id="submit_button" name="submit_button" class="btn btn-primary">Submit</button>
+            <label class="col-md-3 control-label" for="login_button"></label>
+            <div class="col-md-3">
+                <button id="submit_button" name="submit_button" class="btn btn-success">Submit</button>
             </div>
         </div>
 
-</body>
-</html>
+        </fieldset>
+    </form>
+{% endblock %}

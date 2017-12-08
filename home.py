@@ -19,7 +19,7 @@ import urllib
 @login_required
 def home_page():
     now = datetime.datetime.now()
-    print(current_user.username)
+
     return render_template('home.html', current_time=now.ctime(),user = current_user.username)
 
 @site.route('/logout')

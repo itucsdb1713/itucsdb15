@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<form class="form-horizontal" action="{{ url_for('site.contract_page') }}" method="post">
-<head>
-    <meta charset="UTF-8">
-    <title>beeInfootball</title>
-</head>
-<body>
-    <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="Salary">Salary</label>
-            <div class="col-md-4">
+
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.contract_page') }}" method="post">
+
+            <!-- Form Name -->
+            <legend style="color: white">Injury Add</legend>
+
+            <div class="form-group">
+            <label class="col-md-3 control-label" for="Salary">Salary</label>
+            <div class="col-md-3">
                 <input id="Salary" name="Salary" placeholder="Salary" class="form-control input-md" required=""
                        type="text">
 
@@ -17,8 +17,8 @@
         </div>
     <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="SignPremium">Sign Premium</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="SignPremium">Sign Premium</label>
+            <div class="col-md-3">
                 <input id="SignPremium" name="SignPremium" placeholder="SignPremium" class="form-control input-md" required=""
                        type="text">
 
@@ -26,8 +26,8 @@
         </div>
     <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="MatchPremium">Match Premium</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="MatchPremium">Match Premium</label>
+            <div class="col-md-3">
                 <input id="MatchPremium" name="MatchPremium" placeholder="MatchPremium" class="form-control input-md" required=""
                        type="text">
 
@@ -35,8 +35,8 @@
         </div>
     <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="GoalPremium">Goal Premium</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="GoalPremium">Goal Premium</label>
+            <div class="col-md-3">
                 <input id="GoalPremium" name="GoalPremium" placeholder="GoalPremium" class="form-control input-md" required=""
                        type="text">
 
@@ -44,16 +44,16 @@
         </div>
     <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="AssistPremium">Assist Premium</label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="AssistPremium">Assist Premium</label>
+            <div class="col-md-3">
                 <input id="AssistPremium" name="AssistPremium" placeholder="AssistPremium" class="form-control input-md" required=""
                        type="text">
 
             </div>
         </div>
 
-        <div class="well">
-            <label class="col-md-4 control-label" for="StartDate">Start Date</label>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="StartDate">Start Date</label>
             <div id="datetimepicker1" class="input-append date">
                 <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="StartDate" name="StartDate" placeholder="StartDate"></input>
                     <span class="add-on">
@@ -62,8 +62,8 @@
                     </span>
             </div>
         </div>
-        <div class="well">
-            <label class="col-md-4 control-label" for="EndDate">End Date</label>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="EndDate">End Date</label>
             <div id="datetimepicker1" class="input-append date">
                 <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="EndDate" name="EndDate" placeholder="EndDate"></input>
                     <span class="add-on">
@@ -75,10 +75,10 @@
 
         <!-- Button -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="login_button"></label>
-            <div class="col-md-4">
+            <label class="col-md-3 control-label" for="login_button"></label>
+            <div class="col-md-3">
                 <button id="submit_button" name="submit_button" class="btn btn-primary">Submit</button>
             </div>
         </div>
-</body>
-</html>
+    </form>
+{% endblock %}
