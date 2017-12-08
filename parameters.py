@@ -71,3 +71,29 @@ def parameter_add(TYPE):
         connection.commit()
 
         return redirect(url_for('site.parameters_page'))
+
+
+@site.route('/parameters/update/<int:parameterID>', methods=['GET', 'POST'])
+@login_required
+def parameter_update(parameterID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+
+        if request.method == 'GET':
+
+            query = """ SELECT * FROM PARAMETERS WHERE ID='%d'""" % (parameterID)
+            cursor.execute(query)
+            parameter = cursor.fetchone()
+            query = """ SELECT NAME FROM PARAMETERTYPE WHERE ID='%d'""" % parameter[1]
+            cursor.execute(query)
+            parameterType = cursor.fetchone()
+            connection.commit()
+
+            return render_template('parameter_update.html', parameter=parameter,parameterType=parameterType)
+        else:
+
+            new_parameterName = request.form['update_parameter']
+            query = """UPDATE Parameters SET Name = '%s' WHERE ID = %d""" % (new_parameterName,parameterID)
+            cursor.execute(query)
+            connection.commit()
+            return redirect(url_for('site.parameters_page'))
