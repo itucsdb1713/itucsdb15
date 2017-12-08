@@ -17,32 +17,41 @@ class UserDatabase:
     def add_user(cls, TypeID, PositionID, BirthCityID, No, Birthday, Name, Surname, username, password):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
-
-            if TypeID == 2:
-                query = """INSERT INTO StatisticsInfo"""
-                cursor.execute(query)
-                query = """SELECT MAX(ID) FROM StatisticsInfo"""
-                cursor.execute(query)
-                id = cursor.fetchone()
-
-                query = """INSERT INTO UserInfo (TypeID, PositionID, BirthCityID, CreateUserID, StatisticID, No, Birthday, 
-                                                              CreateDate, Name, Surname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                cursor.execute(query, (TypeID, PositionID, BirthCityID, current_user.id, id, No, Birthday, datetime.datetime.now(), Name, Surname,))
-            else:
-                query = """INSERT INTO UserInfo (TypeID, PositionID, BirthCityID, CreateUserID, No, Birthday, 
-                                              CreateDate, Name, Surname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                cursor.execute(query, (TypeID, PositionID, BirthCityID, current_user.id, No, Birthday, datetime.datetime.now(), Name, Surname,))
-
-            query = """INSERT INTO LogInfo (Username, Password) VALUES (
-                                                  %s,
-                                                  %s
-                                )"""
-            hashp = pwd_context.encrypt(password)
+            query = """INSERT INTO UserInfo (UserTypeID, PositionID, CityID, CreateUserID, No, Birthday, 
+                                                              CreateDate, Name, Surname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             try:
-                cursor.execute(query, (username, hashp,))
+                cursor.execute(query, (str(TypeID), str(PositionID), str(BirthCityID), str(current_user.id), str(No), Birthday, datetime.datetime.now(), Name, Surname))
             except dbapi2.Error:
                 connection.rollback()
             else:
+                connection.commit()
+
+            query = """SELECT MAX(UserID) FROM UserInfo """
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                userID = cursor.fetchone()
+                connection.commit()
+            hashp = pwd_context.encrypt(password)
+            query = """INSERT INTO LogInfo (userID, Username, Password) VALUES ('%d','%s','%s')"""%(userID[0], username, hashp)
+
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                print("LogInfo")
+                connection.commit()
+            print(str(userID[0]))
+            query = """INSERT INTO StatisticsInfo (ID) VALUES ('%s')"""%(str(userID[0]))
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                print("statistic")
                 connection.commit()
 
             cursor.close()

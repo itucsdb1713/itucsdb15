@@ -47,15 +47,17 @@
         </div>
 
         <!-- Birthday input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="Birthday">Birthday</label>
-            <div class="col-md-4">
-                <input id="Birthday" name="Birthday" placeholder="Birthday" class="form-control input-md"
-                       type="text">
 
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="Birthday">Start Date</label>
+            <div id="datetimepicker1" class="input-append date">
+                <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="Birthday" name="Birthday" placeholder="Birthday"></input>
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
             </div>
         </div>
-
         <!-- Name input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="Name">Name</label>
