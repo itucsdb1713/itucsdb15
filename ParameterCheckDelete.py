@@ -15,7 +15,7 @@ class ParamaterCheckDelete:
             deletes = []
             for parameter in parameters:
                 ID, TypeID = parameter.split(",",1)
-            
+
 
                 if TypeID == '1':
                     query = """ SELECT COUNT(*) FROM UserInfo WHERE UserTypeID = %d """ %(int(ID))
@@ -59,21 +59,6 @@ class ParamaterCheckDelete:
                     if premiumTypeCount == 0:
                         deletes.append(ID)
 
-
-
-
             connection.commit()
             return deletes
 
-
-
-
-class RecipeMapDatabase:
-    @classmethod
-    def addRecipe(cls, recipeID, ingredientID, amount):
-        with dbapi2.connect(database.config) as connection:
-            cursor = connection.cursor()
-            query = """INSERT INTO RecipeMap (recipeID,ingredientID,amount) VALUES (%s,%s,%s)"""
-            cursor.execute(query, (recipeID,ingredientID,amount))
-            connection.commit()
-            cursor.close()
