@@ -260,7 +260,7 @@ class DatabaseOPS:
             query = """INSERT INTO Parameters(Name,TypeID) VALUES ('admin',1)"""
             cursor.execute(query)
 
-            query = """INSERT INTO UserInfo(UserTypeID, CreateUserID, CreateDate) VALUES (1, 1, %s)"""
+            query = """INSERT INTO UserInfo(UserTypeID, CreateUserID, CreateDate) VALUES (95, 1, %s)"""
             cursor.execute(query, (datetime.datetime.now(),))
 
             query = """SELECT MAX(UserID) FROM UserInfo """
@@ -293,15 +293,22 @@ class DatabaseOPS:
 
             ### initialize the Parameters in Parameters table. ###
             # initialize the user parameters
-
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (1,'Trainer')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (1,'Footballer')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (1,'Doctor')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (1,'Scout')"""
+            cursor.execute(query)
 
             # initialize the position parameters
 
-            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Defans')"""
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Defence')"""
             cursor.execute(query)
-            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Orta Saha')"""
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Striker')"""
             cursor.execute(query)
-            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'Forvet')"""
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (2,'GoalKeeper')"""
             cursor.execute(query)
 
             # initialize city parameters
@@ -309,7 +316,13 @@ class DatabaseOPS:
             cursor.executemany(query, city_Dict)
 
             # initialize training parameters
-            query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Defansif')"""
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Attack')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Defence')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Physical')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Mental')"""
             cursor.execute(query)
 
             # initialize premium parameters
@@ -320,4 +333,6 @@ class DatabaseOPS:
             ##############################################################
             connection.commit()
             cursor.close()
+
+
 database = DatabaseOPS()
