@@ -17,6 +17,6 @@ import urllib
 def training_page():
     if request.method == 'GET':
 
-        return render_template('training.html', user=current_user.username)
+        return render_template('training.html')
     else:
         pass  # will be implemented later.
