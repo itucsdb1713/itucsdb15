@@ -18,13 +18,22 @@ def training_page():
     with dbapi2.connect(database.config) as connection:
         cursor = connection.cursor()
         if request.method == 'GET':
-            query = """ SELECT y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id """
+            query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id """
             cursor.execute(query)
             trainings = cursor.fetchall()
             connection.commit()
             return render_template('training.html',trainings=trainings)
         else:
-            pass  # will be implemented later.
+            deletes = request.form.getlist('training_to_delete')
+            
+            for delete in deletes:
+                query = "DELETE FROM TrainingInfo WHERE ID='%d'" % int(delete)
+                cursor.execute(query)
+
+
+            return redirect(url_for('site.training_page'))
+
+
 
 @site.route('/training/add', methods=['GET', 'POST'])
 @login_required
@@ -42,7 +51,7 @@ def training_add():
             trainingName = request.form['trainingName']
             trainingLoc = request.form['trainingLoc']
             trainingDate = request.form['trainingDate']
-            
+
             query = "INSERT INTO TrainingInfo(TYPEID,TrainingName,Location,TrainingDate,CreateUserId,CreateDate) VALUES('%d', '%s', '%s', '%s','%d','%s')" % (int(trainingType), trainingName, trainingLoc, trainingDate,current_user.id,datetime.datetime.now())
             cursor.execute(query)
 
