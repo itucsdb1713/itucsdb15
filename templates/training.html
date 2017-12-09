@@ -12,13 +12,13 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <button type="button" class="btn btn-info active">
-                            List All
-                        </button>
+
                         {% if current_user.username == 'admin' %}
-                            <button type="button" class="btn btn-success active btn-default">
-                                Add
-                            </button>
+                            <a href="{{ url_for('site.training_add') }}">
+                                <button type="button" id="add" name="add" class="btn btn-success">
+                                    Add
+                                </button>
+                            </a>
                         {% endif %}
 
                         <br>
@@ -28,6 +28,9 @@
                             <tr>
                                 <th>
                                     #
+                                </th>
+                                <th>
+                                    Type
                                 </th>
                                 <th>
                                     Name
@@ -42,21 +45,28 @@
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <td>
+                            {% for training in trainings %}
+                                <tr>
 
-                                </td>
-                                <td>
-                                    test
-                                </td>
-                                <td>
-                                    test
-                                </td>
-                                <td>
-                                    test
-                                </td>
-                            </tr>
 
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+                                    <td>
+                                        {{ training[0] }}
+                                    </td>
+                                    <td>
+                                        {{ training[1] }}
+                                    </td>
+                                    <td>
+                                        {{ training[2] }}
+                                    </td>
+                                    <td>
+                                        {{ training[3] }}
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
 
                             </tbody>
                         </table>

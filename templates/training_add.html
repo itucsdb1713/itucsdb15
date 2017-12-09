@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.training_add') }}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Training Add</legend>
+
+            <!-- Type input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="trainingType">Training Type</label>
+                <div class="col-md-3">
+
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select id="trainingType" name="trainingType" class="selectpicker form-control">
+
+                            {% for training in training_data %}
+
+                                <option value=" {{training[0] }}">{{ training[2] }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="trainingName">Training Name</label>
+                <div class="col-md-3">
+                    <input id="trainingName" name="trainingName" placeholder="Enter a training name"
+                           class="form-control input-md"
+                           required="" type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="trainingLoc">Location</label>
+                <div class="col-md-3">
+                    <input id="trainingLoc" name="trainingLoc" placeholder="Enter a training location"
+                           class="form-control input-md"
+                           required="" type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="trainingDate">Training Date</label>
+                <div id="datetimepicker1" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="trainingDate" name="trainingDate"
+                           placeholder="Training Date"></input>
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
+                </div>
+            </div>
+
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-3">
+                    <button id="add_button" name="add_button" class="btn btn-success">Add Training</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+
+{% endblock %}

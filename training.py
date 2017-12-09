@@ -15,8 +15,37 @@ import urllib
 @site.route('/training', methods=['GET', 'POST'])
 @login_required
 def training_page():
-    if request.method == 'GET':
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+        if request.method == 'GET':
+            query = """ SELECT y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id """
+            cursor.execute(query)
+            trainings = cursor.fetchall()
+            connection.commit()
+            return render_template('training.html',trainings=trainings)
+        else:
+            pass  # will be implemented later.
 
-        return render_template('training.html')
-    else:
-        pass  # will be implemented later.
+@site.route('/training/add', methods=['GET', 'POST'])
+@login_required
+def training_add():
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+
+        if request.method == 'GET':
+            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=4"""  #typeid 4 for training
+            cursor.execute(query)
+            training_data = cursor.fetchall()
+            return render_template('training_add.html',training_data=training_data)
+        else:
+            trainingType = request.form['trainingType']
+            trainingName = request.form['trainingName']
+            trainingLoc = request.form['trainingLoc']
+            trainingDate = request.form['trainingDate']
+            
+            query = "INSERT INTO TrainingInfo(TYPEID,TrainingName,Location,TrainingDate,CreateUserId,CreateDate) VALUES('%d', '%s', '%s', '%s','%d','%s')" % (int(trainingType), trainingName, trainingLoc, trainingDate,current_user.id,datetime.datetime.now())
+            cursor.execute(query)
+
+            connection.commit()
+
+            return redirect(url_for('site.training_page'))
