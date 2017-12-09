@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.contract_update', ID = contract[0]) }}" method="post">
+
+        <!-- Form Name -->
+        <legend style="color: white">Contract Update</legend>
+
+        <!-- Type Input -->
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="UserID">User</label>
+                <div class="col-md-3">{{ contract[1] }} {{ contract[2] }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Salary">Salary</label>
+                <div class="col-md-3">
+                    <input id="Salary" name="Salary" placeholder="{{ contract[3] }}" class="form-control input-md" required=""
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="SignPremium">Sign Premium</label>
+                <div class="col-md-3">
+                    <input id="SignPremium" name="SignPremium" placeholder="{{ contract[4] }}" class="form-control input-md"
+                           required=""
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="MatchPremium">Match Premium</label>
+                <div class="col-md-3">
+                    <input id="MatchPremium" name="MatchPremium" placeholder="{{ contract[5] }}"
+                           class="form-control input-md"
+                           required=""
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="GoalPremium">Goal Premium</label>
+                <div class="col-md-3">
+                    <input id="GoalPremium" name="GoalPremium" placeholder="{{ contract[6] }}" class="form-control input-md"
+                           required=""
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="AssistPremium">Assist Premium</label>
+                <div class="col-md-3">
+                    <input id="AssistPremium" name="AssistPremium" placeholder="{{ contract[6] }}"
+                           class="form-control input-md"
+                           required=""
+                           type="text">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="StartDate">Start Date</label>
+                <div id="datetimepicker1" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="StartDate" name="StartDate"
+                           placeholder="{{ contract[7] }}"></input>
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="EndDate">End Date</label>
+                <div id="datetimepicker1" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="EndDate" name="EndDate"
+                           placeholder="{{ contract[8] }}"></input>
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="login_button"></label>
+                <div class="col-md-3">
+                    <button id="submit_button" name="submit_button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+    </form>
+{% endblock %}
