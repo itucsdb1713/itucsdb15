@@ -18,14 +18,14 @@ def training_page():
     with dbapi2.connect(database.config) as connection:
         cursor = connection.cursor()
         if request.method == 'GET':
-            query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id """
+            query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id ORDER BY x.TrainingDate DESC"""
             cursor.execute(query)
             trainings = cursor.fetchall()
             connection.commit()
             return render_template('training.html',trainings=trainings)
         else:
             deletes = request.form.getlist('training_to_delete')
-            
+
             for delete in deletes:
                 query = "DELETE FROM TrainingInfo WHERE ID='%d'" % int(delete)
                 cursor.execute(query)
@@ -57,4 +57,45 @@ def training_add():
 
             connection.commit()
 
+            return redirect(url_for('site.training_page'))
+
+@site.route('/training/update/<int:trainingID>', methods=['GET', 'POST'])
+@login_required
+def training_update(trainingID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+
+        if request.method == 'GET':
+
+            query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id WHERE x.ID=%d""" %(trainingID)
+            cursor.execute(query)
+            training = cursor.fetchone()
+            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=4"""  # typeid 4 for training
+            cursor.execute(query)
+            training_data = cursor.fetchall()
+            connection.commit()
+            print(training)
+            return render_template('training_update.html', training=training,training_data=training_data)
+        else:
+
+            new_trainingType = request.form['trainingType']
+            new_trainingName = request.form['trainingName']
+            new_trainingLoc = request.form['trainingLoc']
+            new_trainingDate = request.form['trainingDate']
+
+            if new_trainingType != '':
+                query = """UPDATE TrainingInfo SET TypeID = '%s' WHERE ID = %d""" % (new_trainingType, int(trainingID))
+                cursor.execute(query)
+            if new_trainingName != '':
+                query = """UPDATE TrainingInfo SET TrainingName = '%s' WHERE ID = %d""" % (new_trainingName, int(trainingID))
+                cursor.execute(query)
+            if new_trainingLoc != '':
+                query = """UPDATE TrainingInfo SET Location = '%s' WHERE ID = %d""" % (new_trainingLoc, int(trainingID))
+                cursor.execute(query)
+            if new_trainingDate != '':
+                query = """UPDATE TrainingInfo SET TrainingDate = '%s' WHERE ID = %d""" % (new_trainingDate, int(trainingID))
+                cursor.execute(query)
+
+
+            connection.commit()
             return redirect(url_for('site.training_page'))
