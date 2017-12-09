@@ -78,7 +78,7 @@ class DatabaseOPS:
                                         FOREIGN KEY (UserTypeID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (PositionID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (CityID) REFERENCES Parameters(ID),
-                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID) 
+                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
                                         )"""
             cursor.execute(query)
 
@@ -91,7 +91,7 @@ class DatabaseOPS:
                                                                 Goal INTEGER DEFAULT 0,
                                                                 Assist INTEGER DEFAULT 0,
                                                                 Match INTEGER DEFAULT 0,
-                                                                FOREIGN KEY(ID) REFERENCES UserInfo(UserID) ON DELETE CASCADE 
+                                                                FOREIGN KEY(ID) REFERENCES UserInfo(UserID)  ON DELETE CASCADE 
                                                                 )"""
             cursor.execute(query)
             # StatisticsInfo table is created #
@@ -103,7 +103,7 @@ class DatabaseOPS:
                                       Username varchar(50) UNIQUE NOT NULL,
                                       Password varchar(500) NOT NULL,
                                       LastLoginDate TIMESTAMP,
-                                      FOREIGN KEY(UserID) REFERENCES UserInfo(UserID) ON DELETE CASCADE 
+                                      FOREIGN KEY(UserID) REFERENCES UserInfo(UserID)  ON DELETE CASCADE 
                                     )"""
             cursor.execute(query)
 
@@ -178,22 +178,6 @@ class DatabaseOPS:
 
                                                                                           )"""
             cursor.execute(query)
-            # FixtureInfo table is created #
-
-            # StadiumIncomeInfo table is deleted #
-        #    query = """DROP TABLE IF EXISTS StadiumIncomeInfo CASCADE"""
-        #    cursor.execute(query)
-
-        #    query = """CREATE TABLE StadiumIncomeInfo (
-        #                                               MatchID SERIAL PRIMARY KEY,
-        #                                               AudienceIncome MONEY DEFAULT 0,
-        #                                               StadiumExpense MONEY DEFAULT 0
-        #                                                                                  )"""
-        #    cursor.execute(query)
-            # StadiumIncomeInfo table is created #
-            ################ ufuk sahar ####################
-
-            ################ Utku Anıl Saykara ####################
 
             query = """DROP TABLE IF EXISTS ContractInfo CASCADE"""
             cursor.execute(query)
@@ -202,11 +186,11 @@ class DatabaseOPS:
                                                 ID SERIAL PRIMARY KEY,
                                                 UserID INTEGER NOT NULL,
                                                 CreateUserID INTEGER NOT NULL,
-                                                Salary MONEY DEFAULT 0,
-                                                SignPremium MONEY DEFAULT 0,
-                                                MatchPremium MONEY DEFAULT 0,
-                                                GoalPremium MONEY DEFAULT 0,
-                                                AssistPremium MONEY DEFAULT 0,
+                                                Salary DECIMAL DEFAULT 0,
+                                                SignPremium DECIMAL DEFAULT 0,
+                                                MatchPremium DECIMAL DEFAULT 0,
+                                                GoalPremium DECIMAL DEFAULT 0,
+                                                AssistPremium DECIMAL DEFAULT 0,
                                                 SignDate TIMESTAMP NOT NULL,
                                                 EndDate TIMESTAMP NOT NULL,
                                                 CreateDate TIMESTAMP NOT NULL,
@@ -224,6 +208,7 @@ class DatabaseOPS:
                                                                 ID SERIAL PRIMARY KEY,
                                                                 UserID INTEGER NOT NULL,
                                                                 PremiumTypeID INTEGER NOT NULL,
+                                                                Amount DECIMAL DEFAULT 0,
                                                                 CreateUserID INTEGER NOT NULL,
                                                                 CreateDate TIMESTAMP NOT NULL,
                                                                 FOREIGN KEY (UserID) REFERENCES UserInfo(UserID),
@@ -325,10 +310,16 @@ class DatabaseOPS:
             query = """INSERT INTO Parameters(TypeID, Name) VALUES (4,'Mental')"""
             cursor.execute(query)
 
-            # initialize premium parameters
+            # initialize premium parameter
             query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Goal Premium')"""
             cursor.execute(query)
             query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Assist Premium')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Match Premium')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Sign Premium')"""
+            cursor.execute(query)
+            query = """INSERT INTO Parameters(TypeID, Name) VALUES (5,'Salary')"""
             cursor.execute(query)
             ##############################################################
             connection.commit()

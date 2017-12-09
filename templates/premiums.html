@@ -1,21 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container-fluid " id="injury">
+    <div class="container-fluid " id="premium">
         <div class="row">
             <div class="col-md-12">
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Injury List
+                            Premium List
                         </h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="" method="post" name="cities" class="form-horizontal">
-                            {% if current_user.username == 'admin' or  current_user.username == 'doctor'%}
-                                <a href="{{ url_for('site.injury_add') }}">
+                            {% if current_user.username == 'admin'%}
+                                <a href="{{ url_for('site.premiums_add') }}">
                                     <button type="button" id="add" name="add" class="btn btn-success">
-                                        Add
+                                        Update
+                                    </button>
+                                </a>
+                                <a href="{{ url_for('site.premiums_page') }}">
+                                    <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                        Delete
                                     </button>
                                 </a>
                             {% endif %}
@@ -35,51 +40,53 @@
                                         Name
                                     </th>
                                     <th>
-                                        Recovery Time
+                                        Salary
                                     </th>
                                     <th>
-                                        Injury
+                                        Sign Premium
                                     </th>
                                     <th>
-                                        Injury Area
+                                        Goal Premium
                                     </th>
                                     <th>
-                                        Create Date
+                                        Assist Premium
+                                    </th>
+                                    <th>
+                                        Match Premium
                                     </th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                {% for injury in injuries %}
+                                {% for premium in premiums %}
                                     <tr>
 
                                         <td>
                                             <input type="checkbox" name="injury_to_delete"
-                                                   value="{{ injury[0] }}"
+                                                   value="{{ premium[0] }}"
                                                    class="checkthis"/>
                                         </td>
                                         <td>
                                             {{ loop.index }}
                                         </td>
                                         <td>
-                                            {{ injury[1] }} {{ injury[2] }}
+                                            {{ premium[1] }} {{ premium[2] }}
                                         </td>
                                         <td>
-                                            {{ injury[3] }}
+                                            {{ premium[3] }}
                                         </td>
                                         <td>
-                                            {{ injury[4] }}
+                                            {{ premium[4] }}
                                         </td>
                                         <td>
-                                            {{ injury[5] }}
+                                            {{ premium[5] }}
                                         </td>
                                         <td>
-                                            {{ injury[6] }}
+                                            {{ premium[6] }}
                                         </td>
-                                        <td><a href="/injury/update/{{ injury[0] }}"
-                                               class="btn btn-default btn-xs pull-right"><i
-                                                class="glyphicon glyphicon-edit"></i>
-                                        </a></td>
+                                        <td>
+                                            {{ premium[7] }}
+                                        </td>
                                     </tr>
                                 {% endfor %}
 

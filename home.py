@@ -4,6 +4,7 @@ from user import *
 from contract import *
 from injury import *
 from statistics import *
+from premium import *
 
 import datetime
 import psycopg2 as dbapi2
@@ -175,3 +176,22 @@ def statistics_update(ID):
                                       request.form['Match'])
 
             return redirect(url_for('site.statistics_page'))
+
+@site.route('/premiums', methods=['GET', 'POST'])
+@login_required
+def premiums_page():
+    if request.method == 'GET':
+        premiums = PremiumDatabase.getPremiums()
+        print(premiums)
+        return render_template('premiums.html', premiums = premiums)
+    else:
+        return redirect(url_for('site.premiums_page'))
+
+@site.route('/premiums/update', methods=['GET', 'POST'])
+@login_required
+def premiums_add():
+    if request.method == 'GET':
+        PremiumDatabase.add_premium()
+        return redirect(url_for('site.premiums_page'))
+    else:
+        return redirect(url_for('site.premiums_page'))

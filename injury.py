@@ -118,3 +118,4 @@ class InjuryDatabase:
                             WHERE ID = %d """ % (injury[2], injury[5], injury[6], ID)
             cursor.execute(query)
             cursor.close()
+

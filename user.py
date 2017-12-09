@@ -25,7 +25,7 @@ class UserDatabase:
                 connection.rollback()
             else:
                 connection.commit()
-
+            
             query = """SELECT MAX(UserID) FROM UserInfo """
             try:
                 cursor.execute(query)
