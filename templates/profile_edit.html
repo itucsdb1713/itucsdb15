@@ -99,4 +99,15 @@
 
         </fieldset>
     </form>
+    <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
+            <fieldset>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="Delete"></label>
+                    <div class="col-md-4">
+                        <button id="Delete" name="Delete" class="btn btn-primary" value="{{ id }}">Delete</button>
+                    </div>
+                </div>
+            </fieldset>
+    </form>
 {% endblock %}

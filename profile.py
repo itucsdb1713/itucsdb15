@@ -35,6 +35,11 @@ def profile_page():
         formName = formName[:-2]
         if(formName == 'Update'):
             return redirect(url_for('site.profile_edit_page', userid=int(request.form['Update'])))
+        formName = request.get_data().decode('ascii')
+        formName = formName[:4]
+        print(formName)
+        if(formName == 'User'):
+            return redirect(url_for('site.profile_edit_page', userid=int(request.form['User'])))
         else:
             UserDatabase.deleteUser(int(request.form['Delete']))
             return redirect(url_for('site.login_page'))
@@ -59,5 +64,12 @@ def profile_edit_page(userid):
             cityTypeData = cursor.fetchall()
             return render_template('profile_edit.html', id= userid,user=user, userTypeData=userTypeData, positionTypeData=positionTypeData, cityTypeData=cityTypeData)
     else:
-        UserDatabase.updateUser(userid, request.form['Name'], request.form['Surname'], request.form['Type'], request.form['No'], request.form['Birthday'], request.form['Position'], request.form['City'])
-        return redirect(url_for('site.profile_page'))
+        formName = request.get_data().decode('ascii')
+        formName = formName[:-2]
+        print(formName)
+        if (formName == 'Update'):
+            UserDatabase.updateUser(userid, request.form['Name'], request.form['Surname'], request.form['Type'], request.form['No'], request.form['Birthday'], request.form['Position'], request.form['City'])
+            return redirect(url_for('site.profile_page'))
+        else:
+            UserDatabase.deleteUser(int(request.form['Delete']))
+            return redirect(url_for('site.login_page'))
