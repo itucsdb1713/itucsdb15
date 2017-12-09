@@ -8,7 +8,7 @@ import home
 import parameters
 import training
 import profile
-
+import fixture
 app = Flask(__name__)
 
 lm = LoginManager()
