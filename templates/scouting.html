@@ -12,7 +12,97 @@
                         </h3>
                     </div>
                     <div class="panel-body">
+                        <form role="form" action="" method="post" name="cities" class="form-horizontal">
+                            {% if current_user.username == 'admin' %}
+                                <a href="{{ url_for('site.scouting_add') }}">
+                                    <button type="button" id="add" name="add" class="btn btn-success">
+                                        Add
+                                    </button>
+                                </a>
 
+                            {% endif %}
+
+                            <br>
+                            <br>
+
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Home Team
+                                    </th>
+                                    <th>
+                                        Away Team
+                                    </th>
+                                    <th>
+                                        Player Name
+                                    </th>
+                                    <th>
+                                        Player Surname
+                                    </th>
+                                    <th>
+                                        Point
+                                    </th>
+                                    <th>
+                                        Match Date
+                                    </th>
+                                     <th>
+                                        Stadium
+                                    </th>
+                                    <th>
+                                        Create Date
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for player in observedPlayers %}
+                                    <tr>
+
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            {{ loop.index }}
+                                        </td>
+                                        <td>
+                                            {{ player[5] }}
+                                        </td>
+                                        <td>
+                                            {{ player[6] }}
+                                        </td>
+                                        <td>
+                                            {{ player[1] }}
+                                        </td>
+                                        <td>
+                                            {{ player[2] }}
+                                        </td>
+                                        <td>
+                                            {{ player[3] }}
+                                        </td>
+                                        <td>
+                                            {{ player[8] }}
+                                        </td>
+                                        <td>
+                                            {{ player[7] }}
+                                        </td>
+                                        <td>
+                                            {{ player[4] }}
+                                        </td>
+
+
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </form>
 
                     </div>
                 </div>
