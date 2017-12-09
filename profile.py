@@ -17,6 +17,9 @@ def profile_page():
     if request.method == 'GET':
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
+            query = "SELECT x.name, x.surname, y.name, x.no, x.birthday FROM userinfo as x JOIN parameters as y on (y.id=x.usertypeid OR y.id=x.cityid OR y.id = x.positionid) WHERE x.userid ='%d'" % int(current_user.id)
+            cursor.execute(query)
+            currentUser = cursor.fetchall()
             query = "SELECT usertypeid FROM userinfo WHERE userid='%d'" %int(current_user.id)
             cursor.execute(query)
             usertype = cursor.fetchone()
@@ -24,9 +27,9 @@ def profile_page():
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
                 users = cursor.fetchall()
-                return render_template('profile.html', usertype=usertype[0], users=users)
+                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users)
             else:
-                return render_template('profile.html')
+                return render_template('profile.html', curretUser=currentUser)
     else:
         return redirect(url_for('site.profile_edit_page', userid=int(request.form['User'])))
 
