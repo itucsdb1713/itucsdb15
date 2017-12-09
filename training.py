@@ -25,7 +25,7 @@ def training_page():
             return render_template('training.html',trainings=trainings)
         else:
             deletes = request.form.getlist('training_to_delete')
-            
+
             for delete in deletes:
                 query = "DELETE FROM TrainingInfo WHERE ID='%d'" % int(delete)
                 cursor.execute(query)
@@ -51,7 +51,7 @@ def training_add():
             trainingName = request.form['trainingName']
             trainingLoc = request.form['trainingLoc']
             trainingDate = request.form['trainingDate']
-
+            
             query = "INSERT INTO TrainingInfo(TYPEID,TrainingName,Location,TrainingDate,CreateUserId,CreateDate) VALUES('%d', '%s', '%s', '%s','%d','%s')" % (int(trainingType), trainingName, trainingLoc, trainingDate,current_user.id,datetime.datetime.now())
             cursor.execute(query)
 
