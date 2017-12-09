@@ -80,7 +80,6 @@ def contract_page():
 def contract_add():
     if request.method == 'GET':
         userIDs = UserDatabase.getUserContractAdd()
-        print(userIDs)
         return render_template('contract_add.html', UserIDs=userIDs)
     else:
         with dbapi2.connect(database.config) as connection:
@@ -104,8 +103,35 @@ def contract_update(ID):
 @login_required
 def injury_page():
     if request.method == 'GET':
-        return render_template('injury.html')
+        injuries = InjuryDatabase.GetInjuries()
+        return render_template('injury.html', injuries = injuries)
     else:
-        InjuryDatabase.add_injury(request.form['RecoveryTime'], request.form['Injury'], request.form['InjuryArea'])
+        deletes = request.form.getlist('injury_to_delete')
+        for delete in deletes:
+            InjuryDatabase.DeleteInjury(delete)
 
-        return redirect(url_for('site.home_page'))
+        return redirect(url_for('site.injury_page'))
+
+@site.route('/injury/add', methods=['GET', 'POST'])
+@login_required
+def injury_add():
+    if request.method == 'GET':
+        userIDs = UserDatabase.getUserContractAdd()
+        return render_template('injury_add.html', UserIDs = userIDs)
+    else:
+        InjuryDatabase.add_injury(request.form['UserID'], request.form['RecoveryTime'], request.form['Injury'], request.form['InjuryArea'])
+        return redirect(url_for('site.injury_page'))
+
+@site.route('/injury/update/<int:ID>', methods=['GET', 'POST'])
+@login_required
+def injury_update(ID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+        if request.method == 'GET':
+            injury = InjuryDatabase.GetInjuryInfo(ID)
+            return render_template('injury_update.html', injury=injury)
+        else:
+            InjuryDatabase.update_injury(ID, request.form['RecoveryTime'], request.form['Injury'],
+                                      request.form['InjuryArea'])
+
+            return redirect(url_for('site.injury_page'))

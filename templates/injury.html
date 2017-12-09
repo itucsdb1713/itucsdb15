@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container-fluid " id="injury">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Injury List
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" action="" method="post" name="cities" class="form-horizontal">
+                            {% if current_user.username == 'admin' or  current_user.username == 'doctor'%}
+                                <a href="{{ url_for('site.injury_add') }}">
+                                    <button type="button" id="add" name="add" class="btn btn-success">
+                                        Add
+                                    </button>
+                                </a>
+                                <a href="{{ url_for('site.injury_page') }}">
+                                    <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                        Delete
+                                    </button>
+                                </a>
+                            {% endif %}
+
+                            <br>
+                            <br>
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Recovery Time
+                                    </th>
+                                    <th>
+                                        Injury
+                                    </th>
+                                    <th>
+                                        Injury Area
+                                    </th>
+                                    <th>
+                                        Create Date
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for injury in injuries %}
+                                    <tr>
+
+                                        <td>
+                                            <input type="checkbox" name="injury_to_delete"
+                                                   value="{{ injury[0] }}"
+                                                   class="checkthis"/>
+                                        </td>
+                                        <td>
+                                            {{ loop.index }}
+                                        </td>
+                                        <td>
+                                            {{ injury[1] }} {{ injury[2] }}
+                                        </td>
+                                        <td>
+                                            {{ injury[3] }}
+                                        </td>
+                                        <td>
+                                            {{ injury[4] }}
+                                        </td>
+                                        <td>
+                                            {{ injury[5] }}
+                                        </td>
+                                        <td>
+                                            {{ injury[6] }}
+                                        </td>
+                                        <td><a href="/injury/update/{{ injury[0] }}"
+                                               class="btn btn-default btn-xs pull-right"><i
+                                                class="glyphicon glyphicon-edit"></i>
+                                        </a></td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

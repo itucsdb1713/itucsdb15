@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.injury_update', ID = injury[0]) }}" method="post">
+
+        <!-- Form Name -->
+        <legend style="color: white">Injury Update</legend>
+
+        <!-- Type Input -->
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="UserID">User</label>
+                <div class="col-md-3">{{ injury[1] }} {{ injury[2] }}
+                </div>
+
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="RecoveryTime">Recovery Time</label>
+                <div class="col-md-3">
+                    <input id="RecoveryTime" name="RecoveryTime" placeholder="{{ injury[3] }}"
+                           class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Injury">Injury</label>
+                <div class="col-md-3">
+                    <input id="Injury" name="Injury" placeholder="{{ injury[4] }}" class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="InjuryArea">Injury Area</label>
+                <div class="col-md-3">
+                    <input id="InjuryArea" name="InjuryArea" placeholder="{{ injury[5] }}" class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="login_button"></label>
+                <div class="col-md-3">
+                    <button id="submit_button" name="submit_button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+    </form>
+{% endblock %}
