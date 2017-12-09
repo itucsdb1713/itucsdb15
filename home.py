@@ -46,7 +46,18 @@ def login_page():
 @login_required
 def register_page():
     if request.method == 'GET':
-        return render_template('register.html')
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=1"""  # typeid 1 for user type
+            cursor.execute(query)
+            userTypeData = cursor.fetchall()
+            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=2"""  # typeid 2 for position type
+            cursor.execute(query)
+            positionTypeData = cursor.fetchall()
+            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=3"""  # typeid 3 for city type
+            cursor.execute(query)
+            cityTypeData = cursor.fetchall()
+            return render_template('register.html', userTypeData=userTypeData, positionTypeData=positionTypeData, cityTypeData=cityTypeData)
     else:
         UserDatabase.add_user(request.form['TypeID'], request.form['PositionID'], request.form['BirthCityID'], request.form['No'], request.form['Birthday'], request.form['Name'], request.form['Surname'], request.form['username'], request.form['password'])
         return redirect(url_for('site.home_page'))

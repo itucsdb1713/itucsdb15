@@ -6,33 +6,49 @@
         <!-- Form Name -->
         <legend>Form Name</legend>
 
-        <!-- Type input-->
+        <!-- Type Input -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="TypeID">Type ID</label>
+            <label class="col-md-4 control-label" for="TypeID">Type</label>
             <div class="col-md-4">
-                <input id="TypeID" name="TypeID" placeholder="Type ID" class="form-control input-md"
-                       required="" type="text">
-
+                <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <select id="TypeID" name="TypeID" class="selectpicker form-control">
+                        {% for type in userTypeData %}
+                            <option value=" {{type[0] }}">{{ type[2] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
 
         <!-- Position input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="PositionID">Position ID</label>
+            <label class="col-md-4 control-label" for="PositionID">Position</label>
             <div class="col-md-4">
-                <input id="PositionID" name="PositionID" placeholder="PositionID" class="form-control input-md"
-                       type="text">
-
+                <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <select id="PositionID" name="PositionID" class="selectpicker form-control">
+                        {% for type in positionTypeData %}
+                            <option value=" {{type[0] }}">{{ type[2] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
 
+
         <!-- BirthCity input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="BirthCityID">BirthCity ID</label>
+            <label class="col-md-4 control-label" for="BirthCityID">BirthCity</label>
             <div class="col-md-4">
-                <input id="BirthCityID" name="BirthCityID" placeholder="BirthCityID" class="form-control input-md"
-                       type="text">
-
+                <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <select id="BirthCityID" name="BirthCityID" class="selectpicker form-control">
+                        {% for type in cityTypeData %}
+                            <option value=" {{type[0] }}">{{ type[2] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -47,10 +63,9 @@
         </div>
 
         <!-- Birthday input-->
-
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Birthday">Start Date</label>
-            <div id="datetimepicker1" class="input-append date">
+            <label class="col-md-4 control-label" for="Birthday">Birthday</label>
+            <div id="datetimepicker1" class="input-append date col-md-4">
                 <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="Birthday" name="Birthday" placeholder="Birthday"></input>
                     <span class="add-on">
                         <i data-time-icon="icon-time" data-date-icon="icon-calendar">
