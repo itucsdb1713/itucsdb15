@@ -36,9 +36,28 @@ class ContractDatabase:
     def update_contract(cls, ID, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, SignDate, EndDate):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
+            query = """SELECT * FROM ContractInfo WHERE ID = %d"""%(ID)
+            cursor.execute(query)
+            contractInfo = cursor.fetchone()
+            contract = list(contractInfo)
+            if Salary != "":
+                contract[3] = Salary
+            if SignPremium != "":
+                contract[4] = SignPremium
+            if MatchPremium != "":
+                contract[5] = MatchPremium
+            if GoalPremium != "":
+                contract[6] = GoalPremium
+            if AssistPremium != "":
+                contract[7] = AssistPremium
+            if SignDate != "":
+                contract[8] = SignDate
+            if EndDate != "":
+                contract[9] = EndDate
+
             query = """UPDATE ContractInfo 
                         SET Salary = '%s', SignPremium= '%s', MatchPremium= '%s', GoalPremium= '%s', AssistPremium= '%s', SignDate= '%s', EndDate= '%s'
-                        WHERE ID = %d """ %(Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, SignDate, EndDate, ID)
+                        WHERE ID = %d """ %(contract[3], contract[4], contract[5], contract[6], contract[7], contract[8], contract[9], ID)
             cursor.execute(query)
             cursor.close()
 

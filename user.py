@@ -130,3 +130,35 @@ class UserDatabase:
 
             cursor.close()
             return user_data
+    @classmethod
+    def updateUser(cls, currentId, newName, newSurname, newType, newNo, newBirthday, newPosition, newCity):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            try:
+                if(newName != ''):
+                    query = "UPDATE USERINFO SET name='%s' WHERE userid = '%d'" % (newName, int(currentId))
+                    cursor.execute(query)
+                if(newSurname != ''):
+                    query = "UPDATE USERINFO SET surname='%s' WHERE userid = '%d'" % (newSurname, int(currentId))
+                    cursor.execute(query)
+                if(newType != ''):
+                    query = "UPDATE USERINFO SET usertypeid='%d' WHERE userid = '%d'" % (int(newType), int(currentId))
+                    cursor.execute(query)
+                if(newNo != ''):
+                    query = "UPDATE USERINFO SET no='%d' WHERE userid = '%d'" % (int(newNo), int(currentId))
+                    cursor.execute(query)
+                if(newBirthday != ''):
+                    query = "UPDATE USERINFO SET birthday='%s' WHERE userid = '%d'" % (newBirthday, int(currentId))
+                    cursor.execute(query)
+                if(newPosition != ''):
+                    query = "UPDATE USERINFO SET positionid='%d' WHERE userid = '%d'" % (int(newPosition), int(currentId))
+                    cursor.execute(query)
+                if(newCity !=''):
+                    query = "UPDATE USERINFO SET cityid='%d' WHERE userid = '%d'" % (int(newCity), int(currentId))
+                    cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+
+            cursor.close()
