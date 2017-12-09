@@ -9,6 +9,7 @@ import parameters
 import training
 import profile
 import fixture
+import scouting
 app = Flask(__name__)
 
 lm = LoginManager()
