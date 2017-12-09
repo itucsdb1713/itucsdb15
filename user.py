@@ -42,17 +42,25 @@ class UserDatabase:
             except dbapi2.Error:
                 connection.rollback()
             else:
-                print("LogInfo")
                 connection.commit()
-            print(str(userID[0]))
-            query = """INSERT INTO StatisticsInfo (ID) VALUES ('%s')"""%(str(userID[0]))
+
+            query = """SELECT name FROM Parameters WHERE ID = '%s' """%(TypeID)
             try:
                 cursor.execute(query)
             except dbapi2.Error:
                 connection.rollback()
             else:
-                print("statistic")
+                parameterName = cursor.fetchone()
                 connection.commit()
+                
+            if parameterName[0] == 'Footballer':
+                query = """INSERT INTO StatisticsInfo (ID) VALUES ('%s')"""%(str(userID[0]))
+                try:
+                    cursor.execute(query)
+                except dbapi2.Error:
+                    connection.rollback()
+                else:
+                    connection.commit()
 
             cursor.close()
 
