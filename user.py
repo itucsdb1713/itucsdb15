@@ -170,3 +170,17 @@ class UserDatabase:
                 connection.commit()
 
             cursor.close()
+
+    @classmethod
+    def deleteUser(cls, ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            try:
+                query = """DELETE FROM USERINFO WHERE ID = '%s' """%(ID)
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+
+            cursor.close()

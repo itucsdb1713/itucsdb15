@@ -78,7 +78,7 @@ class DatabaseOPS:
                                         FOREIGN KEY (UserTypeID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (PositionID) REFERENCES Parameters(ID),
                                         FOREIGN KEY (CityID) REFERENCES Parameters(ID),
-                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID)
+                                        FOREIGN KEY (CreateUserID) REFERENCES UserInfo(UserID) 
                                         )"""
             cursor.execute(query)
 
@@ -91,7 +91,7 @@ class DatabaseOPS:
                                                                 Goal INTEGER DEFAULT 0,
                                                                 Assist INTEGER DEFAULT 0,
                                                                 Match INTEGER DEFAULT 0,
-                                                                FOREIGN KEY(ID) REFERENCES UserInfo(UserID)
+                                                                FOREIGN KEY(ID) REFERENCES UserInfo(UserID) ON DELETE CASCADE 
                                                                 )"""
             cursor.execute(query)
             # StatisticsInfo table is created #
@@ -103,7 +103,7 @@ class DatabaseOPS:
                                       Username varchar(50) UNIQUE NOT NULL,
                                       Password varchar(500) NOT NULL,
                                       LastLoginDate TIMESTAMP,
-                                      FOREIGN KEY(UserID) REFERENCES UserInfo(UserID)
+                                      FOREIGN KEY(UserID) REFERENCES UserInfo(UserID) ON DELETE CASCADE 
                                     )"""
             cursor.execute(query)
 
