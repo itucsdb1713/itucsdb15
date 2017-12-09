@@ -20,15 +20,14 @@ class Contract():
 
 class ContractDatabase:
     @classmethod
-    def add_contract(cls, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, SignDate, EndDate):
+    def add_contract(cls, ID, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, SignDate, EndDate):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
             CreateDate = datetime.datetime.now()
-            UserID = 1
-            CreateUserID = 1
+            CreateUserID = current_user.id
             query = """INSERT INTO ContractInfo (UserID, CreateUserID, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, 
                                                               SignDate, EndDate, CreateDate) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-            cursor.execute(query, (UserID, CreateUserID, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium,
+            cursor.execute(query, (ID, CreateUserID, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium,
                                                               SignDate, EndDate, CreateDate,))
             cursor.close()
 
@@ -37,10 +36,10 @@ class ContractDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
 
-            query = """SELECT TOP 1 * FROM LogInfo WHERE UserID=%s Order By CreateDate desc"""
+            query = """SELECT * FROM ContractInfo WHERE UserID=%s"""%(userID)
 
             try:
-                cursor.execute(query, (userID,))
+                cursor.execute(query)
                 contractInfo = cursor.fetchone()
             except dbapi2.Error:
                 connection.rollback()
@@ -49,7 +48,24 @@ class ContractDatabase:
 
             cursor.close()
 
-            if contractInfo:
-                return Contract(ID = contractInfo[0], userID = contractInfo[1], createUserID = contractInfo[2], salary = contractInfo[3], signPremium = contractInfo[4], matchPremium = contractInfo[5], goalPremium = contractInfo[6], assistPremium = contractInfo[7], signDate = contractInfo[8], endDate = contractInfo[9], createDate=contractInfo[10])
+            return contractInfo
+
+    @classmethod
+    def GetContractList(cls):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT k.ID, m.name, l.name, l.surname, k.SignDate, k.EndDate
+                        FROM ContractInfo as k, UserInfo as l, Parameters as m 
+                        WHERE k.UserID = l.UserID and l.UserTypeID = m.ID"""
+
+            try:
+                cursor.execute(query)
+                contractInfo = cursor.fetchall()
+            except dbapi2.Error:
+                connection.rollback()
             else:
-                return -1
+                connection.commit()
+
+            cursor.close()
+            return contractInfo

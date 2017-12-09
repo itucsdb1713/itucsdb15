@@ -113,3 +113,20 @@ class UserDatabase:
             connection.commit()
             cursor.close()
 
+    @classmethod
+    def getUserContractAdd(cls):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT UserID, Name, Surname FROM UserInfo WHERE UserInfo.UserID NOT IN(SELECT ContractInfo.UserID FROM ContractInfo) """
+
+            try:
+                cursor.execute(query)
+                user_data = cursor.fetchall()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+
+            cursor.close()
+            return user_data

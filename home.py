@@ -66,11 +66,22 @@ def register_page():
 @login_required
 def contract_page():
     if request.method == 'GET':
-        return render_template('contract.html')
+        contracts = ContractDatabase.GetContractList()
+        return render_template('contract.html', contracts = contracts)
     else:
-        ContractDatabase.add_contract(request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
-
         return redirect(url_for('site.home_page'))
+
+@site.route('/contract/add/', methods=['GET', 'POST'])
+@login_required
+def contract_add():
+    if request.method == 'GET':
+        userIDs = UserDatabase.getUserContractAdd()
+        print(userIDs)
+        return render_template('contract_add.html', UserIDs=userIDs)
+    else:
+        with dbapi2.connect(database.config) as connection:
+            ContractDatabase.add_contract(request.form['UserID'],request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
+        return redirect(url_for('site.contract_page'))
 
 @site.route('/injury', methods=['GET', 'POST'])
 @login_required
