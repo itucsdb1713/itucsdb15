@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container-fluid " id="statistics">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Statistics List
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" action="" method="post" name="cities" class="form-horizontal">
+                            {% if current_user.username == 'admin' or  current_user.username == 'trainer'%}
+                                <a href="{{ url_for('site.statistics_add') }}">
+                                    <button type="button" id="add" name="add" class="btn btn-success">
+                                        Add
+                                    </button>
+                                </a>
+                                <a href="{{ url_for('site.statistics_page') }}">
+                                    <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                        Delete
+                                    </button>
+                                </a>
+                            {% endif %}
+
+                            <br>
+                            <br>
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Goal
+                                    </th>
+                                    <th>
+                                        Assist
+                                    </th>
+                                    <th>
+                                        Match
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for statistic in statistics %}
+                                    <tr>
+
+                                        <td>
+                                            <input type="checkbox" name="statistic_to_delete"
+                                                   value="{{ statistic[0] }}"
+                                                   class="checkthis"/>
+                                        </td>
+                                        <td>
+                                            {{ loop.index }}
+                                        </td>
+                                        <td>
+                                            {{ statistic[1] }} {{ statistic[2] }}
+                                        </td>
+                                        <td>
+                                            {{ statistic[3] }}
+                                        </td>
+                                        <td>
+                                            {{ statistic[4] }}
+                                        </td>
+                                        <td>
+                                            {{ statistic[5] }}
+                                        </td>
+                                        <td><a href="/statistics/update/{{ statistic[0] }}"
+                                               class="btn btn-default btn-xs pull-right"><i
+                                                class="glyphicon glyphicon-edit"></i>
+                                        </a></td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

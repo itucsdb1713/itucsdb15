@@ -3,6 +3,7 @@ from database import database
 from user import *
 from contract import *
 from injury import *
+from statistics import *
 
 import datetime
 import psycopg2 as dbapi2
@@ -116,7 +117,7 @@ def injury_page():
 @login_required
 def injury_add():
     if request.method == 'GET':
-        userIDs = UserDatabase.getUserContractAdd()
+        userIDs = StatisticsDatabase.GetAllStatistics()
         return render_template('injury_add.html', UserIDs = userIDs)
     else:
         InjuryDatabase.add_injury(request.form['UserID'], request.form['RecoveryTime'], request.form['Injury'], request.form['InjuryArea'])
@@ -135,3 +136,42 @@ def injury_update(ID):
                                       request.form['InjuryArea'])
 
             return redirect(url_for('site.injury_page'))
+
+
+@site.route('/statistics', methods=['GET', 'POST'])
+@login_required
+def statistics_page():
+    if request.method == 'GET':
+        statistics = StatisticsDatabase.GetAllStatistics()
+        print(statistics)
+        return render_template('statistics.html', statistics = statistics)
+    else:
+        deletes = request.form.getlist('statistic_to_delete')
+        for delete in deletes:
+            StatisticsDatabase.DeleteStatistic(delete)
+
+        return redirect(url_for('site.statistics_page'))
+
+@site.route('/statistics/add', methods=['GET', 'POST'])
+@login_required
+def statistics_add():
+    if request.method == 'GET':
+        userIDs = StatisticsDatabase.getStatisticUsers()
+        return render_template('statistics_add.html', UserIDs = userIDs)
+    else:
+        StatisticsDatabase.add_statistics(request.form['UserID'], request.form['Goal'], request.form['Assist'], request.form['Match'])
+        return redirect(url_for('site.statistics_page'))
+
+@site.route('/statistics/update/<int:ID>', methods=['GET', 'POST'])
+@login_required
+def statistics_update(ID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+        if request.method == 'GET':
+            statistics = StatisticsDatabase.GetStatistic(ID)
+            return render_template('statistics_update.html', statistic=statistics)
+        else:
+            StatisticsDatabase.update_statistics(ID, request.form['Goal'], request.form['Assist'],
+                                      request.form['Match'])
+
+            return redirect(url_for('site.statistics_page'))

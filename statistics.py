@@ -16,7 +16,7 @@ class StatisticsDatabase:
     def add_statistics(cls, ID, Goal, Asist, Match):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
-            query = """SELECT * FROM StatisticsInfo WHERE ID = %d""" % (ID)
+            query = """SELECT * FROM StatisticsInfo WHERE ID = %s""" % (ID)
             cursor.execute(query)
             statisticsInfo = cursor.fetchone()
             statistics = list(statisticsInfo)
@@ -28,13 +28,13 @@ class StatisticsDatabase:
                 statistics[3] = int(Match) + int(statistics[3])
 
             query = """UPDATE StatisticsInfo 
-                            SET Goal = '%s', Asist= '%s', Match= '%s'
-                            WHERE ID = %d """ % (statistics[1], statistics[2], statistics[3], ID)
+                            SET Goal = '%s', Assist= '%s', Match= '%s'
+                            WHERE ID = '%s' """ % (str(statistics[1]), str(statistics[2]), str(statistics[3]), str(ID))
             cursor.execute(query)
             cursor.close()
 
     @classmethod
-    def update_statistics(cls, ID, Goal, Asist, Match):
+    def update_statistics(cls, ID, Goal, Assist, Match):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
             query = """SELECT * FROM StatisticsInfo WHERE ID = %d""" % (ID)
@@ -43,13 +43,13 @@ class StatisticsDatabase:
             statistics = list(statisticsInfo)
             if Goal != "":
                 statistics[1] = Goal
-            if Asist != "":
-                statistics[2] = Asist
+            if Assist != "":
+                statistics[2] = Assist
             if Match != "":
                 statistics[3] = Match
 
             query = """UPDATE StatisticsInfo 
-                                SET Goal = '%s', Asist= '%s', Match= '%s'
+                                SET Goal = '%s', Assist= '%s', Match= '%s'
                                 WHERE ID = %d """ % (statistics[1], statistics[2], statistics[3], ID)
             cursor.execute(query)
             cursor.close()
@@ -59,7 +59,57 @@ class StatisticsDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
             query = """UPDATE StatisticsInfo 
-                                            SET Goal = %d, Asist= %d, Match= %d
-                                            WHERE ID = %d """ % (0, 0, 0, ID)
+                                            SET Goal = %d, Assist= %d, Match= %d
+                                            WHERE ID = '%s' """ % (0, 0, 0, ID)
             cursor.execute(query)
             cursor.close()
+
+    @classmethod
+    def GetAllStatistics(cls):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """SELECT k.ID, l.name, l.surname, k.Goal, k.Assist, k.Match FROM StatisticsInfo as k,UserInfo as l, Parameters as m 
+                        WHERE k.ID = l.UserID and l.UserTypeID = m.ID and m.name = 'Footballer' """
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                statistics = cursor.fetchall()
+                connection.commit()
+            cursor.close()
+            return statistics
+
+    @classmethod
+    def GetStatistic(cls,ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """SELECT k.ID, l.name, l.surname, k.Goal, k.Assist, k.Match FROM StatisticsInfo as k,UserInfo as l
+                             WHERE k.ID = l.UserID and k.ID = %d"""%(ID)
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                statistic = cursor.fetchone()
+                connection.commit()
+            cursor.close()
+            return statistic
+
+    @classmethod
+    def getStatisticUsers(cls):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT k.UserID, k.Name, k.Surname FROM UserInfo as k, parameters as l WHERE k.UserTypeID = l.ID and l.name ='Footballer'  """
+
+            try:
+                cursor.execute(query)
+                user_data = cursor.fetchall()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+
+            cursor.close()
+            return user_data
