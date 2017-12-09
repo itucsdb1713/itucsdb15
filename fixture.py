@@ -25,6 +25,13 @@ def fixture_page():
                 fixture = cursor.fetchall()
                 connection.commit()
             return render_template('fixture.html', fixture=fixture)
+        else:
+            deletes = request.form.getlist('fixture_to_delete')
+
+            for delete in deletes:
+                query = "DELETE FROM FixtureInfo WHERE ID='%d'" % int(delete)
+                cursor.execute(query)
+            return redirect(url_for('site.fixture_page'))
 
 
 @site.route('/fixture/add', methods=['GET', 'POST'])

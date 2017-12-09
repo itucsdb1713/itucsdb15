@@ -19,6 +19,11 @@
                                     Add
                                 </button>
                             </a>
+                            <a href="{{ url_for('site.fixture_page') }}">
+                                <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                    Delete
+                                </button>
+                            </a>
 
 
                             <br>
@@ -64,7 +69,9 @@
                                     <tr>
 
                                         <td>
-
+                                            <input type="checkbox" name="fixture_to_delete"
+                                                   value="{{ match[0] }}"
+                                                   class="checkthis"/>
                                         </td>
                                         <td>
                                             {{ loop.index }}
