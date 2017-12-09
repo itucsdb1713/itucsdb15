@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.fixture_add') }}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Fixture Add</legend>
+
+            <!-- Type input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="fixtureHomeName">Home Team</label>
+                <div class="col-md-3">
+                    <input id="fixtureHomeName" name="fixtureHomeName" placeholder="Enter the home team"
+                           class="form-control input-md"
+                           required="" type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="fixtureAwayName">Away Team</label>
+                <div class="col-md-3">
+                    <input id="fixtureAwayName" name="fixtureAwayName" placeholder="Enter the away team"
+                           class="form-control input-md"
+                           required="" type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="fixtureArena">Stadium</label>
+                <div class="col-md-3">
+                    <input id="fixtureArena" name="fixtureArena" placeholder="Enter the stadium"
+                           class="form-control input-md"
+                           required="" type="text">
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="fixtureCity">Fixture City</label>
+                <div class="col-md-3">
+
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select id="fixtureCity" name="fixtureCity" class="selectpicker form-control">
+
+                            {% for city in city_data %}
+
+                                <option value=" {{ city[0] }}">{{ city[2] }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="matchDate">Match Date</label>
+                <div id="datetimepicker1" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="matchDate" name="matchDate"
+                           placeholder="Match Date"></input>
+                    <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                        </i>
+                    </span>
+                </div>
+            </div>
+
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-3">
+                    <button id="add_button" name="add_button" class="btn btn-success">Add Fixture</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+
+{% endblock %}

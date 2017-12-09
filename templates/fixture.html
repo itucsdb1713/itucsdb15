@@ -12,7 +12,92 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <h2>First Match</h2>
+                        <form role="form" action="" method="post" name="cities" class="form-horizontal">
+
+                            <a href="{{ url_for('site.fixture_add') }}">
+                                <button type="button" id="add" name="add" class="btn btn-success">
+                                    Add
+                                </button>
+                            </a>
+
+
+                            <br>
+                            <br>
+
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Home Team
+                                    </th>
+                                    <th>
+                                        Away Team
+                                    </th>
+                                    <th>
+                                        Stadium
+                                    </th>
+
+                                    <th>
+                                        Home Team Score
+                                    </th>
+                                    <th>
+                                        Away Team Score
+                                    </th>
+
+                                    <th>
+                                        City
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for match in fixture %}
+                                    <tr>
+
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            {{ loop.index }}
+                                        </td>
+                                        <td>
+                                            {{ match[1] }}
+                                        </td>
+                                        <td>
+                                            {{ match[2] }}
+                                        </td>
+                                        <td>
+                                            {{ match[3] }}
+                                        </td>
+
+                                        <td>
+                                            {{ match[5] }}
+                                        </td>
+                                        <td>
+                                            {{ match[6] }}
+                                        </td>
+                                        <td>
+                                            {{ match[4] }}
+                                        </td>
+                                        <td>
+                                            {{ match[7] }}
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </form>
 
                     </div>
                 </div>
