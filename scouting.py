@@ -24,6 +24,15 @@ def scouting_page():
             observedPlayers = cursor.fetchall()
             connection.commit()
             return render_template('scouting.html',observedPlayers=observedPlayers)
+        
+        else:
+            deletes = request.form.getlist('scouting_to_delete')
+
+            for delete in deletes:
+                query = "DELETE FROM ObservedPlayerInfo WHERE ID='%d'" % int(delete)
+                cursor.execute(query)
+
+            return redirect(url_for('site.scouting_page'))
 
 
 @site.route('/scouting/add', methods=['GET', 'POST'])

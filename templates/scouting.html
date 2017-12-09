@@ -19,6 +19,11 @@
                                         Add
                                     </button>
                                 </a>
+                                <a href="{{ url_for('site.scouting_page') }}">
+                                    <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                        Delete
+                                    </button>
+                                </a>
 
                             {% endif %}
 
@@ -52,7 +57,7 @@
                                     <th>
                                         Match Date
                                     </th>
-                                     <th>
+                                    <th>
                                         Stadium
                                     </th>
                                     <th>
@@ -66,7 +71,9 @@
                                     <tr>
 
                                         <td>
-
+                                            <input type="checkbox" name="scouting_to_delete"
+                                                   value="{{ player[0] }}"
+                                                   class="checkthis"/>
                                         </td>
                                         <td>
                                             {{ loop.index }}
