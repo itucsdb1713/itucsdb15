@@ -69,7 +69,11 @@ def contract_page():
         contracts = ContractDatabase.GetContractList()
         return render_template('contract.html', contracts = contracts)
     else:
-        return redirect(url_for('site.home_page'))
+        deletes = request.form.getlist('contract_to_delete')
+        for delete in deletes:
+            ContractDatabase.DeleteContract(delete)
+
+        return redirect(url_for('site.contract_page'))
 
 @site.route('/contract/add/', methods=['GET', 'POST'])
 @login_required
@@ -82,6 +86,19 @@ def contract_add():
         with dbapi2.connect(database.config) as connection:
             ContractDatabase.add_contract(request.form['UserID'],request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
         return redirect(url_for('site.contract_page'))
+
+@site.route('/contract/update/<int:ID>', methods=['GET', 'POST'])
+@login_required
+def contract_update(ID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+        if request.method == 'GET':
+            contract = ContractDatabase.GetContractInfo(ID)
+            return render_template('contract_update.html', contract=contract)
+        else:
+            ContractDatabase.update_contract(ID,request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
+
+            return redirect(url_for('site.contract_page'))
 
 @site.route('/injury', methods=['GET', 'POST'])
 @login_required

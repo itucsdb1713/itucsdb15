@@ -31,13 +31,24 @@ class ContractDatabase:
                                                               SignDate, EndDate, CreateDate,))
             cursor.close()
 
+
     @classmethod
-    def GetContractInfo(cls, userID):
+    def update_contract(cls, ID, Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, SignDate, EndDate):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
+            query = """UPDATE ContractInfo 
+                        SET Salary = '%s', SignPremium= '%s', MatchPremium= '%s', GoalPremium= '%s', AssistPremium= '%s', SignDate= '%s', EndDate= '%s'
+                        WHERE ID = %d """ %(Salary, SignPremium, MatchPremium, GoalPremium, AssistPremium, SignDate, EndDate, ID)
+            cursor.execute(query)
+            cursor.close()
 
-            query = """SELECT * FROM ContractInfo WHERE UserID=%s"""%(userID)
-
+    @classmethod
+    def GetContractInfo(cls, ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """SELECT k.ID, l.name, l.surname, k.Salary, k.SignPremium , k.MatchPremium , k.GoalPremium , k.AssistPremium, k.SignDate, k.EndDate
+                                    FROM ContractInfo as k, UserInfo as l, Parameters as m 
+                                    WHERE k.UserID = l.UserID and l.UserTypeID = m.ID and k.ID = %s"""%(ID)
             try:
                 cursor.execute(query)
                 contractInfo = cursor.fetchone()
@@ -47,7 +58,6 @@ class ContractDatabase:
                 connection.commit()
 
             cursor.close()
-
             return contractInfo
 
     @classmethod
@@ -69,3 +79,16 @@ class ContractDatabase:
 
             cursor.close()
             return contractInfo
+
+    @classmethod
+    def DeleteContract(cls, ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """DELETE FROM ContractInfo WHERE ID = %s"""%(ID)
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+            cursor.close()

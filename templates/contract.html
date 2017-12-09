@@ -57,7 +57,7 @@
                                     <tr>
 
                                         <td>
-                                            <input type="checkbox" name="training_to_delete"
+                                            <input type="checkbox" name="contract_to_delete"
                                                    value="{{ contract[0] }}"
                                                    class="checkthis"/>
                                         </td>
@@ -76,7 +76,10 @@
                                         <td>
                                             {{ contract[5] }}
                                         </td>
-
+                                        <td><a href="/contract/update/{{ contract[0] }}"
+                                               class="btn btn-default btn-xs pull-right"><i
+                                                class="glyphicon glyphicon-edit"></i>
+                                        </a></td>
                                     </tr>
                                 {% endfor %}
 
