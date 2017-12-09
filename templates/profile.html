@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Form Name</legend>
+
+            <!-- Name input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="Name">Name</label>
+                <div class="col-md-4">
+                    <input id="Name" name="Name" placeholder="{{ user[0][0] }}" class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Surname input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="Surname">Surname</label>
+                <div class="col-md-4">
+                    <input id="Surname" name="Surname" placeholder="{{ user[0][1] }}" class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+
+            <!-- Type input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="Type">Type</label>
+                <div class="col-md-4">
+                    <input id="Type" name="Type" placeholder="{{ user[0][2] }}" class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <!-- No input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="No">No</label>
+                <div class="col-md-4">
+                    <input id="No" name="No" placeholder="{{ user[0][3] }}" class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <!-- Birthday input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="Birthday">Birthday</label>
+                <div class="col-md-4">
+                    <input id="Birthday" name="Birthday" placeholder="{{ user[0][4] }}" class="form-control input-md"
+                           type="text">
+                </div>
+            </div>
+            <!-- Position input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="Position">Position</label>
+                <div class="col-md-4">
+                    {% if user|length == 2 %}
+                    <input id="Position" name="Position" placeholder="{{ user[1][2] }}" class="form-control input-md"
+                           type="text">
+                    {% else %}
+                    <input id="Position" name="Position" placeholder="Position" class="form-control input-md"
+                           type="text">
+                    {% endif %}
+                </div>
+            </div>
+            <!-- City input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="City">City</label>
+                <div class="col-md-4">
+                    {% if user|length == 2 %}
+                    <input id="City" name="City" placeholder="{{ user[2][2] }}" class="form-control input-md"
+                           type="text">
+                    {% else %}
+                    <input id="City" name="City" placeholder="City" class="form-control input-md" type="text">
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="login_button"></label>
+                <div class="col-md-4">
+                    <button id="register_button" name="register_button" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+{% endblock %}

@@ -7,6 +7,7 @@ from user import *
 import home
 import parameters
 import training
+import profile
 
 app = Flask(__name__)
 
