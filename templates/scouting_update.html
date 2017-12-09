@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <form class="form-horizontal" action="{{ url_for('site.scouting_update',observedID = observedPlayer[0]) }}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend id="legend">Scouting Update</legend>
+
+            <!-- Type input-->
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="matchType"> Match </label>
+                <div class="col-md-3">
+
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select id="matchType" name="matchType" class="selectpicker form-control">
+
+                            {% for match in fixture_data %}
+
+                                <option value=" {{ match[0] }}">{{ match[4] }}: {{ match[5] }}-{{ match[6] }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="observedName">Name</label>
+                <div class="col-md-3">
+                    <input id="observedName" name="observedName" placeholder="{{ observedPlayer[1] }}"
+                           class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="observedSurname">Surname</label>
+                <div class="col-md-3">
+                    <input id="observedSurname" name="observedSurname" placeholder="{{ observedPlayer[2] }}"
+                           class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="observedPoint">Point</label>
+                <div class="col-md-3">
+                    <input id="observedPoint" name="observedPoint" placeholder="{{ observedPlayer[3] }}"
+                           class="form-control input-md"
+                           type="text">
+
+                </div>
+            </div>
+
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-3">
+                    <button id="update_button" name="update_button" class="btn btn-success">Update Observed Player</button>
+                </div>
+            </div>
+
+
+        </fieldset>
+    </form>
+
+
+
+{% endblock %}

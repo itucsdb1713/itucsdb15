@@ -24,7 +24,7 @@ def scouting_page():
             observedPlayers = cursor.fetchall()
             connection.commit()
             return render_template('scouting.html',observedPlayers=observedPlayers)
-        
+
         else:
             deletes = request.form.getlist('scouting_to_delete')
 
@@ -56,6 +56,55 @@ def scouting_add():
                 observedPoint = 0
             query = "INSERT INTO ObservedPlayerInfo(MatchID, ScoutID, Name, Surname, Point,CreateDate) VALUES('%d', '%d', '%s', '%s','%d','%s')" % (int(matchType), current_user.id, observedName, observedSurname, int(observedPoint), datetime.datetime.now())
             cursor.execute(query)
+
+            connection.commit()
+
+            return redirect(url_for('site.scouting_page'))
+
+@site.route('/scouting/update/<int:observedID>', methods=['GET', 'POST'])
+@login_required
+def scouting_update(observedID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+
+        if request.method == 'GET':
+
+            query = """ SELECT ID, Name, Surname, Point FROM ObservedPlayerInfo WHERE ID='%d'""" %(observedID)
+            cursor.execute(query)
+            observedPlayer = cursor.fetchone()
+            query = """ SELECT * FROM FixtureInfo"""  # typeid 4 for training
+            cursor.execute(query)
+            fixture_data = cursor.fetchall()
+            connection.commit()
+
+            return render_template('scouting_update.html', observedPlayer=observedPlayer,fixture_data=fixture_data)
+        else:
+
+            new_Match = request.form['matchType']
+            new_Name = request.form['observedName']
+            new_Surname = request.form['observedSurname']
+            new_Point = request.form['observedPoint']
+            new_Date = datetime.datetime.now()
+
+            query = """SELECT * FROM ObservedPlayerInfo WHERE ID = %d""" % (observedID)
+            cursor.execute(query)
+            observedPlayerInfo = cursor.fetchone()
+            observedPlayer = list(observedPlayerInfo)
+
+            if new_Name != "":
+                observedPlayer[5] = new_Name
+            if new_Surname != "":
+                observedPlayer[6] = new_Surname
+            if new_Point != "":
+                observedPlayer[3] = new_Point
+
+
+            query = """UPDATE ObservedPlayerInfo 
+                                                SET Name = '%s', Surname= '%s', Point= '%s', MatchID= '%d', CreateDate= '%s'
+                                                WHERE ID = %d """ % (
+                observedPlayer[5], observedPlayer[6], observedPlayer[3], int(new_Match),new_Date, observedID)
+            cursor.execute(query)
+            cursor.close()
 
             connection.commit()
 
