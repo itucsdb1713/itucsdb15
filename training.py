@@ -18,7 +18,7 @@ def training_page():
     with dbapi2.connect(database.config) as connection:
         cursor = connection.cursor()
         if request.method == 'GET':
-            query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id """
+            query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id ORDER BY x.TrainingDate DESC"""
             cursor.execute(query)
             trainings = cursor.fetchall()
             connection.commit()
