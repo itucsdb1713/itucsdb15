@@ -1,93 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
+    {% if (usertype == 95)%}
     <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
         <fieldset>
-
             <!-- Form Name -->
             <legend>Form Name</legend>
-
-            <!-- Name input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="Name">Name</label>
-                <div class="col-md-4">
-                    <input id="Name" name="Name" placeholder="{{ user[0][0] }}" class="form-control input-md"
-                           type="text">
-
-                </div>
-            </div>
-            <!-- Surname input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="Surname">Surname</label>
-                <div class="col-md-4">
-                    <input id="Surname" name="Surname" placeholder="{{ user[0][1] }}" class="form-control input-md"
-                           type="text">
-
-                </div>
-            </div>
-
-            <!-- Type Input -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="Type">Type</label>
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <span class="input-group-addon"></span>
-                        <select id="Type" name="Type" class="selectpicker form-control">
-                            {% for type in userTypeData %}
-                                <option value=" {{type[0] }}">{{ type[2] }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- No input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="No">No</label>
-                <div class="col-md-4">
-                    <input id="No" name="No" placeholder="{{ user[0][3] }}" class="form-control input-md"
-                           type="text">
-
-                </div>
-            </div>
-            <!-- Birthday input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="Birthday">Birthday</label>
-                <div id="datetimepicker1" class="input-append date col-md-4">
-                    <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="Birthday" name="Birthday" placeholder="Birthday"></input>
-                        <span class="add-on">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                            </i>
-                        </span>
-                </div>
-            </div>
-            <!-- Position input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="Position">Position</label>
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <span class="input-group-addon"></span>
-                        <select id="Position" name="Position" class="selectpicker form-control">
-                            {% for type in positionTypeData %}
-                                <option value=" {{type[0] }}">{{ type[2] }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </div>
             <!-- BirthCity input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="City">BirthCity</label>
+                <label class="col-md-4 control-label" for="User">Users</label>
                 <div class="col-md-4">
                     <div class="input-group">
                         <span class="input-group-addon"></span>
-                        <select id="City" name="City" class="selectpicker form-control">
-                            {% for type in cityTypeData %}
-                                <option value=" {{type[0] }}">{{ type[2] }}</option>
+                        <select id="User" name="User" class="selectpicker form-control">
+                            {% for user in users %}
+                                <option value=" {{ user[2] }}">{{ user[0] }} {{ user[1] }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
             </div>
-
             <!-- Button -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="update_button"></label>
@@ -98,4 +29,7 @@
 
         </fieldset>
     </form>
+    {% else %}
+    <!-- normal users see their profile info here -->
+    {% endif %}
 {% endblock %}
