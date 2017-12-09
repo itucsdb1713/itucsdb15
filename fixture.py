@@ -60,3 +60,61 @@ def fixture_add():
             connection.commit()
 
             return redirect(url_for('site.fixture_page'))
+
+
+@site.route('/fixture/update/<int:matchID>', methods=['GET', 'POST'])
+@login_required
+def fixture_update(matchID):
+    with dbapi2.connect(database.config) as connection:
+        cursor = connection.cursor()
+
+        if request.method == 'GET':
+
+            query = """ SELECT x.ID, x.HomeTeamName, x.AwayTeamName, x.ArenaName, x.matchDate, x.HomeTeamScore, x.AwayTeamScore FROM FixtureInfo As x JOIN Parameters as y ON x.CityId = y.Id WHERE x.ID=%d""" %(matchID)
+            cursor.execute(query)
+            match = cursor.fetchone()
+            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=3"""  # typeid 3 for city
+            cursor.execute(query)
+            city_data = cursor.fetchall()
+            connection.commit()
+            print(match)
+            return render_template('fixture_update.html', match=match, city_data=city_data)
+        else:
+
+            new_Home = request.form['fixtureHomeName']
+            new_Away = request.form['fixtureAwayName']
+            new_Arena = request.form['fixtureArena']
+            new_HomeScore = request.form['fixtureHomeScore']
+            new_AwayScore = request.form['fixtureAwayScore']
+            new_City = request.form['fixtureCity']
+            new_Date = request.form['matchDate']
+
+            query = """SELECT * FROM FixtureInfo WHERE ID = %d""" % (matchID)
+            cursor.execute(query)
+            fixtureInfo = cursor.fetchone()
+            fixture = list(fixtureInfo)
+            if new_Home != "":
+                fixture[5] = new_Home
+            if new_Away != "":
+                fixture[6] = new_Away
+            if new_Arena != "":
+                fixture[7] = new_Arena
+            if new_HomeScore != "":
+                fixture[2] = new_HomeScore
+            if new_AwayScore != "":
+                fixture[3] = new_AwayScore
+            if new_City != "":
+                fixture[1] = new_City
+            if new_Date != "":
+                fixture[4] = new_Date
+
+            query = """UPDATE FixtureInfo 
+                                    SET HomeTeamName = '%s', AwayTeamName= '%s', ArenaName= '%s', CityID= '%d', HomeTeamScore= '%s', AwayTeamScore= '%s', MatchDate= '%s'
+                                    WHERE ID = %d """ % (
+                fixture[5], fixture[6], fixture[7], int(fixture[1]), fixture[2], fixture[3], fixture[4], matchID)
+            cursor.execute(query)
+            cursor.close()
+
+
+            connection.commit()
+            return redirect(url_for('site.fixture_page'))
