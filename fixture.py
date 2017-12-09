@@ -17,13 +17,12 @@ import urllib
 def fixture_page():
     with dbapi2.connect(database.config) as connection:
         cursor = connection.cursor()
+
         if request.method == 'GET':
-            print("Fixture")
-            if request.method == 'GET':
-                query = """ SELECT x.ID, x.HomeTeamName, x.AwayTeamName, x.ArenaName, y.Name, x.HomeTeamScore, x.AwayTeamScore, x.Matchdate FROM FixtureInfo As x JOIN Parameters as y ON x.CityId = y.Id ORDER BY x.MatchDate DESC"""
-                cursor.execute(query)
-                fixture = cursor.fetchall()
-                connection.commit()
+            query = """ SELECT x.ID, x.HomeTeamName, x.AwayTeamName, x.ArenaName, y.Name, x.HomeTeamScore, x.AwayTeamScore, x.Matchdate FROM FixtureInfo As x JOIN Parameters as y ON x.CityId = y.Id ORDER BY x.MatchDate DESC"""
+            cursor.execute(query)
+            fixture = cursor.fetchall()
+            connection.commit()
             return render_template('fixture.html', fixture=fixture)
         else:
             deletes = request.form.getlist('fixture_to_delete')
@@ -77,7 +76,7 @@ def fixture_update(matchID):
             cursor.execute(query)
             city_data = cursor.fetchall()
             connection.commit()
-            print(match)
+
             return render_template('fixture_update.html', match=match, city_data=city_data)
         else:
 
