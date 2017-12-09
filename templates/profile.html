@@ -25,13 +25,18 @@
                 </div>
             </div>
 
-            <!-- Type input-->
+            <!-- Type Input -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="Type">Type</label>
                 <div class="col-md-4">
-                    <input id="Type" name="Type" placeholder="{{ user[0][2] }}" class="form-control input-md"
-                           type="text">
-
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select id="Type" name="Type" class="selectpicker form-control">
+                            {% for type in userTypeData %}
+                                <option value=" {{type[0] }}">{{ type[2] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
             <!-- No input-->
@@ -46,42 +51,48 @@
             <!-- Birthday input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="Birthday">Birthday</label>
-                <div class="col-md-4">
-                    <input id="Birthday" name="Birthday" placeholder="{{ user[0][4] }}" class="form-control input-md"
-                           type="text">
+                <div id="datetimepicker1" class="input-append date col-md-4">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="date" id="Birthday" name="Birthday" placeholder="Birthday"></input>
+                        <span class="add-on">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                            </i>
+                        </span>
                 </div>
             </div>
             <!-- Position input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="Position">Position</label>
                 <div class="col-md-4">
-                    {% if user|length == 2 %}
-                    <input id="Position" name="Position" placeholder="{{ user[1][2] }}" class="form-control input-md"
-                           type="text">
-                    {% else %}
-                    <input id="Position" name="Position" placeholder="Position" class="form-control input-md"
-                           type="text">
-                    {% endif %}
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select id="Position" name="Position" class="selectpicker form-control">
+                            {% for type in positionTypeData %}
+                                <option value=" {{type[0] }}">{{ type[2] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
-            <!-- City input-->
+            <!-- BirthCity input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="City">City</label>
+                <label class="col-md-4 control-label" for="City">BirthCity</label>
                 <div class="col-md-4">
-                    {% if user|length == 2 %}
-                    <input id="City" name="City" placeholder="{{ user[2][2] }}" class="form-control input-md"
-                           type="text">
-                    {% else %}
-                    <input id="City" name="City" placeholder="City" class="form-control input-md" type="text">
-                    {% endif %}
+                    <div class="input-group">
+                        <span class="input-group-addon"></span>
+                        <select id="City" name="City" class="selectpicker form-control">
+                            {% for type in cityTypeData %}
+                                <option value=" {{type[0] }}">{{ type[2] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <!-- Button -->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="login_button"></label>
+                <label class="col-md-4 control-label" for="update_button"></label>
                 <div class="col-md-4">
-                    <button id="register_button" name="register_button" class="btn btn-primary">Update</button>
+                    <button id="update_button" name="update_button" class="btn btn-primary">Update</button>
                 </div>
             </div>
 
