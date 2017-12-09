@@ -1,67 +1,78 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% if (usertype == 95)%}
-    <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
-        <fieldset>
-            <!-- Form Name -->
-            <legend>Form Name</legend>
-            <!-- BirthCity input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="User">Users</label>
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <span class="input-group-addon"></span>
-                        <select id="User" name="User" class="selectpicker form-control">
-                            {% for user in users %}
-                                <option value=" {{ user[2] }}">{{ user[0] }} {{ user[1] }}</option>
-                            {% endfor %}
-                        </select>
+    {% if (usertype == 95) %}
+        <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Form Name</legend>
+                <!-- BirthCity input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="User">Users</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <select id="User" name="User" class="selectpicker form-control">
+                                {% for user in users %}
+                                    <option value=" {{ user[2] }}">{{ user[0] }} {{ user[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Button -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="update_button"></label>
-                <div class="col-md-4">
-                    <button id="update_button" name="update_button" class="btn btn-primary">Update</button>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="update_button"></label>
+                    <div class="col-md-4">
+                        <button id="update_button" name="update_button" class="btn btn-primary">Update</button>
+                    </div>
                 </div>
-            </div>
 
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
     {% endif %}
     <!-- users see their profile info here -->
     <br><br>
     <div class="card col-md-4">
-      <img src="https://www.cierpialmemorialfuneralhomes.com/wp-content/uploads/2015/09/nphoto-339421.gif" alt="Avatar">
-      <div class="container">
-        <h4><b>{{ curretUser[0][0]  }} {{ curretUser[0][1]  }}</b></h4>
-        <p>{{ curretUser[0][4] }}</p>
-        {% if curretUser|length > 2 %}
-        <p>{{ curretUser[2][2] }}</p>
-        {% endif %}
-        <p>{{ curretUser[0][2] }}</p>
-        {% if curretUser|length > 1 %}
-        <p>{{ curretUser[1][2] }}</p>
-        {% endif %}
-        <p>{{ curretUser[0][3] }}</p>
-      </div>
+        <img src="https://www.cierpialmemorialfuneralhomes.com/wp-content/uploads/2015/09/nphoto-339421.gif"
+             alt="Avatar">
+        <div class="container">
+            <h4><b>{{ curretUser[0][0] }} {{ curretUser[0][1] }}</b></h4>
+            <p>{{ curretUser[0][4] }}</p>
+            {% if curretUser|length > 2 %}
+                <p>{{ curretUser[2][2] }}</p>
+            {% endif %}
+            <p>{{ curretUser[0][2] }}</p>
+            {% if curretUser|length > 1 %}
+                <p>{{ curretUser[1][2] }}</p>
+            {% endif %}
+            <p>{{ curretUser[0][3] }}</p>
+        </div>
+        <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
+            <fieldset>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="User"></label>
+                    <div class="col-md-3">
+                        <button id="User" name="User" class="btn btn-primary" value="{{ curID }}">Update</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
     </div>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 15%;
+            padding-top: 10px
+        }
 
-<style>
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 15%;
-    padding-top: 10px
-}
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
 
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.container {
-    padding: 2px 16px;
-}
-</style>
+        .container {
+            padding: 2px 16px;
+        }
+    </style>
 {% endblock %}

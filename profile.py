@@ -27,9 +27,9 @@ def profile_page():
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
                 users = cursor.fetchall()
-                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users)
+                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users, curID=current_user.id)
             else:
-                return render_template('profile.html', curretUser=currentUser)
+                return render_template('profile.html', curretUser=currentUser, curID=current_user.id)
     else:
         return redirect(url_for('site.profile_edit_page', userid=int(request.form['User'])))
 
