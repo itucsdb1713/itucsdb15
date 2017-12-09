@@ -63,3 +63,19 @@ class StatisticsDatabase:
                                             WHERE ID = %d """ % (0, 0, 0, ID)
             cursor.execute(query)
             cursor.close()
+
+    @classmethod
+    def GetAllStatistics(cls):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """SELECT k.ID, l.name, l.surname, FROM StatisticsInfo as k,UserInfo as l, Parameters as m 
+                        WHERE k.ID = l.UserID and l.UserTypeID = m.ID and m.name = 'Footballer' """
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                statistics = cursor.fetchall()
+                connection.commit()
+            cursor.close()
+            return statistics
