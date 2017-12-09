@@ -176,7 +176,7 @@ class UserDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
             try:
-                query = """DELETE FROM USERINFO WHERE ID = '%s' """%(ID)
+                query = "DELETE FROM USERINFO WHERE USERID = '%d' " % int(ID)
                 cursor.execute(query)
             except dbapi2.Error:
                 connection.rollback()

@@ -31,7 +31,13 @@ def profile_page():
             else:
                 return render_template('profile.html', curretUser=currentUser, curID=current_user.id)
     else:
-        return redirect(url_for('site.profile_edit_page', userid=int(request.form['User'])))
+        formName = request.get_data().decode('ascii')
+        formName = formName[:-2]
+        if(formName == 'Update'):
+            return redirect(url_for('site.profile_edit_page', userid=int(request.form['Update'])))
+        else:
+            UserDatabase.deleteUser(int(request.form['Delete']))
+            return redirect(url_for('site.login_page'))
 
 @site.route('/profile-edit/<int:userid>', methods=['GET', 'POST'])
 @login_required
