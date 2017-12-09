@@ -181,15 +181,15 @@ class DatabaseOPS:
             # FixtureInfo table is created #
 
             # StadiumIncomeInfo table is deleted #
-            query = """DROP TABLE IF EXISTS StadiumIncomeInfo CASCADE"""
-            cursor.execute(query)
+        #    query = """DROP TABLE IF EXISTS StadiumIncomeInfo CASCADE"""
+        #    cursor.execute(query)
 
-            query = """CREATE TABLE StadiumIncomeInfo (
-                                                       MatchID SERIAL PRIMARY KEY,
-                                                       AudienceIncome MONEY DEFAULT 0,
-                                                       StadiumExpense MONEY DEFAULT 0
-                                                                                          )"""
-            cursor.execute(query)
+        #    query = """CREATE TABLE StadiumIncomeInfo (
+        #                                               MatchID SERIAL PRIMARY KEY,
+        #                                               AudienceIncome MONEY DEFAULT 0,
+        #                                               StadiumExpense MONEY DEFAULT 0
+        #                                                                                  )"""
+        #    cursor.execute(query)
             # StadiumIncomeInfo table is created #
             ################ ufuk sahar ####################
 
