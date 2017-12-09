@@ -168,8 +168,8 @@ class DatabaseOPS:
             query = """CREATE TABLE FixtureInfo (
                                                  ID SERIAL PRIMARY KEY,
                                                  CityID INTEGER NOT NULL,
-                                                 HomeTeamScore INTEGER NOT NULL,
-                                                 AwayTeamScore INTEGER NOT NULL,
+                                                 HomeTeamScore INTEGER DEFAULT 0,
+                                                 AwayTeamScore INTEGER DEFAULT 0,
                                                  MatchDate DATE,
                                                  HomeTeamName VARCHAR(100),
                                                  AwayTeamName VARCHAR(100),
