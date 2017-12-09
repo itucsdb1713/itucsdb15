@@ -35,6 +35,11 @@ def profile_page():
         formName = formName[:-2]
         if(formName == 'Update'):
             return redirect(url_for('site.profile_edit_page', userid=int(request.form['Update'])))
+        formName = request.get_data().decode('ascii')
+        formName = formName[:4]
+        print(formName)
+        if(formName == 'User'):
+            return redirect(url_for('site.profile_edit_page', userid=int(request.form['User'])))
         else:
             UserDatabase.deleteUser(int(request.form['Delete']))
             return redirect(url_for('site.login_page'))
