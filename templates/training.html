@@ -12,64 +12,75 @@
                         </h3>
                     </div>
                     <div class="panel-body">
+                        <form role="form" action="" method="post" name="cities" class="form-horizontal">
+                            {% if current_user.username == 'admin' %}
+                                <a href="{{ url_for('site.training_add') }}">
+                                    <button type="button" id="add" name="add" class="btn btn-success">
+                                        Add
+                                    </button>
+                                </a>
+                                <a href="{{ url_for('site.training_page') }}">
+                                    <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                        Delete
+                                    </button>
+                                </a>
+                            {% endif %}
 
-                        {% if current_user.username == 'admin' %}
-                            <a href="{{ url_for('site.training_add') }}">
-                                <button type="button" id="add" name="add" class="btn btn-success">
-                                    Add
-                                </button>
-                            </a>
-                        {% endif %}
+                            <br>
+                            <br>
 
-                        <br>
-                        <br>
-                        <table class="table table-bordered table-hover table-condensed">
-                            <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Type
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Location
-                                </th>
-                                <th>
-                                    Date
-                                </th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            {% for training in trainings %}
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
                                 <tr>
-
-
-                                    <td>
-                                        {{ loop.index }}
-                                    </td>
-                                    <td>
-                                        {{ training[0] }}
-                                    </td>
-                                    <td>
-                                        {{ training[1] }}
-                                    </td>
-                                    <td>
-                                        {{ training[2] }}
-                                    </td>
-                                    <td>
-                                        {{ training[3] }}
-                                    </td>
-
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Type
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
                                 </tr>
-                            {% endfor %}
+                                </thead>
 
-                            </tbody>
-                        </table>
+                                <tbody>
+                                {% for training in trainings %}
+                                    <tr>
+
+                                        <td>
+                                            <input type="checkbox" name="training_to_delete"
+                                                   value="{{ training[0] }}"
+                                                   class="checkthis"/>
+                                        </td>
+                                        <td>
+                                            {{ loop.index }}
+                                        </td>
+                                        <td>
+                                            {{ training[1] }}
+                                        </td>
+                                        <td>
+                                            {{ training[2] }}
+                                        </td>
+                                        <td>
+                                            {{ training[3] }}
+                                        </td>
+                                        <td>
+                                            {{ training[4] }}
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </form>
 
                     </div>
                 </div>
