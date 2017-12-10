@@ -70,9 +70,9 @@ def profile_edit_page(userid):
         formName = request.get_data().decode('ascii')
         formName = formName[:-2]
         print(formName)
-        if (formName == 'Update'):
-            UserDatabase.updateUser(userid, request.form['Name'], request.form['Surname'], request.form['Type'], request.form['No'], request.form['Birthday'], request.form['Position'], request.form['City'])
-            return redirect(url_for('site.profile_page'))
-        else:
+        if (formName == 'Delete'):
             UserDatabase.deleteUser(int(request.form['Delete']))
             return redirect(url_for('site.login_page'))
+        else:
+            UserDatabase.updateUser(userid, request.form['Name'], request.form['Surname'], request.form['Type'], request.form['No'], request.form['Birthday'], request.form['Position'], request.form['City'])
+            return redirect(url_for('site.profile_page'))
