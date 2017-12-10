@@ -47,157 +47,193 @@ def login_page():
 @site.route('/register', methods=['GET', 'POST'])
 @login_required
 def register_page():
-    if request.method == 'GET':
-        with dbapi2.connect(database.config) as connection:
-            cursor = connection.cursor()
-            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=1"""  # typeid 1 for user type
-            cursor.execute(query)
-            userTypeData = cursor.fetchall()
-            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=2"""  # typeid 2 for position type
-            cursor.execute(query)
-            positionTypeData = cursor.fetchall()
-            query = """ SELECT * FROM PARAMETERS WHERE TYPEID=3"""  # typeid 3 for city type
-            cursor.execute(query)
-            cityTypeData = cursor.fetchall()
-            return render_template('register.html', userTypeData=userTypeData, positionTypeData=positionTypeData, cityTypeData=cityTypeData)
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            with dbapi2.connect(database.config) as connection:
+                cursor = connection.cursor()
+                query = """ SELECT * FROM PARAMETERS WHERE TYPEID=1"""  # typeid 1 for user type
+                cursor.execute(query)
+                userTypeData = cursor.fetchall()
+                query = """ SELECT * FROM PARAMETERS WHERE TYPEID=2"""  # typeid 2 for position type
+                cursor.execute(query)
+                positionTypeData = cursor.fetchall()
+                query = """ SELECT * FROM PARAMETERS WHERE TYPEID=3"""  # typeid 3 for city type
+                cursor.execute(query)
+                cityTypeData = cursor.fetchall()
+                return render_template('register.html', userTypeData=userTypeData, positionTypeData=positionTypeData, cityTypeData=cityTypeData)
+        else:
+            UserDatabase.add_user(request.form['TypeID'], request.form['PositionID'], request.form['BirthCityID'], request.form['No'], request.form['Birthday'], request.form['Name'], request.form['Surname'], request.form['username'], request.form['password'])
+            return redirect(url_for('site.home_page'))
     else:
-        UserDatabase.add_user(request.form['TypeID'], request.form['PositionID'], request.form['BirthCityID'], request.form['No'], request.form['Birthday'], request.form['Name'], request.form['Surname'], request.form['username'], request.form['password'])
-        return redirect(url_for('site.home_page'))
+        return render_template('error.html')
 
 @site.route('/contract', methods=['GET', 'POST'])
 @login_required
 def contract_page():
-    if request.method == 'GET':
-        contracts = ContractDatabase.GetContractList()
-        return render_template('contract.html', contracts = contracts)
-    else:
-        deletes = request.form.getlist('contract_to_delete')
-        for delete in deletes:
-            ContractDatabase.DeleteContract(delete)
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            contracts = ContractDatabase.GetContractList()
+            return render_template('contract.html', contracts = contracts)
+        else:
+            deletes = request.form.getlist('contract_to_delete')
+            for delete in deletes:
+                ContractDatabase.DeleteContract(delete)
 
-        return redirect(url_for('site.contract_page'))
+            return redirect(url_for('site.contract_page'))
+    else:
+        return render_template('error.html')
 
 @site.route('/contract/add/', methods=['GET', 'POST'])
 @login_required
 def contract_add():
-    if request.method == 'GET':
-        userIDs = UserDatabase.getUserContractAdd()
-        return render_template('contract_add.html', UserIDs=userIDs)
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            userIDs = UserDatabase.getUserContractAdd()
+            return render_template('contract_add.html', UserIDs=userIDs)
+        else:
+            with dbapi2.connect(database.config) as connection:
+                ContractDatabase.add_contract(request.form['UserID'],request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
+            return redirect(url_for('site.contract_page'))
     else:
-        with dbapi2.connect(database.config) as connection:
-            ContractDatabase.add_contract(request.form['UserID'],request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
-        return redirect(url_for('site.contract_page'))
+        return render_template('error.html')
 
 @site.route('/contract/update/<int:ID>', methods=['GET', 'POST'])
 @login_required
 def contract_update(ID):
-    with dbapi2.connect(database.config) as connection:
-        cursor = connection.cursor()
-        if request.method == 'GET':
-            contract = ContractDatabase.GetContractInfo(ID)
-            return render_template('contract_update.html', contract=contract)
-        else:
-            ContractDatabase.update_contract(ID,request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
+    if current_user.userType == 'admin':
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            if request.method == 'GET':
+                contract = ContractDatabase.GetContractInfo(ID)
+                return render_template('contract_update.html', contract=contract)
+            else:
+                ContractDatabase.update_contract(ID,request.form['Salary'], request.form['SignPremium'], request.form['MatchPremium'], request.form['GoalPremium'], request.form['AssistPremium'], request.form['StartDate'], request.form['EndDate'])
 
-            return redirect(url_for('site.contract_page'))
+                return redirect(url_for('site.contract_page'))
+    else:
+        return render_template('error.html')
 
 @site.route('/injury', methods=['GET', 'POST'])
 @login_required
 def injury_page():
-    if request.method == 'GET':
-        injuries = InjuryDatabase.GetInjuries()
-        return render_template('injury.html', injuries = injuries)
-    else:
-        deletes = request.form.getlist('injury_to_delete')
-        for delete in deletes:
-            InjuryDatabase.DeleteInjury(delete)
+    if current_user.userType == 'admin' or current_user.userType == 'Doctor':
+        if request.method == 'GET':
+            injuries = InjuryDatabase.GetInjuries()
+            return render_template('injury.html', injuries = injuries)
+        else:
+            deletes = request.form.getlist('injury_to_delete')
+            for delete in deletes:
+                InjuryDatabase.DeleteInjury(delete)
 
-        return redirect(url_for('site.injury_page'))
+            return redirect(url_for('site.injury_page'))
+    else:
+        return render_template('error.html')
 
 @site.route('/injury/add', methods=['GET', 'POST'])
 @login_required
 def injury_add():
-    if request.method == 'GET':
-        userIDs = StatisticsDatabase.GetAllStatistics()
-        return render_template('injury_add.html', UserIDs = userIDs)
+    if current_user.userType == 'admin' or current_user.userType == 'Doctor':
+        if request.method == 'GET':
+            userIDs = StatisticsDatabase.GetAllStatistics()
+            return render_template('injury_add.html', UserIDs = userIDs)
+        else:
+            InjuryDatabase.add_injury(request.form['UserID'], request.form['RecoveryTime'], request.form['Injury'], request.form['InjuryArea'])
+            return redirect(url_for('site.injury_page'))
     else:
-        InjuryDatabase.add_injury(request.form['UserID'], request.form['RecoveryTime'], request.form['Injury'], request.form['InjuryArea'])
-        return redirect(url_for('site.injury_page'))
+        return render_template('error.html')
 
 @site.route('/injury/update/<int:ID>', methods=['GET', 'POST'])
 @login_required
 def injury_update(ID):
-    with dbapi2.connect(database.config) as connection:
-        cursor = connection.cursor()
-        if request.method == 'GET':
-            injury = InjuryDatabase.GetInjuryInfo(ID)
-            return render_template('injury_update.html', injury=injury)
-        else:
-            InjuryDatabase.update_injury(ID, request.form['RecoveryTime'], request.form['Injury'],
-                                      request.form['InjuryArea'])
+    if current_user.userType == 'admin' or current_user.userType == 'Doctor':
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            if request.method == 'GET':
+                injury = InjuryDatabase.GetInjuryInfo(ID)
+                return render_template('injury_update.html', injury=injury)
+            else:
+                InjuryDatabase.update_injury(ID, request.form['RecoveryTime'], request.form['Injury'],
+                                          request.form['InjuryArea'])
 
-            return redirect(url_for('site.injury_page'))
+                return redirect(url_for('site.injury_page'))
+    else:
+        return render_template('error.html')
 
 
 @site.route('/statistics', methods=['GET', 'POST'])
 @login_required
 def statistics_page():
-    if request.method == 'GET':
-        statistics = StatisticsDatabase.GetAllStatistics()
-        print(statistics)
-        return render_template('statistics.html', statistics = statistics)
-    else:
-        deletes = request.form.getlist('statistic_to_delete')
-        for delete in deletes:
-            StatisticsDatabase.DeleteStatistic(delete)
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            statistics = StatisticsDatabase.GetAllStatistics()
+            print(statistics)
+            return render_template('statistics.html', statistics = statistics)
+        else:
+            deletes = request.form.getlist('statistic_to_delete')
+            for delete in deletes:
+                StatisticsDatabase.DeleteStatistic(delete)
 
-        return redirect(url_for('site.statistics_page'))
+            return redirect(url_for('site.statistics_page'))
+    else:
+        return render_template('error.html')
 
 @site.route('/statistics/add', methods=['GET', 'POST'])
 @login_required
 def statistics_add():
-    if request.method == 'GET':
-        userIDs = StatisticsDatabase.getStatisticUsers()
-        return render_template('statistics_add.html', UserIDs = userIDs)
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            userIDs = StatisticsDatabase.getStatisticUsers()
+            return render_template('statistics_add.html', UserIDs = userIDs)
+        else:
+            StatisticsDatabase.add_statistics(request.form['UserID'], request.form['Goal'], request.form['Assist'], request.form['Match'])
+            return redirect(url_for('site.statistics_page'))
     else:
-        StatisticsDatabase.add_statistics(request.form['UserID'], request.form['Goal'], request.form['Assist'], request.form['Match'])
-        return redirect(url_for('site.statistics_page'))
+        return render_template('error.html')
 
 @site.route('/statistics/update/<int:ID>', methods=['GET', 'POST'])
 @login_required
 def statistics_update(ID):
-    with dbapi2.connect(database.config) as connection:
-        cursor = connection.cursor()
-        if request.method == 'GET':
-            statistics = StatisticsDatabase.GetStatistic(ID)
-            return render_template('statistics_update.html', statistic=statistics)
-        else:
-            StatisticsDatabase.update_statistics(ID, request.form['Goal'], request.form['Assist'],
-                                      request.form['Match'])
+    if current_user.userType == 'admin':
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            if request.method == 'GET':
+                statistics = StatisticsDatabase.GetStatistic(ID)
+                return render_template('statistics_update.html', statistic=statistics)
+            else:
+                StatisticsDatabase.update_statistics(ID, request.form['Goal'], request.form['Assist'],
+                                          request.form['Match'])
 
-            return redirect(url_for('site.statistics_page'))
+                return redirect(url_for('site.statistics_page'))
+    else:
+        return render_template('error.html')
 
 @site.route('/premiums', methods=['GET', 'POST'])
 @login_required
 def premiums_page():
-    if request.method == 'GET':
-        premiums = PremiumDatabase.getPremiums()
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            premiums = PremiumDatabase.getPremiums()
 
-        return render_template('premiums.html', premiums = premiums)
+            return render_template('premiums.html', premiums = premiums)
+        else:
+
+            deletes = request.form.getlist('premium_to_delete')
+            for delete in deletes:
+                print("delete",delete)
+                PremiumDatabase.DeletePremium(delete)
+
+            return redirect(url_for('site.premiums_page'))
     else:
-
-        deletes = request.form.getlist('premium_to_delete')
-        for delete in deletes:
-            print("delete",delete)
-            PremiumDatabase.DeletePremium(delete)
-
-        return redirect(url_for('site.premiums_page'))
+        return render_template('error.html')
 
 @site.route('/premiums/update', methods=['GET', 'POST'])
 @login_required
 def premiums_add():
-    if request.method == 'GET':
-        PremiumDatabase.add_premium()
-        return redirect(url_for('site.premiums_page'))
+    if current_user.userType == 'admin':
+        if request.method == 'GET':
+            PremiumDatabase.add_premium()
+            return redirect(url_for('site.premiums_page'))
+        else:
+            return redirect(url_for('site.premiums_page'))
     else:
-        return redirect(url_for('site.premiums_page'))
+        return render_template('error.html')
