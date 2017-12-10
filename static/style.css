@@ -59,3 +59,9 @@ div#datetime {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.form-horizontal{
+    background-color: rgba(255,255,255,0.2);
+    color:black;
+
+}

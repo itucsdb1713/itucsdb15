@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     {% if (usertype == 'admin') %}
-        <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
+        <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post" style="background-color: transparent">
             <fieldset>
                 <!-- Form Name -->
                 <legend>Form Name</legend>
