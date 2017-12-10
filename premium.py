@@ -65,7 +65,7 @@ class PremiumDatabase:
                         for k in range(1, 6):
                             if k < 4:
                                 userID = i[0]
-                                amount = j[k] * i[k-1]
+                                amount = j[k] * i[k]
                                 if k == 1:
                                     for l in parameters:
                                         if l[1] == 'Goal Premium':
