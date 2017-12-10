@@ -80,6 +80,24 @@ class ContractDatabase:
             return contractInfo
 
     @classmethod
+    def GetContractInfoUser(cls, ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """SELECT k.Salary, k.SignPremium , k.MatchPremium , k.GoalPremium , k.AssistPremium, k.SignDate, k.EndDate
+                                        FROM ContractInfo as k, UserInfo as l, Parameters as m 
+                                        WHERE k.UserID = l.UserID and l.UserTypeID = m.ID and k.userID = %s""" % (ID)
+            try:
+                cursor.execute(query)
+                contractInfo = cursor.fetchone()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+
+            cursor.close()
+            return contractInfo
+
+    @classmethod
     def GetContractList(cls):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
