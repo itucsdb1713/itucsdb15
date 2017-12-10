@@ -59,7 +59,7 @@ class PremiumDatabase:
                     ctrl = False
                     if i[0] == j[0]:
                         for m in premiums:
-                            if m[0] == i[0]:
+                            if m[1] == i[0]:  #
                                 ctrl = True
                                 break
                         for k in range(1, 6):
