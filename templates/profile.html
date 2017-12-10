@@ -70,6 +70,7 @@
             </fieldset>
         </form>
     </div>
+    {% if(current_user.userType == 'Footballer') %}
     <div class="col-md-8">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -332,7 +333,7 @@
             </div>
         </div>
     </div>
-
+    {% endif %}
     <style>
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
