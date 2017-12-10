@@ -1,49 +1,61 @@
 body {
-  background-color: white;
-  color: #6F6F6F;
-  font-family: 'Droid Sans', 'Helvetica', 'sans';
-  font-size: 12pt;
-  margin: 2ex 2em;
+    background-color: white;
+    color: #6F6F6F;
+    font-family: 'Droid Sans', 'Helvetica', 'sans';
+    font-size: 12pt;
+    margin: 2ex 2em;
 }
 
 h1, h2, h3, h4 {
-  color: #E9601A;
+    color: #E9601A;
 }
 
 a {
-  color: #6F6F6F;
-  text-decoration: underline;
+    color: #6F6F6F;
+    text-decoration: underline;
 }
 
 div#datetime {
-  font-size: 80%;
-  text-align: right;
+    font-size: 80%;
+    text-align: right;
 }
-#logout{
-  
-  margin-top: 30px;
-}
-#logo{
 
- width: 200px;
-  height:40px;
+#logout {
+
+    margin-top: 30px;
 }
+
+#logo {
+
+    width: 200px;
+    height: 40px;
+}
+
 .navbar-brand {
-  padding: 0px;
+    padding: 0px;
 }
-.navbar-brand>img {
-  height: 100%;
-  padding: 10px;
-  width: 200px;
+
+.navbar-brand > img {
+    height: 100%;
+    padding: 10px;
+    width: 200px;
 }
-.panel-group{
-  margin-top: 100px;
-  margin-right: 20%;
+
+.panel-group {
+    margin-top: 100px;
+    margin-right: 20%;
 }
+
 #training {
-  margin-top: 100px;
-  width: 80%;
+    margin-top: 100px;
+    width: 80%;
 }
-#legend{
-  color:black;
+
+#legend {
+    color: black;
+}
+
+#home_img {
+    background-repeat: no-repeat;
+    background-size: cover;
 }
