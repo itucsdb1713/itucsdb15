@@ -13,11 +13,16 @@
                     <div class="panel-body">
                         <form role="form" action="" method="post" name="cities" class="form-horizontal">
 
-                                <a href="{{ url_for('site.injury_add') }}">
-                                    <button type="button" id="add" name="add" class="btn btn-success">
-                                        Add
-                                    </button>
-                                </a>
+                            <a href="{{ url_for('site.injury_add') }}">
+                                <button type="button" id="add" name="add" class="btn btn-success">
+                                    Add
+                                </button>
+                            </a>
+                            <a href="{{ url_for('site.injury_page') }}">
+                                <button type="submit" id="delete" name="delete" class="btn btn-primary">
+                                    Delete
+                                </button>
+                            </a>
 
 
                             <br>
