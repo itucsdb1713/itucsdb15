@@ -12,6 +12,7 @@ from flask_login import login_user, current_user, login_required, logout_user
 import urllib
 from contract import ContractDatabase
 from statistics import StatisticsDatabase
+from injury import InjuryDatabase
 
 @site.route('/profile', methods=['GET', 'POST'])
 @login_required
@@ -27,13 +28,15 @@ def profile_page():
             usertype = cursor.fetchone()
             contractInfo = ContractDatabase.GetContractInfoUser(current_user.id)
             staticInfo = StatisticsDatabase.GetStatistic(current_user.id)
+            injuryInfo = InjuryDatabase.GetInjuryInfoUser(current_user.id)
+            print(injuryInfo)
             if(usertype[0] == 95):
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
                 users = cursor.fetchall()
-                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users, curID=current_user.id, contract=contractInfo, static=staticInfo)
+                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo)
             else:
-                return render_template('profile.html', curretUser=currentUser, curID=current_user.id, contract=contractInfo, static=staticInfo)
+                return render_template('profile.html', curretUser=currentUser, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo)
     else:
         formName = request.get_data().decode('ascii')
         formName = formName[:-2]
