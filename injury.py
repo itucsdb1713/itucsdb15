@@ -30,7 +30,26 @@ class InjuryDatabase:
             cursor = connection.cursor()
 
             query = """SELECT k.ID, l.name,l.surname, k.RecoveryTime, k.Injury, k.InjuryArea, k.CreateDate 
-                        FROM InjuryInfo as k, UserInfo as l WHERE k.UserID = l. UserID and k.ID = %d """%(ID)
+                        FROM InjuryInfo as k, UserInfo as l WHERE k.UserID = l.UserID and k.ID = %d """%(ID)
+
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                injuryInfo = cursor.fetchone()
+                connection.commit()
+
+            cursor.close()
+            return injuryInfo
+
+    @classmethod
+    def GetInjuryInfoUser(cls, ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+
+            query = """SELECT k.RecoveryTime, k.Injury, k.InjuryArea, k.CreateDate 
+                            FROM InjuryInfo as k, UserInfo as l WHERE k.UserID = l.UserID and l.UserID = %d """ % (ID)
 
             try:
                 cursor.execute(query)
