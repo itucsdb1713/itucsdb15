@@ -245,8 +245,11 @@ class DatabaseOPS:
             query = """INSERT INTO Parameters(Name,TypeID) VALUES ('admin',1)"""
             cursor.execute(query)
 
-            query = """INSERT INTO UserInfo(UserTypeID, CreateUserID, CreateDate) VALUES (95, 1, %s)"""
-            cursor.execute(query, (datetime.datetime.now(),))
+            query= """SELECT ID FROM PARAMETERS WHERE NAME='%s'""" %('admin')
+            cursor.execute(query)
+            userType = cursor.fetchone()
+            query = """INSERT INTO UserInfo(UserTypeID, CreateUserID, CreateDate) VALUES (%s, 1, %s)"""
+            cursor.execute(query,(userType,datetime.datetime.now(),))
 
             query = """SELECT MAX(UserID) FROM UserInfo """
             cursor.execute(query)

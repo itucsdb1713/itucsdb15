@@ -6,11 +6,12 @@ import datetime
 from flask_login import current_user
 
 class User(UserMixin):
-    def __init__(self, id, username, password, lastLoginDate):
+    def __init__(self, id, username, password, lastLoginDate, userType):
         self.id = id
         self.username = username
         self.password = password
         self.lastLoginDate = lastLoginDate
+        self.userType = userType
 
 class UserDatabase:
     @classmethod
@@ -80,11 +81,15 @@ class UserDatabase:
                 connection.rollback()
             else:
                 connection.commit()
-
+            print(user_data)
+            query = "SELECT y.Name FROM userinfo as x JOIN Parameters as y ON (x.usertypeid=y.id) WHERE x.userID='%d'" %(user_data[0])
+            cursor.execute(query)
+            user_type = cursor.fetchone()
+            connection.commit()
             cursor.close()
-
+            print("Select user with username: ",user_type[0])
             if user_data:
-                return User(id=user_data[0], username=user_data[1], password=user_data[2], lastLoginDate = user_data[3])
+                return User(id=user_data[0], username=user_data[1], password=user_data[2], lastLoginDate = user_data[3],userType = user_type[0])
             else:
                 return -1
 
@@ -102,11 +107,16 @@ class UserDatabase:
                 connection.rollback()
             else:
                 connection.commit()
+            query = "SELECT y.Name FROM userinfo as x JOIN Parameters as y ON (x.usertypeid=y.id) WHERE x.userID='%d'" % (
+            user_data[0])
 
+            cursor.execute(query)
+            user_type = cursor.fetchone()
+            connection.commit()
             cursor.close()
-
+            print("Select user with id: ", user_type[0])
             if user_data:
-                return User(id=user_data[0], username=user_data[1], password=user_data[2], lastLoginDate = user_data[3])
+                return User(id=user_data[0], username=user_data[1], password=user_data[2], lastLoginDate = user_data[3], userType=user_type[0])
             else:
                 return -1
 

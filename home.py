@@ -182,7 +182,7 @@ def statistics_update(ID):
 def premiums_page():
     if request.method == 'GET':
         premiums = PremiumDatabase.getPremiums()
-        print(premiums)
+
         return render_template('premiums.html', premiums = premiums)
     else:
 
