@@ -185,6 +185,12 @@ def premiums_page():
         print(premiums)
         return render_template('premiums.html', premiums = premiums)
     else:
+
+        deletes = request.form.getlist('premium_to_delete')
+        for delete in deletes:
+            print("delete",delete)
+            PremiumDatabase.DeletePremium(delete)
+
         return redirect(url_for('site.premiums_page'))
 
 @site.route('/premiums/update', methods=['GET', 'POST'])

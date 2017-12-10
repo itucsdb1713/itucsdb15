@@ -65,7 +65,7 @@ class PremiumDatabase:
                         for k in range(1, 6):
                             if k < 4:
                                 userID = i[0]
-                                amount = j[k] * i[k - 1]
+                                amount = j[k] * i[k-1]
                                 if k == 1:
                                     for l in parameters:
                                         if l[1] == 'Goal Premium':
@@ -156,8 +156,24 @@ class PremiumDatabase:
 
         return premiumList
 
+    @classmethod
+    def DeletePremium(cls, ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            print("ID",ID)
+            query = "DELETE FROM PremiumInfo WHERE userID='%d'" % int(ID)
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                print("Rollback")
+                connection.rollback()
 
-    # or j in range(counter + 1, count - 1):
+            else:
+                print("commit")
+                connection.commit()
+            cursor.close()
+            return
+            # or j in range(counter + 1, count - 1):
     #   if i[0] == premiums2[j][0]:
     #       if i[3] == 'Goal Premium':
     #           print("Goal 2")
