@@ -102,7 +102,7 @@ class ContractDatabase:
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
 
-            query = """SELECT k.ID, m.name, l.name, l.surname, k.SignDate, k.EndDate
+            query = """SELECT k.ID, m.name, l.name, l.surname, k.salary, k.signpremium, k.matchpremium, k.goalpremium, k.assistpremium, k.SignDate, k.EndDate
                         FROM ContractInfo as k, UserInfo as l, Parameters as m 
                         WHERE k.UserID = l.UserID and l.UserTypeID = m.ID"""
 
