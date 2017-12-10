@@ -33,21 +33,30 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
                 <li><a href="/profile">Profile</a></li>
-                <li><a href="/training">Training</a></li>
-                <li><a href="/contract">Contract</a></li>
-                <li><a href="/injury">Injury</a></li>
-                <li><a href="/statistics">Statistics</a></li>
-                {% if current_user.username == "admin" %}
-                    <li><a href="/premiums">Premiums</a></li>
-                    <li><a href="/fixture">Fixture</a></li>
+                {% if current_user.userType ==  "Trainer" or current_user.userType ==  "admin" %}
+                    <li><a href="/training">Training</a></li>
+                {% endif %}
+                {% if current_user.userType ==  "Doctor" or current_user.userType ==  "admin" %}
+                    <li><a href="/injury">Injury</a></li>
+                {% endif %}
+                {% if current_user.userType ==  "Scout" or current_user.userType ==  "admin" %}
                     <li><a href="/scouting">Scouting</a></li>
+                {% endif %}
+
+                {% if current_user.userType == "admin" %}
+                    <li><a href="/fixture">Fixture</a></li>
+                    <li><a href="/statistics">Statistics</a></li>
+                    <li><a href="/contract">Contract</a></li>
+                    <li><a href="/premiums">Premiums</a></li>
                     <li><a href="/parameters">Parameters</a></li>
                 {% endif %}
             </ul>
 
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/register">Register</a></li>
+                {% if current_user.userType == "admin" %}
+                    <li><a href="/register">Register</a></li>
+                {% endif %}
                 <li><a href="/logout">Log out</a></li>
             </ul>
 
