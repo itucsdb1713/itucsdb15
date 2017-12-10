@@ -30,9 +30,9 @@ def profile_page():
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
                 users = cursor.fetchall()
-                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users, curID=current_user.id)
+                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users, curID=current_user.id, contract=contractInfo)
             else:
-                return render_template('profile.html', curretUser=currentUser, curID=current_user.id)
+                return render_template('profile.html', curretUser=currentUser, curID=current_user.id, contract=contractInfo)
     else:
         formName = request.get_data().decode('ascii')
         formName = formName[:-2]
