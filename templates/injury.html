@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container-fluid " id="injury">
+    <div class="container-fluid " id="training">
         <div class="row">
             <div class="col-md-12">
 
@@ -12,13 +12,13 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" action="" method="post" name="cities" class="form-horizontal">
-                            {% if current_user.username == 'admin' or  current_user.username == 'doctor'%}
+
                                 <a href="{{ url_for('site.injury_add') }}">
                                     <button type="button" id="add" name="add" class="btn btn-success">
                                         Add
                                     </button>
                                 </a>
-                            {% endif %}
+
 
                             <br>
                             <br>

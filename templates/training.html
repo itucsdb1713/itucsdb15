@@ -13,7 +13,7 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" action="" method="post" name="cities" class="form-horizontal">
-                            {% if current_user.username == 'admin' %}
+
                                 <a href="{{ url_for('site.training_add') }}">
                                     <button type="button" id="add" name="add" class="btn btn-success">
                                         Add
@@ -24,7 +24,7 @@
                                         Delete
                                     </button>
                                 </a>
-                            {% endif %}
+
 
                             <br>
                             <br>
