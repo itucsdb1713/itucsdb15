@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% if (usertype == 95) %}
+    {% if (usertype == 'admin') %}
         <form class="form-horizontal" action="{{ url_for('site.profile_page') }}" method="post">
             <fieldset>
                 <!-- Form Name -->

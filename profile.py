@@ -23,18 +23,14 @@ def profile_page():
             query = "SELECT x.name, x.surname, y.name, x.no, x.birthday FROM userinfo as x JOIN parameters as y on (y.id=x.usertypeid OR y.id=x.cityid OR y.id = x.positionid) WHERE x.userid ='%d'" % int(current_user.id)
             cursor.execute(query)
             currentUser = cursor.fetchall()
-            query = "SELECT usertypeid FROM userinfo WHERE userid='%d'" %int(current_user.id)
-            cursor.execute(query)
-            usertype = cursor.fetchone()
             contractInfo = ContractDatabase.GetContractInfoUser(current_user.id)
             staticInfo = StatisticsDatabase.GetStatistic(current_user.id)
             injuryInfo = InjuryDatabase.GetInjuryInfoUser(current_user.id)
-            print(injuryInfo)
-            if(usertype[0] == 95):
+            if(current_user.userType == 'admin' ):
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
                 users = cursor.fetchall()
-                return render_template('profile.html', curretUser=currentUser, usertype=usertype[0], users=users, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo)
+                return render_template('profile.html', curretUser=currentUser, usertype=current_user.userType, users=users, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo)
             else:
                 return render_template('profile.html', curretUser=currentUser, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo)
     else:
