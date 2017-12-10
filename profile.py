@@ -30,14 +30,15 @@ def profile_page():
             query = """ SELECT x.ID, y.Name, x.TrainingName, x.Location, x.TrainingDate FROM TrainingInfo As x JOIN Parameters as y ON x.TypeId = y.Id ORDER BY x.TrainingDate DESC"""
             cursor.execute(query)
             trainingInfo = cursor.fetchall()
-
+            premiumInfo = PremiumDatabase.getUserPremiumInfo(current_user.id)
+            print("Premium info:", premiumInfo)
             if(current_user.userType == 'admin' ):
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
                 users = cursor.fetchall()
                 return render_template('profile.html', curretUser=currentUser, usertype=current_user.userType, users=users, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo)
             else:
-                return render_template('profile.html', curretUser=currentUser, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo, trainingInfo=trainingInfo)
+                return render_template('profile.html', curretUser=currentUser, curID=current_user.id, contract=contractInfo, static=staticInfo, injury=injuryInfo, trainingInfo=trainingInfo, premiumInfo=premiumInfo)
     else:
         formName = request.get_data().decode('ascii')
         formName = formName[:-2]
