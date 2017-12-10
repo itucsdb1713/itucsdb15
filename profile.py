@@ -10,6 +10,7 @@ from flask import redirect
 from flask import url_for
 from flask_login import login_user, current_user, login_required, logout_user
 import urllib
+from contract import ContractDatabase
 
 @site.route('/profile', methods=['GET', 'POST'])
 @login_required
@@ -23,6 +24,8 @@ def profile_page():
             query = "SELECT usertypeid FROM userinfo WHERE userid='%d'" %int(current_user.id)
             cursor.execute(query)
             usertype = cursor.fetchone()
+            contractInfo = ContractDatabase.GetContractInfoUser(current_user.id)
+            print(contractInfo)
             if(usertype[0] == 95):
                 query = "SELECT name, surname, userid FROM userinfo"
                 cursor.execute(query)
