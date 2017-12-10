@@ -157,6 +157,57 @@ class PremiumDatabase:
         return premiumList
 
     @classmethod
+    def getUserPremiumInfo(cls,ID):
+        with dbapi2.connect(database.config) as connection:
+            cursor = connection.cursor()
+            query = """SELECT k.UserID, m.name, m.surname , l.name, k.Amount FROM UserInfo as m, PremiumInfo as k, Parameters as l WHERE m.UserID = k.UserID and k.PremiumTypeID = l.ID and k.userID='%d'""" %(int(ID))
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                premiumInfo = cursor.fetchall()
+                connection.commit()
+            query = """SELECT ID, Name  FROM Parameters WHERE TypeID = 5"""
+            try:
+                cursor.execute(query)
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                parameterInfo = cursor.fetchall()
+                connection.commit()
+            parameters = list(parameterInfo)
+
+            premiums1 = list(premiumInfo)
+            premiums2 = list(premiumInfo)
+            count = len(premiums1)
+            counter = 0
+            premiumList = []
+            tempPremium = []
+            premium = []
+            for i in premiums1:
+                if counter % 5 == 0:
+                    premium.append(i[0])
+                    premium.append(i[1])
+                    premium.append(i[2])
+                if i[3] == 'Goal Premium':
+                    premium.insert(5, i[4])
+                if i[3] == 'Assist Premium':
+                    premium.insert(6, i[4])
+                if i[3] == 'Match Premium':
+                    premium.insert(7, i[4])
+                if i[3] == 'Sign Premium':
+                    premium.insert(4, i[4])
+                if i[3] == 'Salary':
+                    premium.insert(3, i[4])
+                if counter % 5 == 4:
+                    premiumList.append(premium)
+                    premium = []
+                counter = counter + 1
+
+        return premiumList
+
+    @classmethod
     def DeletePremium(cls, ID):
         with dbapi2.connect(database.config) as connection:
             cursor = connection.cursor()
