@@ -428,3 +428,110 @@ Prim Bilgisi
                 return redirect(url_for('site.premiums_page'))
         else:
             return render_template('error.html')
+
+
+Parametre Bilgisi
+-------------------------
+
+- Parametre bilgisi tablosu
+   Bu tabloda diğer tabloların kullanması gereken parametreler yer almaktadır. Bu parametreler kullanıcı tipi, pozisyon/mevki, şehir, antrenman tipi ve prim tipi parametreleri olmak üzere 5'e ayrılır. Parametre tablosuna birçok tablodan dış anahtarla başvuru yapılır. Parametreleri ekleme, silme, ve güncelleme yetkisi sadece yetkili yöneticiler de olup başlangıçta veritabanında yer alan parametrelerin silinmemesi gerekir. Ayrıca, sistemde kullanılan parametreler silinemez.
+
+- Parametre bilgisi ekleme
+
+.. code-block:: python
+
+    def parameter_add(TYPE):
+        if current_user.userType == 'admin':
+            with dbapi2.connect(database.config) as connection:
+                cursor = connection.cursor()
+
+            if request.method == 'GET':
+                query = """ SELECT ID,NAME FROM PARAMETERTYPE WHERE ID='%d'"""% TYPE
+                cursor.execute(query)
+                typeName = cursor.fetchone()
+
+
+                return render_template('parameter_add.html', parameterType=typeName)
+            else:
+                parameterName = request.form['parameterType']
+
+
+                query = "INSERT INTO PARAMETERS(TYPEID,NAME) VALUES('%d', '%s')" % (TYPE,parameterName)
+                cursor.execute(query)
+
+                connection.commit()
+
+                return redirect(url_for('site.parameters_page'))
+        else:
+            return render_template('error.html')
+
+- Parametre bilgisi güncelleme
+
+.. code-block:: python
+
+    def parameter_update(parameterID):
+        if current_user.userType == 'admin':
+            with dbapi2.connect(database.config) as connection:
+                cursor = connection.cursor()
+
+                if request.method == 'GET':
+
+                    query = """ SELECT * FROM PARAMETERS WHERE ID='%d'""" % (parameterID)
+                    cursor.execute(query)
+                    parameter = cursor.fetchone()
+                    query = """ SELECT NAME FROM PARAMETERTYPE WHERE ID='%d'""" % parameter[1]
+                    cursor.execute(query)
+                    parameterType = cursor.fetchone()
+                    connection.commit()
+
+                    return render_template('parameter_update.html', parameter=parameter,parameterType=parameterType)
+                else:
+
+                    new_parameterName = request.form['update_parameter']
+                    query = """UPDATE Parameters SET Name = '%s' WHERE ID = %d""" % (new_parameterName,parameterID)
+                    cursor.execute(query)
+                    connection.commit()
+                    return redirect(url_for('site.parameters_page'))
+        else:
+            return render_template('error.html')
+
+- Parametre bilgisi silme
+
+.. code-block:: python
+
+    def parameters_page():
+        if current_user.userType == 'admin':
+            with dbapi2.connect(database.config) as connection:
+                cursor = connection.cursor()
+            if request.method == 'GET':
+                #query = """ SELECT P1.NAME FROM PARAMETERS AS P1 JOIN PARAMETERTYPE AS P2 ON(P1.TYPEID=P2.ID) WHERE P2.NAME='City' """
+                query = """ SELECT * FROM PARAMETERS"""
+                cursor.execute(query)
+
+                all_parameters = cursor.fetchall()
+
+                connection.commit()
+
+                return render_template('parameters.html', all_parameters=all_parameters)
+            else:
+
+                deletes = request.form.getlist('parameter_to_delete')
+                print(deletes)
+
+                #### check parameter to be deleted ###
+                deletes = ParamaterCheckDelete.search(deletes)
+
+                for delete in deletes:
+                    query = "DELETE FROM PARAMETERS WHERE ID='%d'" % int(delete)
+                    cursor.execute(query)
+
+                query = """ SELECT * FROM PARAMETERS"""
+                cursor.execute(query)
+
+                all_parameters = cursor.fetchall()
+
+                connection.commit()
+
+                return render_template('parameters.html', all_parameters=all_parameters)
+        else:
+            return render_template('error.html')
