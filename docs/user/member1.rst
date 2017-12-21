@@ -30,7 +30,7 @@ Antrenörler sadece profil ve training sayfalarına erişim sağlayabilmektedir.
 .. figure:: images/navbar-trainer.jpg
       :alt: Antrenörler için navbar
 
-Ssğlıkçılar İçin
+Sağlıkçılar İçin
 ^^^^^^^^^^^^^^^^
 
 Sağlıkçkılar sadece profil ve injury sayfalarına erişim sağlayabilmektedir.
