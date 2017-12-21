@@ -54,6 +54,14 @@ Futbolcular sadece kendi profillerini görüntüleyebilecektir.
 .. figure:: images/navbar-footballer.jpg
       :alt: Futbolcular için navbar
 
+Hata Sayfası
+------------
+
+Eğer kullanıcılar erişim izni olmadıkları bir sayfaya girmeye çalışırlarsa izin hatası alacaktırlar.
+
+.. figure:: images/permission-error.jpg
+      :alt: İzin hatası
+
 Kullanıcı Kaydı
 ---------------
 
@@ -137,6 +145,7 @@ Kontrat Bilgilerinin Güncellenmesi
 Kontrat Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
 İstatistik Bilgileri
 --------------------
 
@@ -149,5 +158,4 @@ Kontrat Bilgilerinin Silinmesi
 İstatistik Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Hata Sayfası
-------------
+
