@@ -115,7 +115,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Kullanıcı Tipi Parametre Bilgileri
 
-.. figure:: images/user_paramaters.jpg
+.. figure:: images/user_parameters.jpg
    :scale: 50 %
    :alt: Kullanıcı Tipi Parametre Bilgileri
 
