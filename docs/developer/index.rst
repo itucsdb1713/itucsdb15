@@ -1,28 +1,24 @@
-Developer Guide
-===============
+Geliştirici Kılavuzu
+====================
 
-Database Design
----------------
+Veri Tabanı Tasarımı
+--------------------
 
-**explain the database design of your project**
+Bu projenin varlık-ilişki diyagramı aşağıdaki gibi olup veritabanında 11 tablo bulunmaktadır. Bu tabloların her birinin diğer tablolarla ilişkisi olup dış anahtar (FK) ile başvuru yapılmaktadır. Birincil anahtarlar da "PK" olarak tasarımda görülmektedir.
 
-**include the E/R diagram(s)**
+.. figure:: /images/database_ER.jpg
+   :figclass: align-center
 
-Code
-----
+   Varlık-İlişki Diyagramı
 
-**explain the technical structure of your code**
 
-**to include a code listing, use the following example**::
 
-   .. code-block:: python
-
-      class Foo:
-
-         def __init__(self, x):
-            self.x = x
+Kod
+-----
 
 .. toctree::
 
    member1
    member2
+
+ 
