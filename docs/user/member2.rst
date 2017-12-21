@@ -7,7 +7,7 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 
 - Antrenman bilgileri
 
-.. figure:: images/training_list.png
+.. figure:: images/training_list.jpg
    :scale: 50 %
    :alt: Antrenman sayfası
 
@@ -15,7 +15,7 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 
 - Antrenman bilgisi ekleme
 
-.. figure:: images/training_add.png
+.. figure:: images/training_add.jpg
    :scale: 50 %
    :alt: Antrenman ekleme sayfası
 
@@ -24,7 +24,7 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 
 - Antrenman bilgisi güncelleme
 
-.. figure:: images/training_edit.png
+.. figure:: images/training_edit.jpg
    :scale: 50 %
    :alt: Antrenman güncelleme sayfası
 
@@ -38,7 +38,7 @@ Bu sayfada kulübün oynayacağı veya oynadığı maç bilgileri yalnızca yön
 
 - Maç bilgileri
 
-.. figure:: images/fixture_list.png
+.. figure:: images/fixture_list.jpg
    :scale: 50 %
    :alt: Maç bilgisi sayfası
 
@@ -46,7 +46,7 @@ Bu sayfada kulübün oynayacağı veya oynadığı maç bilgileri yalnızca yön
 
 - Maç bilgisi ekleme
 
-.. figure:: images/fixture_add.png
+.. figure:: images/fixture_add.jpg
    :scale: 50 %
    :alt: Maç bilgisi ekleme sayfası
 
@@ -54,7 +54,7 @@ Bu sayfada kulübün oynayacağı veya oynadığı maç bilgileri yalnızca yön
 
 - Maç bilgisi güncelleme
 
-.. figure:: images/fixture_edit.png
+.. figure:: images/fixture_edit.jpg
    :scale: 50 %
    :alt: Maç bilgisi güncelleme sayfası
 
@@ -67,7 +67,7 @@ Bu sayfada gözlenen futbolcuların bilgileri yöneticiler(admin) veya gözlemci
 
 - Gözlenen futbolcu bilgileri
 
-.. figure:: images/observed_list.png
+.. figure:: images/observed_list.jpg
    :scale: 50 %
    :alt: Gözlenen futbolcular sayfası
 
@@ -75,7 +75,7 @@ Bu sayfada gözlenen futbolcuların bilgileri yöneticiler(admin) veya gözlemci
 
 - Gözlenen futbolcu bilgisinin ekleme
 
-.. figure:: images/observed_add.png
+.. figure:: images/observed_add.jpg
    :scale: 50 %
    :alt: Gözlenen futbolcuları ekleme sayfası
 
@@ -83,7 +83,7 @@ Bu sayfada gözlenen futbolcuların bilgileri yöneticiler(admin) veya gözlemci
 
 - Gözlenen futbolcu bilgisinin güncellenmesi
 
-.. figure:: images/observed_edit.png
+.. figure:: images/observed_edit.jpg
    :scale: 50 %
    :alt: Gözlenen futbolcuları güncelleme sayfası
 
@@ -95,7 +95,7 @@ Bu sayfada futbolcuların prim bilgileri yöneticiler(admin) güncellenebilir ve
 
 - Futbolcuların prim bilgileri
 
-.. figure:: images/premium_list.png
+.. figure:: images/premium_list.jpg
    :scale: 50 %
    :alt: Prim sayfası
 
@@ -107,7 +107,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Parametre Bilgileri
 
-.. figure:: images/parameter_list.png
+.. figure:: images/parameter_list.jpg
    :scale: 50 %
    :alt: Parametre listesi
 
@@ -115,7 +115,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Kullanıcı Tipi Parametre Bilgileri
 
-.. figure:: images/user_paramaters.png
+.. figure:: images/user_paramaters.jpg
    :scale: 50 %
    :alt: Kullanıcı Tipi Parametre Bilgileri
 
@@ -123,7 +123,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Pozisyon/Mevki Parametre Bilgileri
 
-.. figure:: images/position_parameters.png
+.. figure:: images/position_parameters.jpg
    :scale: 50 %
    :alt: Pozisyon/Mevki Parametre Bilgileri
 
@@ -131,7 +131,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Şehir Parametre Bilgileri
 
-.. figure:: images/city_parameters.png
+.. figure:: images/city_parameters.jpg
    :scale: 50 %
    :alt: Şehir Parametre Bilgileri
 
@@ -139,7 +139,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Antrenman Tipi Parametre Bilgileri
 
-.. figure:: images/training_parameters.png
+.. figure:: images/training_parameters.jpg
    :scale: 50 %
    :alt: Antrenman parametreleri
 
@@ -147,7 +147,7 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 
 - Prim Tipi Parametre Bilgileri
 
-.. figure:: images/premium_parameters.png
+.. figure:: images/premium_parameters.jpg
    :scale: 50 %
    :alt: Prim parametreleri
 
