@@ -123,39 +123,86 @@ Kullanıcı profil sayfasından istediği kullanıcığı seçtikten sonra updat
 Futbolcular için Sakatlık Bilgisi
 ---------------------------------
 
+Yöneticiler ve sağlıkçılar bu sayfa aracılığı ile takımın mevcut sağlık durumunu inceleyebilirler.
+
+.. figure:: images/injury.jpg
+      :alt: Sakatlık Sayfası
+
 Sakatlık Bilgisinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Yönetici veya sağlıkçı sakatlık sayfasında yer alan add butonu ile oyunculara sakatlık bilgisi girebilir. Bunun için sistemde en bir futbolcunun kayıtlı olması gerekmektedir. Buraya tahmini iyileşme süresinin, sakatlık ne olduğu ve sakatlık bölgesini girebilirler.
+
+.. figure:: images/injury-add.jpg
+      :alt: Sakatlık Eklenmesi
 
 Sakatlık Bilgisinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Yönetici veya sağlıkçı, sakatlık sayfasında her sakatlığın yanında bulunan update butonu ile önceden girilen bir sakatlığı güncelleyebilirler. Yanlış girilmiş bir sakatlık değiştirebilecekleri gibi tahmini süreyi de değiştirebilirler.
+
+.. figure:: images/injury-update.jpg
+      :alt: Sakatlık Güncellenmesi
+
 Sakatlık Bilgisinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Yönetici veya sağlıkçılar, sakatlık sayfasında yer alan delete butonu ile her sakatlığın solunda yer alan işaratçiler ile seçtikleri sakatlıkları silebilirler.
 
 Kontrat Bilgileri
 -----------------
 
+Yöneticiler bu sayfa aracılığı ile sistemdeki futbolcular ile imzaladıkları sözleşmelerin detaylarını sisteme ekleyebilirler, tüm sözleşmeleri görüntüleyebilir, güncelleyebilir veya silebilirler.
+
+.. figure:: images/contract.jpg
+      :alt: Kontrat Sayfası
+
 Kontrat Bilgilerinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Yöneticiler kontrat sayfasında yer alan add butonu ile futbolcular ile imzaladıkları sözleşmelerin bilgisini girebilir. Bunun için sistemde en bir futbolcunun kayıtlı olması gerekmektedir. Buraya maaş bilgisini, imza primini, maç, gol ve assist primlerini girerler. Sözleşmenin imzalanma tarihini ve bitiş süresini de yine buradan eklerler.
+
+.. figure:: images/contract-add.jpg
+      :alt: Kontrat Eklenmesi
 
 Kontrat Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Yöneticiler, kontrat sayfasında her sözleşmenin yanında bulunan update butonu ile önceden girilen bir sözleşmeyi güncelleyebilirler. Yanlış girilmiş bir sözleşmeyi değiştirebilirler.
+
+.. figure:: images/contract-update.jpg
+      :alt: Kontrat Güncellenmesi
+
 Kontrat Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Yöneticiler, kontrat sayfasında yer alan delete butonu ile her sözleşmenin solunda yer alan işaratçiler ile seçtikleri sözleşmeleri silebilirler.
 
 İstatistik Bilgileri
 --------------------
 
+Yöneticiler bu sayfa aracılığı ile sistemdeki futbolcular için istatistik ekleyebilir, tüm futbolcuların istatistik bilgilerine ulaşabilirler, güncelleyebilir veya silebilirler.
+
+.. figure:: images/statistic.jpg
+      :alt: İstatistik Sayfası
+
 İstatistik Bilgilerinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Yöneticiler istatistik sayfasında yer alan add butonu ile futbolcular için istatistik bilgisi ekleyebilirler. Bunun için sistemde en bir futbolcunun kayıtlı olması gerekmektedir. Buraya maç, gol ve assist bilgilerini girerler.
+
+.. figure:: images/statistic-add.jpg
+      :alt: İstatistik Eklenmesi
 
 İstatistik Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Yöneticiler, istatistik sayfasında her istatistiğin yanında bulunan update butonu ile önceden girilen bir istatistiği güncelleyebilirler. Yanlış girilmiş bir istatistiği değiştirebilirler.
+
+.. figure:: images/statistic-update.jpg
+      :alt: İstatistik Güncellenmesi
+
 İstatistik Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
+Yöneticiler, istatistik sayfasında yer alan delete butonu ile her istatistiğin solunda yer alan işaratçiler ile seçtikleri istatistikleri silebilirler.
