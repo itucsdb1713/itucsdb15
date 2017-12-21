@@ -12,6 +12,8 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 
    Antrenman sayfası görünümü
 
+Eklenen antrenman bilgileri antrenman tarihlerine göre tabloda listelenir.
+
 - Antrenman bilgisi ekleme
 
 .. figure:: images/training_add.jpg
@@ -19,6 +21,7 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 
    Antrenman ekleme sayfası görünümü
 
+Antrenman bilgileri antrenör tipi veya yönetici tipi kullanıcılar tarafından eklenir.
 
 - Antrenman bilgisi güncelleme
 
@@ -27,7 +30,7 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 
    Antrenman güncelleme sayfası görünümü
 
-
+Antrenman bilgileri antrenör tipi veya yönetici tipi kullanıcılar tarafından güncellenir.
 
 Maç Bilgisi Sayfası
 -------------------------
