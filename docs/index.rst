@@ -18,3 +18,4 @@ Futbol kulüpleri için tasarladığımız yönetim-bilgi sistemi, kulüp mensup
 
    user/index
    developer/index
+   installation/index
