@@ -1,10 +1,12 @@
 Mehmet Taha Çorbacıoğlu Tarafından Yapılan Kısımlar
 ===================================================
 
+Bütün tablolar create_tables fonksiyonu içerisinde oluşturulmaktadır.
+
 Kullanıcı Giriş Bilgileri
 -------------------------
 
-Kullanıcının sisteme giriş yapması için gerekli olan bilgiler "LogInfo" tablosunda tutulmuştur. create_tables fonksiyonu içerisinde yer alan aşağıdaki kod parçası ile tablo oluşturulmaktadır. Bu tabloda kullanıcının UserID birincil anahtar olarak kullanılmıştır. Aynı zamanda UserID, "UserInfo" tablosunu dış anahtar ile bağlamıştır. UserInfo tablosunda UserID serial olduğu ve bu tablodaki UserID ile aynı olduğu için, bu tablodaki UserID integer olarak tutulmuştur. Bu tablo aynı zamanda kullanıcı adı ve şifresini tutmaktadır. Kayıt sırasında şifre hashlenerek saklanmaktadır.
+Kullanıcının sisteme giriş yapması için gerekli olan bilgiler "LogInfo" tablosunda tutulmuştur. Bu tabloda kullanıcının UserID birincil anahtar olarak kullanılmıştır. Aynı zamanda UserID, "UserInfo" tablosunu dış anahtar ile bağlamıştır. UserInfo tablosunda UserID serial olduğu ve bu tablodaki UserID ile aynı olduğu için, bu tablodaki UserID integer olarak tutulmuştur. Bu tablo aynı zamanda kullanıcı adı ve şifresini tutmaktadır. Kayıt sırasında şifre hashlenerek saklanmaktadır.
 
 .. code-block:: python
 
@@ -50,6 +52,8 @@ Ziyaretçi login sayfasına geldiğinde formları doldurarak giriş yapmayı den
 Profil Bilgileri
 ----------------
 
+Kullanıcıların kişisel bilgileri "UserInfo" tablosunda tutulmaktadır. UserID birincil anahtar olarak kullanılmıştır. UserTypeID, parameters tablosundan kullanıcıyı çekmek için dış anahtar olarak kullanılmıştır. PositionID, parameters tablosundan futbolcunun mevkisini çekmek için dış anahtar olarak kullanılmıştır. CityID, parameters tablosundan kullanıcının doğum yerini çekmek için dış anahtar olarak kullanılmıştır. CreateUserID, kendi tablosuna kullanıcıyı oluşturan kişiyi bulmak için dış anahtar olarak kullanılmıştır.
+
 .. code-block:: python
 
     query = """DROP TABLE IF EXISTS UserInfo CASCADE"""
@@ -75,16 +79,18 @@ Profil Bilgileri
 Kullanıcı İşlemleri
 -------------------
 
+Kullanıcılar yöneticiler tarafından eklenebilirler. Yöneticiler veya kullanıcılar bilgilerini güncelleyebilir ya da hesaplarını silebilir.
+
 İlk Yöneticinin Oluşturulması
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Initdb sayfasına gidildiğinde create_tables fonksiyonu çağrıldıktan sonra adminInit çağrılır ve sistemin ilk yöneticisi veritabanına eklenir. Bunun için ilk önce parametre tablosuna admin kullanıcı tipi eklenir. Ardından boş bir profil yönetici için oluşturulur. Oluşturulan bu profil ile LogInfo tablosuna yöneticinin giriş bilgileri girilir. Burada şifre hash'i alınarak veritabanına kaydedilir.
 
 .. code-block:: python
 
     def adminInit(self):
         with dbapi2.connect(self.config) as connection:
             cursor = connection.cursor()
-
-            ################ Mehmet Taha Çorbacıoğlu ####################
 
             query = """INSERT INTO Parameters(Name,TypeID) VALUES ('admin',1)"""
             cursor.execute(query)
@@ -108,6 +114,8 @@ Kullanıcı İşlemleri
 
 Kullanıcı Eklenmesi
 ^^^^^^^^^^^^^^^^^^^
+
+Kayıt sayfasında yönetici kontrolü yapılır ardından UserDatabase sınıfından girilen formlara göre yeni bir kullanıcı oluşturmak için add_user fonksiyonu çalıştırılır.
 
 .. code-block:: python
 
@@ -133,6 +141,8 @@ Kullanıcı Eklenmesi
                 return redirect(url_for('site.home_page'))
         else:
             return render_template('error.html')
+
+Formdan gelen bilgiler ile ilk önce UserInfo tablosuna yeni bir satır eklenir. Ardından giriş bilgileri için LogInfo tablasuna eklenme yapılır. Eğer futbolcu kaydı yapılıyorsa istatistik tablosuna da ekleme yapılır.
 
 .. code-block:: python
 
@@ -191,6 +201,8 @@ Kullanıcı Eklenmesi
 Kullanıcı Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Profil güncellemek için istek geldiğinde kullanıcı numarası üzerinden kullanıcın bilgileri güncellenir.
+
 .. code-block:: python
 
     @classmethod
@@ -229,6 +241,8 @@ Kullanıcı Bilgilerinin Güncellenmesi
 Kullanıcının Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^
 
+Silme isteği geldiğinde kullanıcı numarası üzerinden UserInfo tablosunda silme gerçekleştirilir. Bu tablodan bir kullanıcının silinmesi LogInfo ve diğer bağlantılı tablolardaki verilerin de silinmesini sağlar.
+
 .. code-block:: python
 
     @classmethod
@@ -247,6 +261,8 @@ Kullanıcının Silinmesi
 
 Futbolcular için Sakatlık Bilgisi
 ---------------------------------
+
+Sakatlık tablosunda ID birincil anahtar olarak kullanılmaktadır. UserID, UserInfo tablosuna dış anahtar olarak bağlanmıştır ve buradan hangi futbolcuya ait sakatlığın girildiği belirtilmektedir. CreateUserID ise yine UserInfo tablosuna dış anahtardır ve sakatlığın kim tarafından girildiğini göstermektedir.
 
 .. code-block:: python
 
@@ -268,6 +284,8 @@ Futbolcular için Sakatlık Bilgisi
 Sakatlık Bilgisinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Sakatlık bilgisi eklenirken formdan gelen bilgiler add_injury fonksiyonuna gönderilir ve veritabanına burada ekleme yapılır.
+
 .. code-block:: python
 
     @classmethod
@@ -282,6 +300,9 @@ Sakatlık Bilgisinin Eklenmesi
 
 Sakatlık Bilgisinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sakatlık bilgisi güncellenirken id'si üzerinden veritabanından bulunan sakatlık bilgisi formdan gelen bilgiler ile güncellenir.
+
 
 .. code-block:: python
 
@@ -309,6 +330,8 @@ Sakatlık Bilgisinin Güncellenmesi
 Sakatlık Bilgisinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Id'si ile veritabanında bulduğumuz sakatlık bilgisi silinir.
+
 .. code-block:: python
 
     @classmethod
@@ -327,6 +350,8 @@ Sakatlık Bilgisinin Silinmesi
 
 Kontrat Bilgileri
 -----------------
+
+Kontrat tablosunda ID birincil anahtar olarak kullanılmaktadır. UserID, UserInfo tablosuna dış anahtar olarak bağlanmıştır ve buradan hangi futbolcuya ait kontratın girildiği belirtilmektedir. CreateUserID ise yine UserInfo tablosuna dış anahtardır ve kontratı kimin imzaladığı tutulmaktadır.
 
 .. code-block:: python
 
@@ -354,6 +379,8 @@ Kontrat Bilgileri
 Kontrat Bilgilerinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Kontrat bilgisi eklenirken formdan gelen bilgiler add_contract fonksiyonuna gönderilir ve veritabanına burada ekleme yapılır.
+
 .. code-block:: python
 
     @classmethod
@@ -370,6 +397,8 @@ Kontrat Bilgilerinin Eklenmesi
 
 Kontrat Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Kontrat bilgisi güncellenirken id'si üzerinden veritabanından bulunan sakatlık bilgisi formdan gelen bilgiler ile güncellenir.
 
 .. code-block:: python
 
@@ -405,6 +434,9 @@ Kontrat Bilgilerinin Güncellenmesi
 Kontrat Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Id'si ile veritabanında bulduğumuz kontrat bilgisi silinir.
+
+
 .. code-block:: python
 
     @classmethod
@@ -423,6 +455,8 @@ Kontrat Bilgilerinin Silinmesi
 İstatistik Bilgileri
 --------------------
 
+İstatistik tablosunda ID birincil anahtar olarak kullanılmaktadır. UserID, UserInfo tablosuna dış anahtar olarak bağlanmıştır ve buradan hangi futbolcuya ait istatistiğin girildiği belirtilmektedir.
+
 .. code-block:: python
 
     query = """DROP TABLE IF EXISTS StatisticsInfo CASCADE"""
@@ -439,6 +473,8 @@ Kontrat Bilgilerinin Silinmesi
 
 İstatistik Bilgilerinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+İstatistik bilgisi eklenirken formdan gelen bilgiler add_statistics fonksiyonuna gönderilir ve veritabanına burada ekleme yapılır.
 
 .. code-block:: python
 
@@ -466,6 +502,8 @@ Kontrat Bilgilerinin Silinmesi
 İstatistik Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+İstatistik bilgisi güncellenirken id'si üzerinden veritabanından bulunan istatistik bilgisi formdan gelen bilgiler ile güncellenir.
+
 .. code-block:: python
 
     @classmethod
@@ -491,6 +529,8 @@ Kontrat Bilgilerinin Silinmesi
 
 İstatistik Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Id'si ile veritabanında bulduğumuz istatistik bilgisi silinir.
 
 .. code-block:: python
 
