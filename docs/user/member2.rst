@@ -8,7 +8,6 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 - Antrenman bilgileri
 
 .. figure:: images/training_list.jpg
-   :scale: 50 %
    :alt: Antrenman sayfası
 
    Antrenman sayfası görünümü
@@ -16,7 +15,6 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 - Antrenman bilgisi ekleme
 
 .. figure:: images/training_add.jpg
-   :scale: 50 %
    :alt: Antrenman ekleme sayfası
 
    Antrenman ekleme sayfası görünümü
@@ -25,7 +23,6 @@ Bu sayfada kulübün antrenman bilgileri yöneticiler(admin) veya antrenörler t
 - Antrenman bilgisi güncelleme
 
 .. figure:: images/training_edit.jpg
-   :scale: 50 %
    :alt: Antrenman güncelleme sayfası
 
    Antrenman güncelleme sayfası görünümü
@@ -39,7 +36,6 @@ Bu sayfada kulübün oynayacağı veya oynadığı maç bilgileri yalnızca yön
 - Maç bilgileri
 
 .. figure:: images/fixture_list.jpg
-   :scale: 50 %
    :alt: Maç bilgisi sayfası
 
    Maç bilgisi sayfası görünümü
@@ -47,7 +43,6 @@ Bu sayfada kulübün oynayacağı veya oynadığı maç bilgileri yalnızca yön
 - Maç bilgisi ekleme
 
 .. figure:: images/fixture_add.jpg
-   :scale: 50 %
    :alt: Maç bilgisi ekleme sayfası
 
    Maç bilgisi ekleme sayfası görünümü
@@ -55,7 +50,6 @@ Bu sayfada kulübün oynayacağı veya oynadığı maç bilgileri yalnızca yön
 - Maç bilgisi güncelleme
 
 .. figure:: images/fixture_edit.jpg
-   :scale: 50 %
    :alt: Maç bilgisi güncelleme sayfası
 
    Maç bilgisi güncelleme sayfası görünümü
@@ -68,7 +62,6 @@ Bu sayfada gözlenen futbolcuların bilgileri yöneticiler(admin) veya gözlemci
 - Gözlenen futbolcu bilgileri
 
 .. figure:: images/observed_list.jpg
-   :scale: 50 %
    :alt: Gözlenen futbolcular sayfası
 
    Gözlenen futbolcular sayfası görünümü
@@ -76,7 +69,6 @@ Bu sayfada gözlenen futbolcuların bilgileri yöneticiler(admin) veya gözlemci
 - Gözlenen futbolcu bilgisinin ekleme
 
 .. figure:: images/observed_add.jpg
-   :scale: 50 %
    :alt: Gözlenen futbolcuları ekleme sayfası
 
    Gözlenen futbolcuları ekleme sayfası görünümü
@@ -84,7 +76,6 @@ Bu sayfada gözlenen futbolcuların bilgileri yöneticiler(admin) veya gözlemci
 - Gözlenen futbolcu bilgisinin güncellenmesi
 
 .. figure:: images/observed_edit.jpg
-   :scale: 50 %
    :alt: Gözlenen futbolcuları güncelleme sayfası
 
    Gözlenen futbolcuları güncelleme sayfası görünümü
@@ -96,7 +87,6 @@ Bu sayfada futbolcuların prim bilgileri yöneticiler(admin) güncellenebilir ve
 - Futbolcuların prim bilgileri
 
 .. figure:: images/premium_list.jpg
-   :scale: 50 %
    :alt: Prim sayfası
 
    Prim sayfası görünümü
@@ -108,7 +98,6 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 - Parametre Bilgileri
 
 .. figure:: images/parameter_list.jpg
-   :scale: 50 %
    :alt: Parametre listesi
 
    Parametre sayfası görünümü
@@ -116,7 +105,6 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 - Kullanıcı Tipi Parametre Bilgileri
 
 .. figure:: images/user_parameters.jpg
-   :scale: 50 %
    :alt: Kullanıcı Tipi Parametre Bilgileri
 
    Parametre sayfası görünümü
@@ -124,7 +112,6 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 - Pozisyon/Mevki Parametre Bilgileri
 
 .. figure:: images/position_parameters.jpg
-   :scale: 50 %
    :alt: Pozisyon/Mevki Parametre Bilgileri
 
    Parametre sayfası görünümü
@@ -132,7 +119,6 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 - Şehir Parametre Bilgileri
 
 .. figure:: images/city_parameters.jpg
-   :scale: 50 %
    :alt: Şehir Parametre Bilgileri
 
    Parametre sayfası görünümü
@@ -140,7 +126,6 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 - Antrenman Tipi Parametre Bilgileri
 
 .. figure:: images/training_parameters.jpg
-   :scale: 50 %
    :alt: Antrenman parametreleri
 
    Parametre sayfası görünümü
@@ -148,7 +133,6 @@ Bu sayfada sitede kullanılan bazı parametre bilgileri mevcuttur. Bunlar; kulla
 - Prim Tipi Parametre Bilgileri
 
 .. figure:: images/premium_parameters.jpg
-   :scale: 50 %
    :alt: Prim parametreleri
 
    Parametre sayfası görünümü
