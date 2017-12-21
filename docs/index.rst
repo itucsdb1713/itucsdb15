@@ -15,7 +15,8 @@ Futbol kulüpleri için tasarladığımız yönetim-bilgi sistemi, kulüp mensup
 İçindekiler:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
+   :numbered:
 
    installation/index
    user/index
