@@ -9,6 +9,8 @@ Bu sayfada kullanıcıların sisteme girişleri ve giriş kontrolleri yapılmakt
 .. figure:: images/login.jpg
       :alt: Giriş Sayfası
 
+      Giriş Sayfası
+
 Ana Sayfa
 ---------
 
@@ -22,6 +24,8 @@ Yöneticiler her sayfaya erişimleri oldukları için gezinti çubuğu aracılı
 .. figure:: images/home-admin.jpg
       :alt: Ana Sayfa
 
+      Ana Sayfa
+
 Antrenörler İçin
 ^^^^^^^^^^^^^^^^
 
@@ -29,6 +33,8 @@ Antrenörler sadece profil ve training sayfalarına erişim sağlayabilmektedir.
 
 .. figure:: images/navbar-trainer.jpg
       :alt: Antrenörler için navbar
+
+      Antrenörler için gezinti çubuğu
 
 Sağlıkçılar İçin
 ^^^^^^^^^^^^^^^^
@@ -38,6 +44,8 @@ Sağlıkçkılar sadece profil ve injury sayfalarına erişim sağlayabilmektedi
 .. figure:: images/navbar-doctor.jpg
       :alt: Sağlıkçılar için navbar
 
+      Sağlıkçılar için gezinti çubuğu
+
 Gözlemciler İçin
 ^^^^^^^^^^^^^^^^
 
@@ -45,6 +53,8 @@ Gözlemciler sadece profil ve scouting sayfalarına erişim sağlayabilmektedir.
 
 .. figure:: images/navbar-scout.jpg
       :alt: Gözlemciler için navbar
+
+      Gözlemciler için gezinti çubuğu
 
 Futbolcular İçin
 ^^^^^^^^^^^^^^^^
@@ -54,6 +64,8 @@ Futbolcular sadece kendi profillerini görüntüleyebilecektir.
 .. figure:: images/navbar-footballer.jpg
       :alt: Futbolcular için navbar
 
+      Futbolcular için gezinti çubuğu
+
 Hata Sayfası
 ------------
 
@@ -62,6 +74,8 @@ Eğer kullanıcılar erişim izni olmadıkları bir sayfaya girmeye çalışırl
 .. figure:: images/permission-error.jpg
       :alt: İzin hatası
 
+      İzin hatası
+
 Kullanıcı Kaydı
 ---------------
 
@@ -69,6 +83,8 @@ Sistem kulüp bazlı çalıştığı için dışarıdan kayıt engellenmiştir. 
 
 .. figure:: images/register.jpg
       :alt: Kullanıcı Kaydı
+
+      Kullanıcı Kaydı
 
 Profil Sayfası
 --------------
@@ -83,6 +99,8 @@ Yöneticiler diğer kullanıcıların haricinde, sayfanın üst kısmında bulun
 .. figure:: images/profile-admin.jpg
       :alt: Yönetici Profili
 
+      Yönetici Profili
+
 Futbolcular İçin
 ^^^^^^^^^^^^^^^^
 
@@ -90,6 +108,8 @@ Futbolcular kendi profillerinde, diğer kullanıcı tiplerinin futbolculara girm
 
 .. figure:: images/profile-footballer.jpg
       :alt: Futbolcu Profili
+
+      Futbolcu Profili
 
 Diğer Kullacı Tipleri İçin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -99,6 +119,8 @@ Diğer kullıcı tipleri, bu sayfada sadece kendi bilgilerini güncelleyebilir v
 .. figure:: images/profile-other.jpg
       :alt: Diğer Profil Görünümleri
 
+      Diğer Profil Görünümleri
+
 Kullanıcı Bilgilerinin Güncellenmesi
 ------------------------------------
 
@@ -107,6 +129,8 @@ Kullanıcılar profil sayfasındaki update butonu aracılığı ile kendi bilgil
 .. figure:: images/profile-update.jpg
       :alt: Profil Güncellenmesi
 
+      Profil Güncellenmesi
+
 Kullanıcının Silinmesi
 ----------------------
 
@@ -114,6 +138,8 @@ Kullanıcılar profillerinde bulunan delete butonu ile hesaplarını silebilir.
 
 .. figure:: images/profile-delete.jpg
       :alt: Hesap Silinmesi
+
+      Hesap Silinmesi
 
 Yönetici Tarafından Kullancının Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -128,6 +154,8 @@ Yöneticiler ve sağlıkçılar bu sayfa aracılığı ile takımın mevcut sağ
 .. figure:: images/injury.jpg
       :alt: Sakatlık Sayfası
 
+      Sakatlık Sayfası
+
 Sakatlık Bilgisinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -136,6 +164,8 @@ Yönetici veya sağlıkçı sakatlık sayfasında yer alan add butonu ile oyuncu
 .. figure:: images/injury-add.jpg
       :alt: Sakatlık Eklenmesi
 
+      Sakatlık Eklenmesi
+
 Sakatlık Bilgisinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -143,6 +173,8 @@ Yönetici veya sağlıkçı, sakatlık sayfasında her sakatlığın yanında bu
 
 .. figure:: images/injury-update.jpg
       :alt: Sakatlık Güncellenmesi
+
+      Sakatlık Güncellenmesi
 
 Sakatlık Bilgisinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -157,6 +189,8 @@ Yöneticiler bu sayfa aracılığı ile sistemdeki futbolcular ile imzaladıklar
 .. figure:: images/contract.jpg
       :alt: Kontrat Sayfası
 
+      Kontrat Sayfası
+
 Kontrat Bilgilerinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -165,6 +199,8 @@ Yöneticiler kontrat sayfasında yer alan add butonu ile futbolcular ile imzalad
 .. figure:: images/contract-add.jpg
       :alt: Kontrat Eklenmesi
 
+      Kontrat Eklenmesi
+
 Kontrat Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -172,6 +208,8 @@ Yöneticiler, kontrat sayfasında her sözleşmenin yanında bulunan update buto
 
 .. figure:: images/contract-update.jpg
       :alt: Kontrat Güncellenmesi
+
+      Kontrat Güncellenmesi
 
 Kontrat Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -186,6 +224,8 @@ Yöneticiler bu sayfa aracılığı ile sistemdeki futbolcular için istatistik 
 .. figure:: images/statistic.jpg
       :alt: İstatistik Sayfası
 
+      İstatistik Sayfası
+
 İstatistik Bilgilerinin Eklenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -194,6 +234,8 @@ Yöneticiler istatistik sayfasında yer alan add butonu ile futbolcular için is
 .. figure:: images/statistic-add.jpg
       :alt: İstatistik Eklenmesi
 
+      İstatistik Eklenmesi
+
 İstatistik Bilgilerinin Güncellenmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -201,6 +243,8 @@ Yöneticiler, istatistik sayfasında her istatistiğin yanında bulunan update b
 
 .. figure:: images/statistic-update.jpg
       :alt: İstatistik Güncellenmesi
+
+      İstatistik Güncellenmesi
 
 İstatistik Bilgilerinin Silinmesi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
